@@ -1,5 +1,9 @@
-require "cvss_suite/version"
+require 'cvss_suite/version'
+require 'cvss_suite/cvss'
 
 module CvssSuite
-  # Your code goes here...
+  def self.hi
+    test = Cvss.new
+    test.test
+  end
 end
