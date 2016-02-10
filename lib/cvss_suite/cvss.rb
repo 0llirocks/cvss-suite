@@ -1,17 +1,10 @@
-require_relative 'cvss2/cvss2_base'
-require_relative 'cvss2/cvss2_temporal'
-require_relative 'cvss2/cvss2_environmental'
-require_relative 'cvss3/cvss3_base'
-require_relative 'cvss3/cvss3_temporal'
-require_relative 'cvss3/cvss3_environmental'
 
 class Cvss
 
-  CVSS_VECTOR_BEGINNINGS = [{:string => 'AV:', :version => 2}, {:string => 'CVSS:3.0/', :version => 3}]
+  attr_reader :base, :temporal, :environmental, :version
 
-  attr_reader :base, :temporal, :environmental
-
-  def initialize(vector)
+  def initialize(vector, version)
+    @version = version
     @vector = vector
     @metrics = []
     extract_metrics
@@ -19,43 +12,20 @@ class Cvss
   end
 
   def valid?
-    case version
-      when 2
-        base = @base.valid? && @amount_of_properties == 6
-        temporal = @base.valid? && @temporal.valid? && @amount_of_properties == 9
-        environmental = @base.valid? && @environmental.valid? && @amount_of_properties == 11
-        full = @base.valid? && @temporal.valid? && @environmental.valid? && @amount_of_properties == 14
+    if @amount_of_properties == required_amount_of_properties
+        base = @base.valid?
+        temporal = @base.valid? && @temporal.valid?
+        environmental = @base.valid? && @environmental.valid?
+        full = @base.valid? && @temporal.valid? && @environmental.valid?
         base || temporal || environmental || full
-      when 3
-        base = @base.valid? && @amount_of_properties == 8
-        temporal = @base.valid? && @temporal.valid? && @amount_of_properties == 11
-        environmental = @base.valid? && @environmental.valid? && @amount_of_properties == 19
-        full = @base.valid? && @temporal.valid? && @environmental.valid? && @amount_of_properties == 22
-        base || temporal || environmental || full
-    end
-
-  end
-
-  def version
-    CVSS_VECTOR_BEGINNINGS.each do |beginning|
-      if @vector.start_with? beginning[:string]
-        return beginning[:version]
       end
-    end
   end
 
   def overall_score
-    return (@base.score * @temporal.score).round(1) if @temporal.valid? && !@environmental.valid?
-    return @environmental.score @base, @temporal.score if @environmental.valid?
-    @base.score
-  end
-
-  def base_score
-    @base.score
-  end
-
-  def temporal_score
-    (@base.score * @temporal.score).round(1)
+    check_valid
+    return temporal_score if @temporal.valid? && !@environmental.valid?
+    return environmental_score if @environmental.valid?
+    base_score
   end
 
   private
@@ -78,17 +48,11 @@ class Cvss
     @vector[start_of_vector..-1]
   end
 
-  def init_metrics
-    case version
-      when 2
-        @base = Cvss2Base.new(@metrics)
-        @temporal = Cvss2Temporal.new(@metrics)
-        @environmental = Cvss2Environmental.new(@metrics)
-      when 3
-        @base = Cvss3Base.new(@metrics)
-        @temporal = Cvss3Temporal.new(@metrics)
-        @environmental = Cvss3Environmental.new(@metrics)
-    end
+  def required_amount_of_properties
+    total = @base.count if @base.valid?
+    total += @temporal.count if @temporal.valid?
+    total += @environmental.count if @environmental.valid?
+    total ||= 0
   end
 
 end
