@@ -10,15 +10,26 @@ class Cvss3Base
 
   def score
 
-    exploitability = 8.22 * @attack_vector * @attack_complexity * @privileges_required * @user_interaction
-    if @scope.name == 'Changed'
-    else
+    privilege_score = @privileges_required.score
+    privilege_score = 0.68 if @scope.selected_choice[:name] == 'Changed' && @privileges_required.selected_choice[:name] == 'Low'
+    privilege_score = 0.50 if @scope.selected_choice[:name] == 'Changed' && @privileges_required.selected_choice[:name] == 'High'
 
+    exploitability = 8.22 * @attack_vector.score * @attack_complexity.score * privilege_score * @user_interaction.score
+
+    isc_base = 1 - ((1-@confidentiality.score) * (1-@integrity.score) * (1-@availability.score))
+    if @scope.selected_choice[:name] == 'Changed'
+      impact_sub_score = 7.52 * (isc_base-0.029) - 3.25 * (isc_base-0.02)**15
+    else
+      impact_sub_score = 6.42 * isc_base
     end
 
-    additional_impact = (impact == 0 ? 0 : 1.176)
+     return 0 if impact_sub_score <= 0
 
-    (((0.6*impact)+(0.4*exploitability)-1.5)*additional_impact).round(1)
+    if @scope.selected_choice[:name] == 'Changed'
+      (([10,  1.08 * (impact_sub_score + exploitability)].min)*10.0).ceil/10.0
+    else
+      (([10,impact_sub_score + exploitability].min)*10.0).ceil/10.0
+    end
   end
 
   def valid?

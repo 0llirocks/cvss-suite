@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cvss_suite/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cvss-suite"
+  spec.name          = 'cvss-suite'
   spec.version       = CvssSuite::VERSION
   spec.authors       = ["Oliver Hamboerger"]
   spec.email         = ["oliver.hamboerger@siemens.com"]
@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rspec-its"
   spec.add_development_dependency "rdoc", "~> 4.2"
+  #spec.add_development_dependency 'rubocop', '~> 0.37', require: false
 end

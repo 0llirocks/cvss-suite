@@ -1,6 +1,9 @@
 require_relative 'cvss2/cvss2_base'
 require_relative 'cvss2/cvss2_temporal'
 require_relative 'cvss2/cvss2_environmental'
+require_relative 'cvss3/cvss3_base'
+require_relative 'cvss3/cvss3_temporal'
+require_relative 'cvss3/cvss3_environmental'
 
 class Cvss
 
@@ -16,11 +19,21 @@ class Cvss
   end
 
   def valid?
-    base = @base.valid? && @amount_of_properties == 6
-    temporal = @base.valid? && @temporal.valid? && @amount_of_properties == 9
-    environmental = @base.valid? && @environmental.valid? && @amount_of_properties == 11
-    full = @base.valid? && @temporal.valid? && @environmental.valid? && @amount_of_properties == 14
-    base || temporal || environmental || full
+    case version
+      when 2
+        base = @base.valid? && @amount_of_properties == 6
+        temporal = @base.valid? && @temporal.valid? && @amount_of_properties == 9
+        environmental = @base.valid? && @environmental.valid? && @amount_of_properties == 11
+        full = @base.valid? && @temporal.valid? && @environmental.valid? && @amount_of_properties == 14
+        base || temporal || environmental || full
+      when 3
+        base = @base.valid? && @amount_of_properties == 8
+        temporal = @base.valid? && @temporal.valid? && @amount_of_properties == 11
+        environmental = @base.valid? && @environmental.valid? && @amount_of_properties == 19
+        full = @base.valid? && @temporal.valid? && @environmental.valid? && @amount_of_properties == 22
+        base || temporal || environmental || full
+    end
+
   end
 
   def version
@@ -72,6 +85,9 @@ class Cvss
         @temporal = Cvss2Temporal.new(@metrics)
         @environmental = Cvss2Environmental.new(@metrics)
       when 3
+        @base = Cvss3Base.new(@metrics)
+        @temporal = Cvss3Temporal.new(@metrics)
+        @environmental = Cvss3Environmental.new(@metrics)
     end
   end
 
