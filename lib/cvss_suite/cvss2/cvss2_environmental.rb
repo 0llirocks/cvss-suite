@@ -3,11 +3,14 @@ require_relative '../cvss_metric'
 
 class Cvss2Environmental < CvssMetric
 
+  attr_reader :collateral_damage_potential, :target_distribution, :security_requirements_cr,
+              :security_requirements_ir, :security_requirements_ar
+
   def score(base, temporal_score)
     base_score = (base.score @security_requirements_cr.score, @security_requirements_ir.score, @security_requirements_ar.score).round(1)
 
     adjusted_temporal = (base_score * temporal_score).round(1)
-    ((adjusted_temporal + (10 - adjusted_temporal) * @collateral_damage_potential.score) * @target_distribution.score).round(1)
+    (adjusted_temporal + (10 - adjusted_temporal) * @collateral_damage_potential.score) * @target_distribution.score
 
   end
 

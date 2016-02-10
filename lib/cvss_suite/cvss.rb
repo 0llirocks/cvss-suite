@@ -4,6 +4,7 @@ class Cvss
   attr_reader :base, :temporal, :environmental, :version
 
   def initialize(vector, version)
+    raise 'Do not instantiate this class!' if self.class == Cvss
     @version = version
     @vector = vector
     @metrics = []

@@ -6,15 +6,18 @@ require_relative 'cvss2_environmental'
 class Cvss2 < Cvss
 
   def base_score
+    check_valid
     @base.score.round(1)
   end
 
   def temporal_score
+    raise 'Vector is not valid!' unless @temporal.valid?
     (base_score * @temporal.score).round(1)
   end
 
   def environmental_score
-    @environmental.score @base, @temporal.score
+    raise 'Vector is not valid!' unless @environmental.valid?
+    (@environmental.score @base, @temporal.score).round(1)
   end
 
   def init_metrics

@@ -4,6 +4,9 @@ require_relative '../helpers/cvss3_helper'
 
 class Cvss3Base < CvssMetric
 
+  attr_reader :attack_vector, :attack_complexity, :privileges_required, :user_interaction,
+              :scope, :confidentiality, :integrity, :availability
+
   def score
 
     privilege_score = Cvss3Helper.privileges_required_score @privileges_required, @scope

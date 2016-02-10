@@ -3,6 +3,8 @@ require_relative '../cvss_metric'
 
 class Cvss2Temporal < CvssMetric
 
+  attr_reader :exploitability, :remediation_level, :report_confidence
+
   def score
     return 1 unless valid?
     @exploitability.score * @remediation_level.score * @report_confidence.score
