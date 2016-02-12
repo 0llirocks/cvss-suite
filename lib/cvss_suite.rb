@@ -1,5 +1,6 @@
 require 'cvss_suite/cvss2/cvss2'
 require 'cvss_suite/cvss3/cvss3'
+require 'cvss_suite/version'
 
 module CvssSuite
   CVSS_VECTOR_BEGINNINGS = [{:string => 'AV:', :version => 2}, {:string => 'CVSS:3.0/', :version => 3}]

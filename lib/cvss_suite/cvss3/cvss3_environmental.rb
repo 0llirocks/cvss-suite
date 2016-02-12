@@ -10,6 +10,7 @@ class Cvss3Environmental < CvssMetric
               :modified_integrity, :modified_availability
 
   def score(temporal_score)
+
     privilege_score = Cvss3Helper.privileges_required_score @modified_privileges_required, @modified_scope
 
     modified_exploitability_sub_score = modified_exploitability_sub privilege_score

@@ -25,10 +25,6 @@ class CvssProperty
     @selected_choice || @property[:default_choice]
   end
 
-  def vector
-    "#{abbreviation}:#{@selected_choice[:abbreviation]}"
-  end
-
   def valid?
     !@selected_choice.nil?
   end
