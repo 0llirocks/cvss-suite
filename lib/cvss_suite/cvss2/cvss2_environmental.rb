@@ -1,10 +1,19 @@
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
 
+##
+# This class represents a CVSS Environmental metric in version 2.
+
 class Cvss2Environmental < CvssMetric
+
+  ##
+  # Property of this metric
 
   attr_reader :collateral_damage_potential, :target_distribution, :security_requirements_cr,
               :security_requirements_ir, :security_requirements_ar
+
+  ##
+  # Returns score of this metric
 
   def score(base, temporal_score)
     base_score = (base.score @security_requirements_cr.score, @security_requirements_ir.score, @security_requirements_ar.score).round(1)

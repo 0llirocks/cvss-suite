@@ -2,10 +2,19 @@ require_relative '../cvss_property'
 require_relative '../cvss_metric'
 require_relative '../helpers/cvss3_helper'
 
+##
+# This class represents a CVSS Base metric in version 3.
+
 class Cvss3Base < CvssMetric
+
+  ##
+  # Property of this metric
 
   attr_reader :attack_vector, :attack_complexity, :privileges_required, :user_interaction,
               :scope, :confidentiality, :integrity, :availability
+
+  ##
+  # Returns score of this metric
 
   def score
 

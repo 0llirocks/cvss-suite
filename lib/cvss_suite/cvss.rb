@@ -1,7 +1,23 @@
 
+##
+# This class represents any CVSS vector. Do not instantiate this class!
+
 class Cvss
 
-  attr_reader :base, :temporal, :environmental, :version
+  ##
+  # Metric of a CVSS vector.
+
+  attr_reader :base, :temporal, :environmental
+
+  ##
+  # Returns version of current CVSS vector.
+
+  attr_reader :version
+
+  ##
+  # Creates a new CVSS vector by a +vector+ and a +version+.
+  #
+  # Raises an exception if it is called on Cvss class
 
   def initialize(vector, version)
     raise 'Do not instantiate this class!' if self.class == Cvss
@@ -12,6 +28,9 @@ class Cvss
     init_metrics
   end
 
+  ##
+  # Returns if CVSS vector is valid.
+
   def valid?
     if @amount_of_properties == required_amount_of_properties
         base = @base.valid?
@@ -21,6 +40,9 @@ class Cvss
         base || temporal || environmental || full
       end
   end
+
+  ##
+  # Returns the Overall Score of the CVSS vector.
 
   def overall_score
     check_valid

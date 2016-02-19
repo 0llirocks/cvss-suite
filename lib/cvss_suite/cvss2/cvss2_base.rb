@@ -1,10 +1,20 @@
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
 
+##
+# This class represents a CVSS Base metric in version 2.
+
 class Cvss2Base < CvssMetric
+
+  ##
+  # Property of this metric
 
   attr_reader :access_vector, :access_complexity, :authentication,
               :confidentiality_impact, :integrity_impact, :availability_impact
+
+  ##
+  # Returns the base score of the CVSS vector. The calculation is based on formula version 2.10 .
+  # See CVSS documentation for further information https://www.first.org/cvss/v2/guide#i3.2.1 .
 
   def score(security_requirements_cr_score = 1, security_requirements_ir_score = 1, security_requirements_ar_score = 1)
     confidentiality_score = 1 - @confidentiality_impact.score * security_requirements_cr_score
@@ -55,5 +65,6 @@ class Cvss2Base < CvssMetric
                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275},
                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66}]))
   end
+
 end
 

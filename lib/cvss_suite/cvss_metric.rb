@@ -1,5 +1,11 @@
 
+##
+# This class represents any CVSS metric
+
 class CvssMetric
+
+  ##
+  # Creates a new CVSS metric by +properties+
 
   def initialize(metrics)
     @metrics = []
@@ -7,11 +13,17 @@ class CvssMetric
     set_selected_choices metrics
   end
 
+  ##
+  # Returns if the metric is valid
+
   def valid?
     @metrics.each do |metric|
       return false unless metric.valid?
     end
   end
+
+  ##
+  # Returns number of properties for this metric.
 
   def count
     @metrics.count
