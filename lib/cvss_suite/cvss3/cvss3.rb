@@ -34,9 +34,9 @@ class Cvss3 < Cvss
   private
 
   def init_metrics
-    @base = Cvss3Base.new(@metrics)
-    @temporal = Cvss3Temporal.new(@metrics)
-    @environmental = Cvss3Environmental.new(@metrics)
+    @base = Cvss3Base.new(@properties)
+    @temporal = Cvss3Temporal.new(@properties)
+    @environmental = Cvss3Environmental.new(@properties)
   end
 
 end

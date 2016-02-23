@@ -15,15 +15,14 @@ class Cvss2Base < CvssMetric
   ##
   # Returns the base score of the CVSS vector. The calculation is based on formula version 2.10 .
   # See CVSS documentation for further information https://www.first.org/cvss/v2/guide#i3.2.1 .
+  #
+  # Takes +Security+ +Requirement+ +Impacts+ for calculating environmental score.
 
-  def score(security_requirements_cr_score = 1, security_requirements_ir_score = 1, security_requirements_ar_score = 1)
-    confidentiality_score = 1 - @confidentiality_impact.score * security_requirements_cr_score
-    integrity_score = 1 - @integrity_impact.score * security_requirements_ir_score
-    availability_score = 1 - @availability_impact.score * security_requirements_ar_score
+  def score(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
 
-    impact = [10, 10.41 * (1-confidentiality_score*integrity_score*availability_score)].min
+    impact = calc_impact sr_cr_score, sr_ir_score, sr_ar_score
 
-    exploitability = 20 * @access_vector.score * @access_complexity.score * @authentication.score
+    exploitability = calc_exploitability
 
     additional_impact = (impact == 0 ? 0 : 1.176)
 
@@ -33,37 +32,49 @@ class Cvss2Base < CvssMetric
 
   private
 
-  def init_metrics
-    @metrics.push(@access_vector =
+  def init_properties
+    @properties.push(@access_vector =
                       CvssProperty.new(name: 'Access Vector', abbreviation: 'AV', position: [0],
                                        choices: [{ name: 'Network', abbreviation: 'N', weight: 1.0 },
-                                                 { name: 'Adjacent', abbreviation: 'A', weight: 0.646 },
+                                                 { name: 'Adjacent Network', abbreviation: 'A', weight: 0.646 },
                                                  { name: 'Local', abbreviation: 'L', weight: 0.395 }]))
-    @metrics.push(@access_complexity =
+    @properties.push(@access_complexity =
                       CvssProperty.new(name: 'Access Complexity', abbreviation: 'AC', position: [1],
                                        choices: [{ name: 'Low', abbreviation: 'L', weight: 0.71 },
                                                  { name: 'Medium', abbreviation: 'M', weight: 0.61 },
                                                  { name: 'High', abbreviation: 'H', weight: 0.35 }]))
-    @metrics.push(@authentication =
+    @properties.push(@authentication =
                       CvssProperty.new(name: 'Authentication', abbreviation: 'Au', position: [2],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.704 },
                                                  { name: 'Single', abbreviation: 'S', weight: 0.56 },
                                                  { name: 'Multiple', abbreviation: 'M', weight: 0.45 }]))
-    @metrics.push(@confidentiality_impact =
+    @properties.push(@confidentiality_impact =
                       CvssProperty.new(name: 'Confidentiality Impact', abbreviation: 'C', position: [3],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275 },
                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
-    @metrics.push(@integrity_impact =
+    @properties.push(@integrity_impact =
                       CvssProperty.new(name: 'Integrity Impact', abbreviation: 'I', position: [4],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275 },
                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
-    @metrics.push(@availability_impact =
+    @properties.push(@availability_impact =
                       CvssProperty.new(name: 'Availability Impact', abbreviation: 'A', position: [5],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0},
                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275},
                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66}]))
+  end
+
+  def calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
+    confidentiality_score = 1 - @confidentiality_impact.score * sr_cr_score
+    integrity_score = 1 - @integrity_impact.score * sr_ir_score
+    availability_score = 1 - @availability_impact.score * sr_ar_score
+
+    [10, 10.41 * (1-confidentiality_score*integrity_score*availability_score)].min
+  end
+
+  def calc_exploitability
+    20 * @access_vector.score * @access_complexity.score * @authentication.score
   end
 
 end

@@ -1,24 +1,24 @@
 
 ##
-# This class represents any CVSS metric
+# This class represents any CVSS metric.
 
 class CvssMetric
 
   ##
   # Creates a new CVSS metric by +properties+
 
-  def initialize(metrics)
-    @metrics = []
-    init_metrics
-    set_selected_choices metrics
+  def initialize(selected_properties)
+    @properties = []
+    init_properties
+    extract_selected_choices_from selected_properties
   end
 
   ##
-  # Returns if the metric is valid
+  # Returns if the metric is valid.
 
   def valid?
-    @metrics.each do |metric|
-      return false unless metric.valid?
+    @properties.each do |property|
+      return false unless property.valid?
     end
   end
 
@@ -26,15 +26,17 @@ class CvssMetric
   # Returns number of properties for this metric.
 
   def count
-    @metrics.count
+    @properties.count
   end
 
   private
 
-  def set_selected_choices(metrics)
-    metrics.each do |metric|
-      selected_metric = @metrics.select { |m| m.abbreviation == metric[:name] && m.position.include?(metric[:position]) }
-      selected_metric.first.set_selected_choice metric[:selected] unless selected_metric.empty?
+  def extract_selected_choices_from(selected_properties)
+    selected_properties.each do |selected_property|
+      property = @properties.detect {
+          |p| p.abbreviation == selected_property[:name] && p.position.include?(selected_property[:position])
+      }
+      property.set_selected_choice selected_property[:selected] unless property.nil?
     end
   end
 

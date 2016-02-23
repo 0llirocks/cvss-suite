@@ -15,6 +15,11 @@ class Cvss
   attr_reader :version
 
   ##
+  # Return the vector itself
+
+  attr_reader :vector
+
+  ##
   # Creates a new CVSS vector by a +vector+ and a +version+.
   #
   # Raises an exception if it is called on Cvss class
@@ -23,7 +28,7 @@ class Cvss
     raise 'Do not instantiate this class!' if self.class == Cvss
     @version = version
     @vector = vector
-    @metrics = []
+    @properties = []
     extract_metrics
     init_metrics
   end
@@ -58,7 +63,7 @@ class Cvss
     @amount_of_properties = properties.size
     properties.each_with_index do |property, index|
       property = property.split(':')
-      @metrics.push({name: property[0], selected: property[1], position: index})
+      @properties.push({name: property[0], selected: property[1], position: index})
     end
   end
 

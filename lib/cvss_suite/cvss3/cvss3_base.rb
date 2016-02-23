@@ -41,41 +41,41 @@ class Cvss3Base < CvssMetric
 
   private
 
-  def init_metrics
-    @metrics.push(@attack_vector =
+  def init_properties
+    @properties.push(@attack_vector =
                       CvssProperty.new(name: 'Attack Vector', abbreviation: 'AV', position: [0],
                                        choices: [{ name: 'Network', abbreviation: 'N', weight: 0.85 },
                                                  { name: 'Adjacent', abbreviation: 'A', weight: 0.62 },
                                                  { name: 'Local', abbreviation: 'L', weight: 0.55 },
                                                  { name: 'Physical', abbreviation: 'P', weight: 0.2 }]))
-    @metrics.push(@attack_complexity =
+    @properties.push(@attack_complexity =
                       CvssProperty.new(name: 'Attack Complexity', abbreviation: 'AC', position: [1],
                                        choices: [{ name: 'Low', abbreviation: 'L', weight: 0.77 },
                                                  { name: 'High', abbreviation: 'H', weight: 0.44 }]))
-    @metrics.push(@privileges_required =
+    @properties.push(@privileges_required =
                       CvssProperty.new(name: 'Privileges Required', abbreviation: 'PR', position: [2],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
                                                  { name: 'Low', abbreviation: 'L', weight: 0.62 },
                                                  { name: 'High', abbreviation: 'H', weight: 0.27 }]))
-    @metrics.push(@user_interaction =
+    @properties.push(@user_interaction =
                       CvssProperty.new(name: 'User Interaction', abbreviation: 'UI', position: [3],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
                                                  { name: 'Required', abbreviation: 'R', weight: 0.62 }]))
-    @metrics.push(@scope =
+    @properties.push(@scope =
                       CvssProperty.new(name: 'Scope', abbreviation: 'S', position: [4],
                                        choices: [{ name: 'Unchanged', abbreviation: 'U' },
                                                  { name: 'Changed', abbreviation: 'C' }]))
-    @metrics.push(@confidentiality =
+    @properties.push(@confidentiality =
                       CvssProperty.new(name: 'Confidentiality', abbreviation: 'C', position: [5],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
                                                  { name: 'Low', abbreviation: 'L', weight: 0.22 },
                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
-    @metrics.push(@integrity =
+    @properties.push(@integrity =
                       CvssProperty.new(name: 'Integrity', abbreviation: 'I', position: [6],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
                                                  { name: 'Low', abbreviation: 'L', weight: 0.22 },
                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
-    @metrics.push(@availability =
+    @properties.push(@availability =
                       CvssProperty.new(name: 'Availability', abbreviation: 'A', position: [7],
                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
                                                  { name: 'Low', abbreviation: 'L', weight: 0.22 },
