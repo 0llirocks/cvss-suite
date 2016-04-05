@@ -43,7 +43,9 @@ class Cvss
         environmental = @base.valid? && @environmental.valid?
         full = @base.valid? && @temporal.valid? && @environmental.valid?
         base || temporal || environmental || full
-      end
+    else
+      false
+    end
   end
 
   ##
@@ -63,7 +65,7 @@ class Cvss
     @amount_of_properties = properties.size
     properties.each_with_index do |property, index|
       property = property.split(':')
-      @properties.push({name: property[0], selected: property[1], position: index})
+      @properties.push({ name: property[0], selected: property[1], position: index })
     end
   end
 

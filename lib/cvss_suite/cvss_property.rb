@@ -51,7 +51,7 @@ class CvssProperty
   end
 
   ##
-  # Returns if the property is valid.
+  # Returns true if the property is valid.
 
   def valid?
     !@selected_choice.nil?

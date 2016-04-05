@@ -4,7 +4,7 @@ require_relative 'cvss3_temporal'
 require_relative 'cvss3_environmental'
 
 ##
-# This class represents a CVSS vector in version 2.
+# This class represents a CVSS vector in version 3.0.
 
 class Cvss3 < Cvss
 

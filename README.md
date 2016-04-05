@@ -53,17 +53,28 @@ end
 # Selected options
 cvss.base.access_vector.selected_choice[:name]          # Adjacent Network
 cvss.temporal.remediation_level.selected_choice[:name]  # Temporary Fix
+
+# Exceptions
+
+CvssSuite.new('random_string')  # will throw a RuntimeError: Vector is not valid!
+CvssSuite.new()                 # will throw a ArgumentError
+
+cvss = CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C')   # invalid vector, authentication is missing
+
+version = cvss.version  # 2
+
+cvss.base_score         # will throw a RuntimeError: Vector is not valid!
 ```
 
 ## Notable Features
 
-TODO reihenfolge bleibt immer gleich
+Properties (Access Vector, Remediation Level, etc) do have a position attribute, with this they can be ordered the same way they appear in the vector.
 
 ## Known Issues
 
 Currently it is not possible to leave a attribute blank instead of ND/X. If you don't have a value for a attribute, please use ND/X instead.
 
-Because the documentation isn't clear on how to calculate the score if Scope (CVSS 3.0) is not defined, Scope has to have a valid value (S/U).
+Because the documentation isn't clear on how to calculate the score if Modified Scope (CVSS 3.0 Environmental) is not defined, Modified Scope has to have a valid value (S/U).
 
 ## Development
 

@@ -20,6 +20,7 @@ class CvssMetric
     @properties.each do |property|
       return false unless property.valid?
     end
+    true
   end
 
   ##
