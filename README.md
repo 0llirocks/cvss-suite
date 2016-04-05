@@ -1,8 +1,12 @@
 # CvssSuite
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cvss_suite`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Gem Version](http://img.shields.io/gem/v/cvss-suite.svg)](https://rubygems.org/gems/cvss-suite)
+[![Ruby Version](https://img.shields.io/badge/Ruby-2.x-brightgreen.svg)](https://rubygems.org/gems/cvss-suite)
+[![Cvss Support](https://img.shields.io/badge/CVSS-v2-brightgreen.svg)](https://www.first.org/cvss/cvss-v2-guide.pdf)
+[![Cvss Support](https://img.shields.io/badge/CVSS-v3.0-brightgreen.svg)](https://www.first.org/cvss/cvss-v3-guide.pdf)
 
-TODO: Delete this and the text above, and describe your gem
+This Ruby gem helps you to process the vector of the [**Common Vulnerability Scoring System**](https://www.first.org/cvss/specification-document).
+Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.
 
 ## Installation
 
@@ -22,7 +26,44 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'cvss_suite'
+
+cvss = CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
+
+vector = cvss.vector    # 'AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M'
+version = cvss.version  # 2
+
+# Scores
+base_score = cvss.base_score                        # 4.9
+temporal_score = cvss.temporal_score                # 3.6
+environmental_score = cvss.environmental_score      # 3.2
+overall_score = cvss.overall_score                  # 3.2
+
+# Available options
+access_vector = cvss.base.access_vector.name                # 'Access Vector'
+remediation_level = cvss.temporal.remediation_level.name    # 'Remediation Level'
+
+access_vector.choices.each do |choice|
+    choice[:name]           # 'Local', 'Adjacent Network', 'Network'
+    choice[:abbreviation]   # 'L', 'A', 'N'
+    choice[:selected]       # false, true, false
+end
+
+# Selected options
+cvss.base.access_vector.selected_choice[:name]          # Adjacent Network
+cvss.temporal.remediation_level.selected_choice[:name]  # Temporary Fix
+```
+
+## Notable Features
+
+TODO reihenfolge bleibt immer gleich
+
+## Known Issues
+
+Currently it is not possible to leave a attribute blank instead of ND/X. If you don't have a value for a attribute, please use ND/X instead.
+
+Because the documentation isn't clear on how to calculate the score if Scope (CVSS 3.0) is not defined, Scope has to have a valid value (S/U).
 
 ## Development
 

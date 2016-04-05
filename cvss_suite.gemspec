@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-its"
   spec.add_development_dependency "rdoc", "~> 4.2"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "badgerbadgerbadger"
 end
