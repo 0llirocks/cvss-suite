@@ -6,12 +6,14 @@ require 'cvss_suite/version'
 Gem::Specification.new do |spec|
   spec.name          = 'cvss-suite'
   spec.version       = CvssSuite::VERSION
+  spec.license       = 'MIT'
   spec.authors       = ["Oliver Hamboerger"]
   spec.email         = ["oliver.hamboerger@siemens.com"]
 
   spec.summary       = %q{Ruby gem for processing cvss vectors.}
-  spec.description   = %q{Still in progress.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.description   = %q{This Ruby gem helps you to process the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).
+Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.}
+  spec.homepage      = "TODO"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
