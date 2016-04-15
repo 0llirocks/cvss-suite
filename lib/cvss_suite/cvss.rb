@@ -15,7 +15,7 @@ class Cvss
   attr_reader :version
 
   ##
-  # Return the vector itself
+  # Returns the vector itself
 
   attr_reader :vector
 
