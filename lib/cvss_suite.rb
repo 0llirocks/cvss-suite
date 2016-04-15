@@ -13,12 +13,12 @@ module CvssSuite
   # Returns a CVSS class by a +vector+.
 
   def self.new(vector)
-    @vector = vector
+    @vector_string = vector
     case self.version
       when 2
-        Cvss2.new(@vector, self.version)
+        Cvss2.new(@vector_string, self.version)
       when 3
-        Cvss3.new(@vector, self.version)
+        Cvss3.new(@vector_string, self.version)
       else
         raise 'Vector is not valid!'
     end
@@ -28,7 +28,7 @@ module CvssSuite
 
   def self.version
     CVSS_VECTOR_BEGINNINGS.each do |beginning|
-      if @vector.start_with? beginning[:string]
+      if @vector_string.start_with? beginning[:string]
         return beginning[:version]
       end
     end

@@ -15,14 +15,14 @@ class Cvss
   attr_reader :version
 
   ##
-  # Returns the vector itself
+  # Returns the vector itself.
 
   attr_reader :vector
 
   ##
   # Creates a new CVSS vector by a +vector+ and a +version+.
   #
-  # Raises an exception if it is called on Cvss class
+  # Raises an exception if it is called on Cvss class.
 
   def initialize(vector, version)
     raise 'Do not instantiate this class!' if self.class == Cvss
@@ -74,7 +74,7 @@ class Cvss
   end
 
   def prepared_vector
-    start_of_vector = @vector.index('AV')
+    start_of_vector = @vector_string.index('AV')
     @vector[start_of_vector..-1]
   end
 
