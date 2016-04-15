@@ -74,7 +74,7 @@ class Cvss
   end
 
   def prepared_vector
-    start_of_vector = @vector_string.index('AV')
+    start_of_vector = @vector.index('AV')
     @vector[start_of_vector..-1]
   end
 
