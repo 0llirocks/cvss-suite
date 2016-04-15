@@ -3,7 +3,7 @@ require_relative '../spec_helper'
 describe Cvss3 do
 
   let(:valid_cvss3) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L') }
-  let(:valid_cvss3_temporal) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/E:P/RL:W/RC:R') }
+  let(:valid_cvss3_temporal) { CvssSuite.new('CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/RC:C') }
   let(:valid_cvss3_environmental) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H') }
   let(:valid_cvss3_temporal_environmental) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/E:P/RL:W/RC:R/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:C/MC:N/MI:L/MA:H') }
   let(:invalid_cvss3_with_version) { CvssSuite.new('CVSS:3.0/AV:L/AC:') }
@@ -17,7 +17,7 @@ describe Cvss3 do
   describe 'valid cvss3 with temporal' do
     subject { valid_cvss3_temporal }
 
-    it_should_behave_like 'a valid cvss vector', 3, 5.0, 4.4, 4.4, 4.4
+    it_should_behave_like 'a valid cvss vector', 3, 4.0, 3.7, 3.7, 3.7
   end
 
   describe 'valid cvss3 with environmental' do

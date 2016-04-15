@@ -5,6 +5,7 @@ describe Float do
   let(:float_without_decimal_places) { 2.0 }
   let(:float_with_one_decimal_place) { 2.1 }
   let(:float_with_two_decimal_places) { 2.11 }
+  let(:float_with_two_decimal_places2) { 2.01 }
   let(:float_with_three_decimal_places) { 2.111 }
 
   it 'should roundup by none decimal place' do
@@ -18,6 +19,7 @@ describe Float do
     expect(float_without_decimal_places.round_up(1)).to eql(2.0)
     expect(float_with_one_decimal_place.round_up(1)).to eql(2.1)
     expect(float_with_two_decimal_places.round_up(1)).to eql(2.2)
+    expect(float_with_two_decimal_places2.round_up(1)).to eql(2.1)
     expect(float_with_three_decimal_places.round_up(1)).to eql(2.2)
   end
 

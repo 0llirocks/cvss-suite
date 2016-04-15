@@ -20,7 +20,7 @@ class Cvss3 < Cvss
   # Returns the Temporal Score of the CVSS vector.
 
   def temporal_score
-    (@base.score * @temporal.score).round_up(1)
+    (@base.score.round_up(1) * @temporal.score).round_up(1)
   end
 
   ##
