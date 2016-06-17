@@ -1,3 +1,5 @@
+# © Siemens AG, 2016
+
 require_relative '../spec_helper'
 
 describe Cvss2 do

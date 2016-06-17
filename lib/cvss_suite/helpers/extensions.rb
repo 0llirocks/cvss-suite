@@ -1,3 +1,5 @@
+# © Siemens AG, 2016
+
 ##
 # This class includes extensions for the Float datatype.
 

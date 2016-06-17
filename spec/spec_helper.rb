@@ -1,3 +1,5 @@
+# © Siemens AG, 2016
+
 require 'simplecov'
 
 SimpleCov.start do

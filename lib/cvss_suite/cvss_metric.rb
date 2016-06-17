@@ -1,3 +1,4 @@
+# © Siemens AG, 2016
 
 ##
 # This class represents any CVSS metric.

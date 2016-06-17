@@ -1,3 +1,5 @@
+# © Siemens AG, 2016
+
 shared_examples 'a valid cvss vector' do |version, base_score, temporal_score, environmental_score, overall_score|
   it { should be_valid }
   its(:valid?) { should eql(true) }

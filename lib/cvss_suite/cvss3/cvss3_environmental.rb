@@ -1,3 +1,5 @@
+# © Siemens AG, 2016
+
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
 require_relative '../helpers/cvss3_helper'

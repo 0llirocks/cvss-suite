@@ -1,3 +1,5 @@
+# © Siemens AG, 2016
+
 require_relative '../../../lib/cvss_suite/cvss'
 require_relative 'cvss3_base'
 require_relative 'cvss3_temporal'

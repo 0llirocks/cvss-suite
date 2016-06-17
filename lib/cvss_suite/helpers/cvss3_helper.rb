@@ -1,3 +1,4 @@
+# © Siemens AG, 2016
 
 ##
 # This module includes methods which are used by the CVSS 3 classes.
