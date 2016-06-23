@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.7] - 2016-06-23
+### Improvements
+Removed gems: Rake & badgerbadgerbadger. Improved documentation, webpage (github) is coming very soon!
+
 ## [1.0.6] - 2016-04-15
 ### Fixes
 While production we spotted a problem with calculating the temporal score in CVSS3. This version fixes this issue.
