@@ -32,10 +32,10 @@ Homepage is still in progress and will be published soon (along with full docume
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
+  #spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.4"
   spec.add_development_dependency "rspec-its", "~> 1.2"
   spec.add_development_dependency "rdoc", "~> 4.2"
   spec.add_development_dependency "simplecov", "~> 0.11.2"
-  spec.add_development_dependency "badgerbadgerbadger", "~> 0.14.0"
+  #spec.add_development_dependency "badgerbadgerbadger", "~> 0.14.0"
 end
