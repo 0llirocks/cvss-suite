@@ -78,5 +78,5 @@ Because the documentation isn't clear on how to calculate the score if Modified 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/siemens/cvss_suite. This project is intended to be a safe, welcoming space for collaboration.
+Bug reports and pull requests are welcome on GitHub at https://github.com/siemens/cvss-suite. This project is intended to be a safe, welcoming space for collaboration.
 
