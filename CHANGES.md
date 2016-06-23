@@ -8,8 +8,8 @@ While production we spotted a problem with calculating the temporal score in CVS
 
 ## [1.0.5] - 2016-04-15
 ### Fixes
-Due to troubleshooting issues I forgot to rename a variable, this version fixes this issue. Increases the version to 1.0.5.
-Versions 1.0.1 to 1.0.4 are broken due to this error, do NOT use these versions. Use ≥ 1.0.5 instead.
+Due to troubleshooting issues I forgot to rename a variable, this version fixes this issue.
+Versions 1.0.1 to 1.0.4 are broken due to this error, do **NOT** use these versions. Use ≥ 1.0.5 instead.
 
 ## [1.0.2] - 2016-04-15
 ### Troubleshooting

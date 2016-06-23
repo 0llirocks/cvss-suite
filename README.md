@@ -33,6 +33,7 @@ cvss = CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR
 
 vector = cvss.vector    # 'AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M'
 version = cvss.version  # 2
+valid = cvss.valid?     # true
 
 # Scores
 base_score = cvss.base_score                        # 4.9
@@ -60,9 +61,8 @@ CvssSuite.new('random_string')  # will throw a RuntimeError: Vector is not valid
 CvssSuite.new()                 # will throw a ArgumentError
 
 cvss = CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C')   # invalid vector, authentication is missing
-
 version = cvss.version  # 2
-
+valid = cvss.valid?     # false
 cvss.base_score         # will throw a RuntimeError: Vector is not valid!
 ```
 
