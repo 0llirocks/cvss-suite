@@ -1,4 +1,12 @@
-# © Siemens AG, 2016
+# CVSS-Suite, a Ruby gem to manage the CVSS vector
+#
+# Copyright (c) Siemens AG, 2016
+#
+# Authors:
+#   Oliver Hambörger <oliver.hamboerger@siemens.com>
+#
+# This work is licensed under the terms of the MIT license.
+# See the LICENSE.md file in the top-level directory.
 
 shared_examples 'a valid cvss vector' do |version, base_score, temporal_score, environmental_score, overall_score|
   it { should be_valid }
