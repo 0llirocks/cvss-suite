@@ -3,6 +3,7 @@
 /Gemfile.lock
 /_yardoc/
 /coverage/
+/vendor/
 /doc/
 /pkg/
 /spec/reports/
