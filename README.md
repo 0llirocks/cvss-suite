@@ -57,13 +57,17 @@ cvss.temporal.remediation_level.selected_choice[:name]  # Temporary Fix
 
 # Exceptions
 
-CvssSuite.new('random_string')  # will throw a RuntimeError: Vector is not valid!
-CvssSuite.new()                 # will throw a ArgumentError
+cvss = CvssSuite.new('random_string')  # invalid vector
+valid = cvss.valid?     # false
+version = cvss.version  # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
+cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
+
+CvssSuite.new()                        # will throw a ArgumentError
 
 cvss = CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C')   # invalid vector, authentication is missing
 version = cvss.version  # 2
 valid = cvss.valid?     # false
-cvss.base_score         # will throw a RuntimeError: Vector is not valid!
+cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 ```
 
 ## Notable Features
