@@ -22,7 +22,7 @@ class Cvss3 < Cvss
   # Returns the Base Score of the CVSS vector.
 
   def base_score
-    check_valid
+    check_validity
     @base.score.round_up(1)
   end
 

@@ -61,7 +61,7 @@ class Cvss
   # Returns the Overall Score of the CVSS vector.
 
   def overall_score
-    check_valid
+    check_validity
     return temporal_score if @temporal.valid? && !@environmental.valid?
     return environmental_score if @environmental.valid?
     base_score
@@ -78,7 +78,7 @@ class Cvss
     end
   end
 
-  def check_valid
+  def check_validity
     raise CvssSuite::Errors::InvalidVector, 'Vector is not valid!' unless valid?
   end
 
