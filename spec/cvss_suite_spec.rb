@@ -1,6 +1,6 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) Siemens AG, 2016
+# Copyright (c) Siemens AG, 2018
 #
 # Authors:
 #   Oliver Hambörger <oliver.hamboerger@siemens.com>
@@ -16,12 +16,16 @@ describe CvssSuite do
   end
 
   it 'is invalid' do
-    expect { CvssSuite.new('Not a valid vector!') }
+    expect { CvssSuite.new('Not a valid vector!').version }
       .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
   end
 
   it 'is invalid' do
-    expect { CvssSuite.new('Not a valid vector!') }
+    expect { CvssSuite.new('Not a valid vector!').version }
         .to raise_error(RuntimeError)
+  end
+
+  it 'is invalid' do
+    expect(CvssSuite.new('Not a valid vector!').valid?).to be false
   end
 end
