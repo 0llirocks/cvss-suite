@@ -13,6 +13,7 @@ require 'cvss_suite/cvss3/cvss3'
 require 'cvss_suite/version'
 require 'cvss_suite/helpers/extensions'
 require 'cvss_suite/errors'
+require 'cvss_suite/invalid_cvss'
 
 ##
 # Module of this gem.
@@ -31,7 +32,7 @@ module CvssSuite
     when 3
       Cvss3.new(@vector_string, version)
     else
-      raise CvssSuite::Errors::InvalidVector, 'Vector is not valid!'
+      InvalidCvss.new
     end
   end
 
