@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Ruby gem for processing cvss vectors.}
   spec.description   = %q{This Ruby gem helps you to process the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).
 Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.}
-  spec.homepage      = "https://github.com/siemens/cvss-suite"
+  spec.homepage      = "https://siemens.github.io/cvss-suite/"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
