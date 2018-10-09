@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2018-10-30
+
+### Notes
+This update might break some of your code, please check the following changes carefully.
+
+### Fixes
+* New CvssSuiteErrors are introduced to improve exception handling.
+* Initialization of CvssSuite with an invalid vector does not throw an exception anymore. It will return an InvalidCvss
+instead, which returns false for valid? and throws an exception for all other methods.
+
+### Improvements
+Finally the webpage is officially linked in the gem.
+
 ## [1.0.8] - 2016-09-30
 ### Fixes
 Fixed a bug with rounding Fixnums in CVSS3.
