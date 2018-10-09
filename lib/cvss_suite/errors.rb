@@ -22,7 +22,7 @@ module CvssSuite
       end
     end
 
-    class InvalidVector < CvssError; end
-    class InvalidParentClass < CvssError; end
+    class InvalidVector < RuntimeError; end
+    class InvalidParentClass < ArgumentError; end
   end
 end

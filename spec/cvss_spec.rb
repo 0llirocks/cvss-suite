@@ -17,5 +17,9 @@ describe Cvss do
     it 'raises InvalidParentClass error' do
       expect { subject }.to raise_error(CvssSuite::Errors::InvalidParentClass)
     end
+
+    it 'raises InvalidParentClass error' do
+      expect { subject }.to raise_error(ArgumentError)
+    end
   end
 end
