@@ -34,7 +34,7 @@ class Cvss
   # Raises an exception if it is called on Cvss class.
 
   def initialize(vector, version)
-    raise 'Do not instantiate this class!' if self.class == Cvss
+    raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.class == Cvss
     @version = version
     @vector = vector
     @properties = []
@@ -79,7 +79,7 @@ class Cvss
   end
 
   def check_valid
-    raise 'Vector is not valid!' unless valid?
+    raise CvssSuite::Errors::InvalidVector, 'Vector is not valid!' unless valid?
   end
 
   def prepared_vector

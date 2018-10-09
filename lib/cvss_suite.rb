@@ -12,6 +12,7 @@ require 'cvss_suite/cvss2/cvss2'
 require 'cvss_suite/cvss3/cvss3'
 require 'cvss_suite/version'
 require 'cvss_suite/helpers/extensions'
+require 'cvss_suite/errors'
 
 ##
 # Module of this gem.
@@ -24,13 +25,13 @@ module CvssSuite
 
   def self.new(vector)
     @vector_string = vector
-    case self.version
-      when 2
-        Cvss2.new(@vector_string, self.version)
-      when 3
-        Cvss3.new(@vector_string, self.version)
-      else
-        raise 'Vector is not valid!'
+    case version
+    when 2
+      Cvss2.new(@vector_string, version)
+    when 3
+      Cvss3.new(@vector_string, version)
+    else
+      raise CvssSuite::Errors::InvalidVector, 'Vector is not valid!'
     end
   end
 

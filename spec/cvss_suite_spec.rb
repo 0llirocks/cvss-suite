@@ -16,6 +16,7 @@ describe CvssSuite do
   end
 
   it 'is invalid' do
-    expect{CvssSuite.new('Not a valid vector!')}.to raise_error(RuntimeError, 'Vector is not valid!')
+    expect { CvssSuite.new('Not a valid vector!') }
+      .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
   end
 end
