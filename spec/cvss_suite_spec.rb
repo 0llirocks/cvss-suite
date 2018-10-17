@@ -28,4 +28,8 @@ describe CvssSuite do
   it 'is invalid' do
     expect(CvssSuite.new('Not a valid vector!').valid?).to be false
   end
+
+  it 'is invalid' do
+    expect(CvssSuite.new(1337).valid?).to be false
+  end
 end
