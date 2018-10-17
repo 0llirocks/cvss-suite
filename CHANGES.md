@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.0] - 2018-10-30
+## [1.1.0] - 2018-10-17
 
 ### Notes
 This update might break some of your code, please check the following changes carefully.
@@ -10,7 +10,8 @@ This update might break some of your code, please check the following changes ca
 ### Fixes
 * New CvssSuiteErrors are introduced to improve exception handling.
 * Initialization of CvssSuite with an invalid vector does not throw an exception anymore. It will return an InvalidCvss
-instead, which returns false for valid? and throws an exception for all other methods.
+instead, which returns false for valid? and throws an exception for all other methods. See the updated README for
+examples.
 
 ### Improvements
 Finally the webpage is officially linked in the gem.
