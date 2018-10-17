@@ -62,6 +62,11 @@ valid = cvss.valid?     # false
 version = cvss.version  # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 
+cvss = CvssSuite.new(1337)  # invalid vector
+valid = cvss.valid?     # false
+version = cvss.version  # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
+cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
+
 CvssSuite.new()                        # will throw a ArgumentError
 
 cvss = CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C')   # invalid vector, authentication is missing
