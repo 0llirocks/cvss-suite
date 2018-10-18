@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.1] - 2018-10-18
+
+### Fixes
+Corrects behaviour when using "CVSS:3.0/" as vector. Bugfix for #3.
+
 ## [1.1.0] - 2018-10-17
 
 ### Notes
@@ -18,11 +23,11 @@ Finally the webpage is officially linked in the gem.
 
 ## [1.0.8] - 2016-09-30
 ### Fixes
-Fixed a bug with rounding Fixnums in CVSS3.
+Fixes a bug with rounding Fixnums in CVSS3.
 
 ## [1.0.7] - 2016-06-23
 ### Improvements
-Removed gems: Rake & badgerbadgerbadger. Improved documentation, webpage (github) is coming very soon!
+Removes gems: Rake & badgerbadgerbadger. Improved documentation, webpage (github) is coming very soon!
 
 ## [1.0.6] - 2016-04-15
 ### Fixes
