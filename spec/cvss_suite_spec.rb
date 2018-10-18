@@ -32,4 +32,8 @@ describe CvssSuite do
   it 'is invalid' do
     expect(CvssSuite.new(1337).valid?).to be false
   end
+
+  it 'is invalid' do
+    expect(CvssSuite.new('CVSS:3.0/').valid?).to be false
+  end
 end
