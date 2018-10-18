@@ -84,7 +84,12 @@ class Cvss
 
   def prepared_vector
     start_of_vector = @vector.index('AV')
-    @vector[start_of_vector..-1]
+
+    if start_of_vector.nil?
+      String.new
+    else
+      @vector[start_of_vector..-1]
+    end
   end
 
   def required_amount_of_properties
