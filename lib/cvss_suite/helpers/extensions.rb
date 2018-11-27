@@ -21,7 +21,7 @@ class Float
   end
 end
 
-class Fixnum
+class Integer
 
   ##
   # Since CVSS 3 all float values are rounded up, therefore this method is used instead of the mathematically correct method round().
