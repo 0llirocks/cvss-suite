@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.2] - 2018-12-28
+
+### Fixes
+Replaced Fixnum by Integer to improve compatibility with newer versions of Ruby.
+
+### Improvements
+Added example for CVSS v3 to README.
+
 ## [1.1.1] - 2018-10-18
 
 ### Fixes
