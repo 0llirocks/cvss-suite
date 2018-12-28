@@ -10,3 +10,4 @@
 /tmp/
 .idea/
 /*.gem
+.ruby-version
