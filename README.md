@@ -91,6 +91,10 @@ Currently it is not possible to leave an attribute blank instead of ND/X. If you
 
 Because the documentation isn't clear on how to calculate the score if Modified Scope (CVSS 3.0 Environmental) is not defined, Modified Scope has to have a valid value (S/U).
 
+## Changelog
+
+[Click here to see all changes.](https://raw.githubusercontent.com/siemens/cvss-suite/master/CHANGES.md)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/siemens/cvss-suite. This project is intended to be a safe, welcoming space for collaboration.
