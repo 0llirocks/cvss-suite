@@ -29,6 +29,12 @@ Or install it yourself as:
 ```ruby
 require 'cvss_suite'
 
+cvss3 = CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H')
+
+vector = cvss3.vector    # 'CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H"'
+version = cvss3.version  # 3
+valid = cvss3.valid?     # true
+
 cvss = CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
 
 vector = cvss.vector    # 'AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M'
@@ -81,7 +87,7 @@ Properties (Access Vector, Remediation Level, etc) do have a position attribute,
 
 ## Known Issues
 
-Currently it is not possible to leave a attribute blank instead of ND/X. If you don't have a value for a attribute, please use ND/X instead.
+Currently it is not possible to leave an attribute blank instead of ND/X. If you don't have a value for an attribute, please use ND/X instead.
 
 Because the documentation isn't clear on how to calculate the score if Modified Scope (CVSS 3.0 Environmental) is not defined, Modified Scope has to have a valid value (S/U).
 
