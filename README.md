@@ -73,7 +73,7 @@ valid = cvss.valid?     # false
 version = cvss.version  # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 
-CvssSuite.new()                        # will throw a ArgumentError
+CvssSuite.new()         # will throw a ArgumentError
 
 cvss = CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C')   # invalid vector, authentication is missing
 version = cvss.version  # 2
@@ -90,6 +90,8 @@ Properties (Access Vector, Remediation Level, etc) do have a position attribute,
 Currently it is not possible to leave an attribute blank instead of ND/X. If you don't have a value for an attribute, please use ND/X instead.
 
 Because the documentation isn't clear on how to calculate the score if Modified Scope (CVSS 3.0 Environmental) is not defined, Modified Scope has to have a valid value (S/U).
+
+There is a possibility of implementations generating different scores (+/- 0,1) due to small floating-point inaccuracies. This can happen due to differences in floating point arithmetic between different languages and hardware platforms.
 
 ## Changelog
 
