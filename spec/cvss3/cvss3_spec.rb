@@ -19,6 +19,8 @@ describe Cvss3 do
   let(:valid_cvss3_temporal) { CvssSuite.new('CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/RC:C') }
   let(:valid_cvss3_environmental) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H') }
   let(:valid_cvss3_temporal_environmental) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/E:P/RL:W/RC:R/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:C/MC:N/MI:L/MA:H') }
+  let(:valid_cvss3_temporal_environmental_modified_confidentiality_low) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:L/MI:H/MA:H') }
+  let(:valid_cvss3_temporal_environmental_modified_confidentiality_high) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:H/MI:H/MA:H') }
   let(:invalid_cvss3_with_version) { CvssSuite.new('CVSS:3.0/AV:L/AC:') }
 
   describe 'valid cvss3' do
@@ -61,6 +63,18 @@ describe Cvss3 do
     subject { valid_cvss3_temporal_environmental }
 
     it_should_behave_like 'a valid cvss vector', 3.0, 5.0, 4.4, 7.3, 7.3, 'High'
+  end
+
+  describe 'valid cvss3 with temporal and environmental and modified confidentiality low' do
+    subject { valid_cvss3_temporal_environmental_modified_confidentiality_low }
+
+    it_should_behave_like 'a valid cvss vector', 3.0, 10.0, 8.1, 5.6, 5.6, 'Medium'
+  end
+
+  describe 'valid cvss3 with temporal and environmental and modified confidentiality high' do
+    subject { valid_cvss3_temporal_environmental_modified_confidentiality_high }
+
+    it_should_behave_like 'a valid cvss vector', 3.0, 10.0, 8.1, 5.5, 5.5, 'Medium'
   end
 
   describe 'invalid cvss3' do

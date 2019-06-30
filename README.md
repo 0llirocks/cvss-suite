@@ -32,7 +32,7 @@ require 'cvss_suite'
 cvss3 = CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H')
 
 vector = cvss3.vector     # 'CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H'
-version = cvss3.version   # 3
+version = cvss3.version   # 3.0
 valid = cvss3.valid?      # true
 severity = cvss3.severity # 'High'
 
