@@ -23,37 +23,37 @@ describe Cvss3 do
   describe 'valid cvss3' do
     subject { valid_cvss3 }
 
-    it_should_behave_like 'a valid cvss vector', 3, 4.2, 4.2, 4.2, 4.2
+    it_should_behave_like 'a valid cvss vector', 3, 4.2, 4.2, 4.2, 4.2, 'Medium'
   end
 
   describe 'valid cvss3 with base_score 10' do
     subject { valid_cvss3_base_score10 }
 
-    it_should_behave_like 'a valid cvss vector', 3, 10.0, 8.7, 8.7, 8.7
+    it_should_behave_like 'a valid cvss vector', 3, 10.0, 8.7, 8.7, 8.7, 'High'
   end
 
   describe 'valid cvss3 with temporal_score 10' do
     subject { valid_cvss3_temporal_score10 }
 
-    it_should_behave_like 'a valid cvss vector', 3, 10.0, 10.0, 10.0, 10.0
+    it_should_behave_like 'a valid cvss vector', 3, 10.0, 10.0, 10.0, 10.0, 'Critical'
   end
 
   describe 'valid cvss3 with temporal' do
     subject { valid_cvss3_temporal }
 
-    it_should_behave_like 'a valid cvss vector', 3, 4.0, 3.7, 3.7, 3.7
+    it_should_behave_like 'a valid cvss vector', 3, 4.0, 3.7, 3.7, 3.7, 'Low'
   end
 
   describe 'valid cvss3 with environmental' do
     subject { valid_cvss3_environmental }
 
-    it_should_behave_like 'a valid cvss vector', 3, 5.0, 5.0, 7.3, 7.3
+    it_should_behave_like 'a valid cvss vector', 3, 5.0, 5.0, 7.3, 7.3, 'High'
   end
 
   describe 'valid cvss3 with temporal and environmental' do
     subject { valid_cvss3_temporal_environmental }
 
-    it_should_behave_like 'a valid cvss vector', 3, 5.0, 4.4, 7.3, 7.3
+    it_should_behave_like 'a valid cvss vector', 3, 5.0, 4.4, 7.3, 7.3, 'High'
   end
 
   describe 'invalid cvss3' do

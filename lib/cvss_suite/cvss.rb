@@ -58,6 +58,29 @@ class Cvss
   end
 
   ##
+  # Returns the severity of the CVSS vector.
+
+  def severity
+    check_validity
+    
+    score = overall_score
+
+    if 0.0 == score
+      "None"
+    elsif (0.1..3.9).include? score
+     "Low"
+    elsif (4.0..6.9).include? score
+     "Medium"
+    elsif (7.0..8.9).include? score
+     "High"
+    elsif (9.0..10.0).include? score
+     "Critical"
+    else
+     "None"
+    end
+  end
+
+  ##
   # Returns the Overall Score of the CVSS vector.
 
   def overall_score
