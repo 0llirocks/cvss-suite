@@ -10,6 +10,7 @@
 
 require 'cvss_suite/cvss2/cvss2'
 require 'cvss_suite/cvss3/cvss3'
+require 'cvss_suite/cvss31/cvss31'
 require 'cvss_suite/version'
 require 'cvss_suite/helpers/extensions'
 require 'cvss_suite/errors'
@@ -19,7 +20,11 @@ require 'cvss_suite/invalid_cvss'
 # Module of this gem.
 
 module CvssSuite
-  CVSS_VECTOR_BEGINNINGS = [{:string => 'AV:', :version => 2}, {:string => 'CVSS:3.0/', :version => 3}]
+  CVSS_VECTOR_BEGINNINGS = [
+    {:string => 'AV:', :version => 2}, 
+    {:string => 'CVSS:3.0/', :version => 3.0},
+    {:string => 'CVSS:3.1/', :version => 3.1}
+  ]
 
   ##
   # Returns a CVSS class by a +vector+.
