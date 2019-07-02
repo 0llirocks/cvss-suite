@@ -105,7 +105,7 @@ There is a possibility of implementations generating different scores (+/- 0,1) 
 
 ## Changelog
 
-[Click here to see all changes.](https://raw.githubusercontent.com/siemens/cvss-suite/master/CHANGES.md)
+[Click here to see all changes.](https://github.com/siemens/cvss-suite/blob/master/CHANGES.md)
 
 ## Contributing
 
