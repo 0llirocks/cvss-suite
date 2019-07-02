@@ -2,13 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.1.3] - 2019-07-01
+## [1.2.0] - 2019-07-02
 
 ### Notes
 Because version 2.0 of this gem will include breaking changes, please make sure to include this gem in your gemfile as shown below to not automatically update to version 2.0.
 
 ```ruby
-gem 'cvss-suite', '~> 1.1'
+gem 'cvss-suite', '~> 1.2'
 ```
 
 ### Improvements
