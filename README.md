@@ -1,4 +1,4 @@
-# CvssSuite
+# CvssSuite for Ruby
 
 [![Gem Version](http://img.shields.io/gem/v/cvss-suite.svg)](https://rubygems.org/gems/cvss-suite)
 [![Ruby Version](https://img.shields.io/badge/Ruby-2.x-brightgreen.svg)](https://rubygems.org/gems/cvss-suite)
@@ -111,3 +111,5 @@ There is a possibility of implementations generating different scores (+/- 0,1) 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/siemens/cvss-suite. This project is intended to be a safe, welcoming space for collaboration.
 
+## References
+[CvssSuite for .NET](https://github.com/oliverhamboerger/CvssSuite)
