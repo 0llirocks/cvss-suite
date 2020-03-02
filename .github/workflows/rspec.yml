@@ -1,0 +1,21 @@
+name: RSpec
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+    - name: Build
+      run: |
+        gem install bundler -v "~> 1.10"
+        bundle install --jobs 4 --retry 3
+    - name: Run tests
+      run: bundle exec rspec spec
