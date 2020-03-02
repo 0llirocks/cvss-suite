@@ -5,6 +5,7 @@
 [![Cvss Support](https://img.shields.io/badge/CVSS-v2-brightgreen.svg)](https://www.first.org/cvss/v2/guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.0-brightgreen.svg)](https://www.first.org/cvss/v3.0/user-guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.1-brightgreen.svg)](https://www.first.org/cvss/v3.1/user-guide)
+[!RSpec](https://github.com/siemens/cvss-suite/workflows/RSpec/badge.svg)
 
 This Ruby gem helps you to process the vector of the [**Common Vulnerability Scoring System**](https://www.first.org/cvss/specification-document).
 Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.
