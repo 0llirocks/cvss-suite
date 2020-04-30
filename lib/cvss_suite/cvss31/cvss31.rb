@@ -16,36 +16,38 @@ require_relative 'cvss31_environmental'
 ##
 # This class represents a CVSS vector in version 3.1.
 
-class Cvss31 < Cvss
-  ##
-  # Returns the Base Score of the CVSS vector.
+module CvssSuite
+  class Cvss31 < Cvss
+    ##
+    # Returns the Base Score of the CVSS vector.
 
-  def base_score
-    check_validity
-    @base.score.roundup
-  end
+    def base_score
+      check_validity
+      @base.score.roundup
+    end
 
-  ##
-  # Returns the Temporal Score of the CVSS vector.
+    ##
+    # Returns the Temporal Score of the CVSS vector.
 
-  def temporal_score
-    (@base.score.roundup * @temporal.score).roundup
-  end
+    def temporal_score
+      (@base.score.roundup * @temporal.score).roundup
+    end
 
-  ##
-  # Returns the Environmental Score of the CVSS vector.
+    ##
+    # Returns the Environmental Score of the CVSS vector.
 
-  def environmental_score
-    return temporal_score unless @environmental.valid?
+    def environmental_score
+      return temporal_score unless @environmental.valid?
 
-    (@environmental.score @temporal.score).roundup
-  end
+      (@environmental.score @temporal.score).roundup
+    end
 
-  private
+    private
 
-  def init_metrics
-    @base = Cvss31Base.new(@properties)
-    @temporal = Cvss31Temporal.new(@properties)
-    @environmental = Cvss31Environmental.new(@properties)
+    def init_metrics
+      @base = Cvss31Base.new(@properties)
+      @temporal = Cvss31Temporal.new(@properties)
+      @environmental = Cvss31Environmental.new(@properties)
+    end
   end
 end
