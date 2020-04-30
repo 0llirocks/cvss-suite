@@ -16,8 +16,7 @@ class InvalidCvss < Cvss
   ##
   # Creates a new invalid CVSS vector.
 
-  def initialize
-  end
+  def initialize; end
 
   ##
   # Since this is an invalid CVSS vector, it always returns false.

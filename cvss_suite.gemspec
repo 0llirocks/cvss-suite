@@ -20,9 +20,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Oliver Hamboerger"]
   spec.email         = ["oliver.hamboerger@siemens.com"]
 
-  spec.summary       = %q{Ruby gem for processing cvss vectors.}
-  spec.description   = %q{This Ruby gem helps you to process the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).
-Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.}
+  spec.summary       = 'Ruby gem for processing cvss vectors.'
+  spec.description   = 'This Ruby gem helps you to process the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).
+Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.'
   spec.homepage      = "https://siemens.github.io/cvss-suite/"
 
   spec.required_ruby_version = '>= 2.0.0'

@@ -65,7 +65,7 @@ class Cvss
 
     score = overall_score
 
-    if 0.0 == score
+    if score == 0.0
       "None"
     elsif (0.1..3.9).include? score
       "Low"
