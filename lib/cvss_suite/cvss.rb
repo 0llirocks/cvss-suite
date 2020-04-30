@@ -109,7 +109,7 @@ class Cvss
     start_of_vector = @vector.index('AV')
 
     if start_of_vector.nil?
-      String.new
+      ''
     else
       @vector[start_of_vector..-1]
     end

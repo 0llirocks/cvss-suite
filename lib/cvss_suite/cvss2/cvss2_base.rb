@@ -70,9 +70,9 @@ class Cvss2Base < CvssMetric
                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
     @properties.push(@availability_impact =
                       CvssProperty.new(name: 'Availability Impact', abbreviation: 'A', position: [5],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0},
-                                                 { name: 'Partial', abbreviation: 'P', weight: 0.275},
-                                                 { name: 'Complete', abbreviation: 'C', weight: 0.66}]))
+                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                 { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                 { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
   end
 
   def calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
