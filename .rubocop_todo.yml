@@ -84,29 +84,6 @@ Layout/EmptyLinesAroundMethodBody:
     - 'lib/cvss_suite/cvss31/cvss31_base.rb'
     - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'lib/cvss_suite.rb'
-    - 'lib/cvss_suite/helpers/cvss3_helper.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'lib/cvss_suite/helpers/cvss3_helper.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: Width, IgnoredPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'lib/cvss_suite/cvss.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
@@ -128,15 +105,6 @@ Layout/MultilineMethodCallIndentation:
   Exclude:
     - 'spec/cvss_suite_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, EnforcedStyleForExponentOperator.
-# SupportedStylesForExponentOperator: space, no_space
-Layout/SpaceAroundOperators:
-  Exclude:
-    - 'lib/cvss_suite/cvss2/cvss2_base.rb'
-    - 'lib/cvss_suite/helpers/cvss3_helper.rb'
-
 # Offense count: 173
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
@@ -148,22 +116,6 @@ Layout/SpaceInsideHashLiteralBraces:
     - 'lib/cvss_suite/cvss2/cvss2_base.rb'
     - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
     - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
-
-# Offense count: 22
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingEmptyLines:
-  Enabled: false
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowInHeredoc.
-Layout/TrailingWhitespace:
-  Exclude:
-    - 'lib/cvss_suite.rb'
-    - 'lib/cvss_suite/cvss.rb'
-    - 'lib/cvss_suite/helpers/extensions.rb'
 
 # Offense count: 1
 Lint/IneffectiveAccessModifier:

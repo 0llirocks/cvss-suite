@@ -71,4 +71,3 @@ class Cvss2Environmental < CvssMetric
                                                  { name: 'Not Defined', abbreviation: 'ND', weight: 1.0 }]))
   end
 end
-

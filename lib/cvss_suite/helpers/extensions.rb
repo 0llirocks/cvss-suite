@@ -27,7 +27,7 @@ class Float
     output = (self * 100000).round
     if (output % 10000) == 0
       return output / 100000.0
-    else 
+    else
       return ((output / 10000).floor + 1) / 10.0
     end
   end
@@ -49,7 +49,7 @@ class Integer
     output = (self * 100000).round
     if (output % 10000) == 0
       return output / 100000.0
-    else 
+    else
       return ((output / 10000).floor + 1) / 10.0
     end
   end

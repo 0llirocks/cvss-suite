@@ -92,4 +92,3 @@ class Cvss31Base < CvssMetric
                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
   end
 end
-
