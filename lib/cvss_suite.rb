@@ -31,6 +31,7 @@ module CvssSuite
 
   def self.new(vector)
     return InvalidCvss.new unless vector.is_a? String
+
     @vector_string = vector
     case version
     when 2

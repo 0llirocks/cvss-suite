@@ -11,7 +11,6 @@
 require_relative '../spec_helper'
 
 describe Float do
-
   let(:float_without_decimal_places) { 2.0 }
   let(:float_with_one_decimal_place) { 2.1 }
   let(:float_with_two_decimal_places) { 2.11 }

@@ -17,7 +17,6 @@ require_relative 'cvss31_environmental'
 # This class represents a CVSS vector in version 3.1.
 
 class Cvss31 < Cvss
-
   ##
   # Returns the Base Score of the CVSS vector.
 
@@ -38,6 +37,7 @@ class Cvss31 < Cvss
 
   def environmental_score
     return temporal_score unless @environmental.valid?
+
     (@environmental.score @temporal.score).roundup
   end
 
@@ -48,5 +48,4 @@ class Cvss31 < Cvss
     @temporal = Cvss31Temporal.new(@properties)
     @environmental = Cvss31Environmental.new(@properties)
   end
-
 end

@@ -12,7 +12,6 @@
 # This class represents any CVSS vector. Do not instantiate this class!
 
 class Cvss
-
   ##
   # Metric of a CVSS vector.
 
@@ -35,6 +34,7 @@ class Cvss
 
   def initialize(vector, version)
     raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.class == Cvss
+
     @version = version
     @vector = vector
     @properties = []
@@ -87,6 +87,7 @@ class Cvss
     check_validity
     return temporal_score if @temporal.valid? && !@environmental.valid?
     return environmental_score if @environmental.valid?
+
     base_score
   end
 
@@ -121,5 +122,4 @@ class Cvss
     total += @environmental.count if @environmental.valid?
     total ||= 0
   end
-
 end

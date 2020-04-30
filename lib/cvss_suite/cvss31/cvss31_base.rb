@@ -16,7 +16,6 @@ require_relative '../helpers/cvss3_helper'
 # This class represents a CVSS Base metric in version 3.1.
 
 class Cvss31Base < CvssMetric
-
   ##
   # Property of this metric
 
@@ -27,7 +26,6 @@ class Cvss31Base < CvssMetric
   # Returns score of this metric
 
   def score
-
     privilege_score = Cvss3Helper.privileges_required_score @privileges_required, @scope
 
     exploitability = 8.22 * @attack_vector.score * @attack_complexity.score * privilege_score * @user_interaction.score
@@ -53,42 +51,42 @@ class Cvss31Base < CvssMetric
 
   def init_properties
     @properties.push(@attack_vector =
-                      CvssProperty.new(name: 'Attack Vector', abbreviation: 'AV', position: [0],
-                                       choices: [{ name: 'Network', abbreviation: 'N', weight: 0.85 },
-                                                 { name: 'Adjacent', abbreviation: 'A', weight: 0.62 },
-                                                 { name: 'Local', abbreviation: 'L', weight: 0.55 },
-                                                 { name: 'Physical', abbreviation: 'P', weight: 0.2 }]))
+                       CvssProperty.new(name: 'Attack Vector', abbreviation: 'AV', position: [0],
+                                        choices: [{ name: 'Network', abbreviation: 'N', weight: 0.85 },
+                                                  { name: 'Adjacent', abbreviation: 'A', weight: 0.62 },
+                                                  { name: 'Local', abbreviation: 'L', weight: 0.55 },
+                                                  { name: 'Physical', abbreviation: 'P', weight: 0.2 }]))
     @properties.push(@attack_complexity =
-                      CvssProperty.new(name: 'Attack Complexity', abbreviation: 'AC', position: [1],
-                                       choices: [{ name: 'Low', abbreviation: 'L', weight: 0.77 },
-                                                 { name: 'High', abbreviation: 'H', weight: 0.44 }]))
+                       CvssProperty.new(name: 'Attack Complexity', abbreviation: 'AC', position: [1],
+                                        choices: [{ name: 'Low', abbreviation: 'L', weight: 0.77 },
+                                                  { name: 'High', abbreviation: 'H', weight: 0.44 }]))
     @properties.push(@privileges_required =
-                      CvssProperty.new(name: 'Privileges Required', abbreviation: 'PR', position: [2],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
-                                                 { name: 'Low', abbreviation: 'L', weight: 0.62 },
-                                                 { name: 'High', abbreviation: 'H', weight: 0.27 }]))
+                       CvssProperty.new(name: 'Privileges Required', abbreviation: 'PR', position: [2],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
+                                                  { name: 'Low', abbreviation: 'L', weight: 0.62 },
+                                                  { name: 'High', abbreviation: 'H', weight: 0.27 }]))
     @properties.push(@user_interaction =
-                      CvssProperty.new(name: 'User Interaction', abbreviation: 'UI', position: [3],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
-                                                 { name: 'Required', abbreviation: 'R', weight: 0.62 }]))
+                       CvssProperty.new(name: 'User Interaction', abbreviation: 'UI', position: [3],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
+                                                  { name: 'Required', abbreviation: 'R', weight: 0.62 }]))
     @properties.push(@scope =
-                      CvssProperty.new(name: 'Scope', abbreviation: 'S', position: [4],
-                                       choices: [{ name: 'Unchanged', abbreviation: 'U' },
-                                                 { name: 'Changed', abbreviation: 'C' }]))
+                       CvssProperty.new(name: 'Scope', abbreviation: 'S', position: [4],
+                                        choices: [{ name: 'Unchanged', abbreviation: 'U' },
+                                                  { name: 'Changed', abbreviation: 'C' }]))
     @properties.push(@confidentiality =
-                      CvssProperty.new(name: 'Confidentiality', abbreviation: 'C', position: [5],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                 { name: 'Low', abbreviation: 'L', weight: 0.22 },
-                                                 { name: 'High', abbreviation: 'H', weight: 0.56 }]))
+                       CvssProperty.new(name: 'Confidentiality', abbreviation: 'C', position: [5],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                  { name: 'Low', abbreviation: 'L', weight: 0.22 },
+                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
     @properties.push(@integrity =
-                      CvssProperty.new(name: 'Integrity', abbreviation: 'I', position: [6],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                 { name: 'Low', abbreviation: 'L', weight: 0.22 },
-                                                 { name: 'High', abbreviation: 'H', weight: 0.56 }]))
+                       CvssProperty.new(name: 'Integrity', abbreviation: 'I', position: [6],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                  { name: 'Low', abbreviation: 'L', weight: 0.22 },
+                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
     @properties.push(@availability =
-                      CvssProperty.new(name: 'Availability', abbreviation: 'A', position: [7],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                 { name: 'Low', abbreviation: 'L', weight: 0.22 },
-                                                 { name: 'High', abbreviation: 'H', weight: 0.56 }]))
+                       CvssProperty.new(name: 'Availability', abbreviation: 'A', position: [7],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                  { name: 'Low', abbreviation: 'L', weight: 0.22 },
+                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
   end
 end
