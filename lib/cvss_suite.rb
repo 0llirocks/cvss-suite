@@ -21,9 +21,9 @@ require 'cvss_suite/invalid_cvss'
 
 module CvssSuite
   CVSS_VECTOR_BEGINNINGS = [
-    {string: 'AV:', version: 2},
-    {string: 'CVSS:3.0/', version: 3.0},
-    {string: 'CVSS:3.1/', version: 3.1}
+    { string: 'AV:', version: 2 },
+    { string: 'CVSS:3.0/', version: 3.0 },
+    { string: 'CVSS:3.1/', version: 3.1 }
   ]
 
   ##
@@ -31,6 +31,7 @@ module CvssSuite
 
   def self.new(vector)
     return InvalidCvss.new unless vector.is_a? String
+
     @vector_string = vector
     case version
     when 2

@@ -12,7 +12,6 @@
 # This class represents any CVSS metric.
 
 class CvssMetric
-
   ##
   # Creates a new CVSS metric by +properties+
 
@@ -49,5 +48,4 @@ class CvssMetric
       property.set_selected_choice selected_property[:selected] unless property.nil?
     end
   end
-
 end

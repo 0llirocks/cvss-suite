@@ -12,7 +12,6 @@
 # This class represents a CVSS property of a CVSS metric.
 
 class CvssProperty
-
   ##
   # Creates a new CVSS property by a +property+.
   #

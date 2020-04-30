@@ -17,7 +17,6 @@ require_relative 'cvss3_environmental'
 # This class represents a CVSS vector in version 3.0.
 
 class Cvss3 < Cvss
-
   ##
   # Returns the Base Score of the CVSS vector.
 
@@ -38,6 +37,7 @@ class Cvss3 < Cvss
 
   def environmental_score
     return temporal_score unless @environmental.valid?
+
     (@environmental.score @temporal.score).round_up(1)
   end
 
@@ -48,5 +48,4 @@ class Cvss3 < Cvss
     @temporal = Cvss3Temporal.new(@properties)
     @environmental = Cvss3Environmental.new(@properties)
   end
-
 end

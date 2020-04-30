@@ -12,7 +12,6 @@
 # # This class represents a invalid CVSS vector.
 
 class InvalidCvss < Cvss
-
   ##
   # Creates a new invalid CVSS vector.
 
@@ -52,5 +51,4 @@ class InvalidCvss < Cvss
   def environmental_score
     check_validity
   end
-
 end

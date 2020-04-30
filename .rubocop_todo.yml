@@ -21,69 +21,6 @@ Gemspec/RequiredRubyVersion:
   Exclude:
     - 'cvss_suite.gemspec'
 
-# Offense count: 58
-# Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-Layout/AssignmentIndentation:
-  Exclude:
-    - 'lib/cvss_suite/cvss2/cvss2_base.rb'
-    - 'lib/cvss_suite/cvss2/cvss2_environmental.rb'
-    - 'lib/cvss_suite/cvss2/cvss2_temporal.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_base.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_temporal.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_base.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_temporal.rb'
-
-# Offense count: 9
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'lib/cvss_suite.rb'
-    - 'lib/cvss_suite/cvss.rb'
-    - 'lib/cvss_suite/cvss2/cvss2.rb'
-    - 'lib/cvss_suite/cvss2/cvss2_temporal.rb'
-    - 'lib/cvss_suite/cvss3/cvss3.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_temporal.rb'
-    - 'lib/cvss_suite/cvss31/cvss31.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_temporal.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'cvss_suite.gemspec'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/cvss2/cvss2_spec.rb'
-    - 'spec/cvss3/cvss3_spec.rb'
-    - 'spec/cvss31/cvss31_spec.rb'
-    - 'spec/helpers/float_spec.rb'
-
-# Offense count: 25
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
-
-# Offense count: 9
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'lib/cvss_suite/cvss2/cvss2_base.rb'
-    - 'lib/cvss_suite/cvss2/cvss2_environmental.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_base.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_base.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
@@ -104,18 +41,6 @@ Layout/MultilineBlockLayout:
 Layout/MultilineMethodCallIndentation:
   Exclude:
     - 'spec/cvss_suite_spec.rb'
-
-# Offense count: 173
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'lib/cvss_suite.rb'
-    - 'lib/cvss_suite/cvss2/cvss2_base.rb'
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
 
 # Offense count: 1
 Lint/IneffectiveAccessModifier:

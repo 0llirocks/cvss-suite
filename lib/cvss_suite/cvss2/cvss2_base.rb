@@ -15,7 +15,6 @@ require_relative '../cvss_metric'
 # This class represents a CVSS Base metric in version 2.
 
 class Cvss2Base < CvssMetric
-
   ##
   # Property of this metric
 
@@ -29,7 +28,6 @@ class Cvss2Base < CvssMetric
   # Takes +Security+ +Requirement+ +Impacts+ for calculating environmental score.
 
   def score(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
-
     impact = calc_impact sr_cr_score, sr_ir_score, sr_ar_score
 
     exploitability = calc_exploitability
@@ -37,42 +35,41 @@ class Cvss2Base < CvssMetric
     additional_impact = (impact == 0 ? 0 : 1.176)
 
     ((0.6 * impact) + (0.4 * exploitability) - 1.5) * additional_impact
-
   end
 
   private
 
   def init_properties
     @properties.push(@access_vector =
-                      CvssProperty.new(name: 'Access Vector', abbreviation: 'AV', position: [0],
-                                       choices: [{ name: 'Network', abbreviation: 'N', weight: 1.0 },
-                                                 { name: 'Adjacent Network', abbreviation: 'A', weight: 0.646 },
-                                                 { name: 'Local', abbreviation: 'L', weight: 0.395 }]))
+                       CvssProperty.new(name: 'Access Vector', abbreviation: 'AV', position: [0],
+                                        choices: [{ name: 'Network', abbreviation: 'N', weight: 1.0 },
+                                                  { name: 'Adjacent Network', abbreviation: 'A', weight: 0.646 },
+                                                  { name: 'Local', abbreviation: 'L', weight: 0.395 }]))
     @properties.push(@access_complexity =
-                      CvssProperty.new(name: 'Access Complexity', abbreviation: 'AC', position: [1],
-                                       choices: [{ name: 'Low', abbreviation: 'L', weight: 0.71 },
-                                                 { name: 'Medium', abbreviation: 'M', weight: 0.61 },
-                                                 { name: 'High', abbreviation: 'H', weight: 0.35 }]))
+                       CvssProperty.new(name: 'Access Complexity', abbreviation: 'AC', position: [1],
+                                        choices: [{ name: 'Low', abbreviation: 'L', weight: 0.71 },
+                                                  { name: 'Medium', abbreviation: 'M', weight: 0.61 },
+                                                  { name: 'High', abbreviation: 'H', weight: 0.35 }]))
     @properties.push(@authentication =
-                      CvssProperty.new(name: 'Authentication', abbreviation: 'Au', position: [2],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.704 },
-                                                 { name: 'Single', abbreviation: 'S', weight: 0.56 },
-                                                 { name: 'Multiple', abbreviation: 'M', weight: 0.45 }]))
+                       CvssProperty.new(name: 'Authentication', abbreviation: 'Au', position: [2],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.704 },
+                                                  { name: 'Single', abbreviation: 'S', weight: 0.56 },
+                                                  { name: 'Multiple', abbreviation: 'M', weight: 0.45 }]))
     @properties.push(@confidentiality_impact =
-                      CvssProperty.new(name: 'Confidentiality Impact', abbreviation: 'C', position: [3],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                 { name: 'Partial', abbreviation: 'P', weight: 0.275 },
-                                                 { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
+                       CvssProperty.new(name: 'Confidentiality Impact', abbreviation: 'C', position: [3],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
     @properties.push(@integrity_impact =
-                      CvssProperty.new(name: 'Integrity Impact', abbreviation: 'I', position: [4],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                 { name: 'Partial', abbreviation: 'P', weight: 0.275 },
-                                                 { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
+                       CvssProperty.new(name: 'Integrity Impact', abbreviation: 'I', position: [4],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
     @properties.push(@availability_impact =
-                      CvssProperty.new(name: 'Availability Impact', abbreviation: 'A', position: [5],
-                                       choices: [{ name: 'None', abbreviation: 'N', weight: 0.0},
-                                                 { name: 'Partial', abbreviation: 'P', weight: 0.275},
-                                                 { name: 'Complete', abbreviation: 'C', weight: 0.66}]))
+                       CvssProperty.new(name: 'Availability Impact', abbreviation: 'A', position: [5],
+                                        choices: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
+                                                  { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                  { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
   end
 
   def calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
@@ -86,5 +83,4 @@ class Cvss2Base < CvssMetric
   def calc_exploitability
     20 * @access_vector.score * @access_complexity.score * @authentication.score
   end
-
 end
