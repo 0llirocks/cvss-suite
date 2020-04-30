@@ -80,7 +80,7 @@ class Cvss2Base < CvssMetric
     integrity_score = 1 - @integrity_impact.score * sr_ir_score
     availability_score = 1 - @availability_impact.score * sr_ar_score
 
-    [10, 10.41 * (1-confidentiality_score*integrity_score*availability_score)].min
+    [10, 10.41 * (1 - confidentiality_score * integrity_score * availability_score)].min
   end
 
   def calc_exploitability
@@ -88,4 +88,3 @@ class Cvss2Base < CvssMetric
   end
 
 end
-

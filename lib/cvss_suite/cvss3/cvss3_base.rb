@@ -34,11 +34,11 @@ class Cvss3Base < CvssMetric
 
     isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
 
-    if @scope.selected_choice[:name] == 'Changed'
-      impact_sub_score = 7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
-    else
-      impact_sub_score = 6.42 * isc_base
-    end
+    impact_sub_score = if @scope.selected_choice[:name] == 'Changed'
+                         7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
+                       else
+                         6.42 * isc_base
+                       end
 
     return 0 if impact_sub_score <= 0
 
@@ -92,4 +92,3 @@ class Cvss3Base < CvssMetric
                                                  { name: 'High', abbreviation: 'H', weight: 0.56 }]))
   end
 end
-

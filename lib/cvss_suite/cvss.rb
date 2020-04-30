@@ -47,11 +47,11 @@ class Cvss
 
   def valid?
     if @amount_of_properties == required_amount_of_properties
-        base = @base.valid?
-        temporal = @base.valid? && @temporal.valid?
-        environmental = @base.valid? && @environmental.valid?
-        full = @base.valid? && @temporal.valid? && @environmental.valid?
-        base || temporal || environmental || full
+      base = @base.valid?
+      temporal = @base.valid? && @temporal.valid?
+      environmental = @base.valid? && @environmental.valid?
+      full = @base.valid? && @temporal.valid? && @environmental.valid?
+      base || temporal || environmental || full
     else
       false
     end
@@ -62,21 +62,21 @@ class Cvss
 
   def severity
     check_validity
-    
+
     score = overall_score
 
-    if 0.0 == score
+    if score == 0.0
       "None"
     elsif (0.1..3.9).include? score
-     "Low"
+      "Low"
     elsif (4.0..6.9).include? score
-     "Medium"
+      "Medium"
     elsif (7.0..8.9).include? score
-     "High"
+      "High"
     elsif (9.0..10.0).include? score
-     "Critical"
+      "Critical"
     else
-     "None"
+      "None"
     end
   end
 
