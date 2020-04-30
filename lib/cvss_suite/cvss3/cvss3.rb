@@ -22,14 +22,14 @@ class Cvss3 < Cvss
 
   def base_score
     check_validity
-    @base.score.round_up(1)
+    @base.score.ceil(1).to_f
   end
 
   ##
   # Returns the Temporal Score of the CVSS vector.
 
   def temporal_score
-    (@base.score.round_up(1) * @temporal.score).round_up(1)
+    (@base.score.ceil(1) * @temporal.score).ceil(1).to_f
   end
 
   ##
@@ -38,7 +38,7 @@ class Cvss3 < Cvss
   def environmental_score
     return temporal_score unless @environmental.valid?
 
-    (@environmental.score @temporal.score).round_up(1)
+    (@environmental.score @temporal.score).ceil(1).to_f
   end
 
   private

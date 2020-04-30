@@ -16,7 +16,6 @@ end
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'cvss_suite'
-require 'cvss_suite/helpers/extensions'
 require 'rspec/its'
 require 'shared_examples'
 
