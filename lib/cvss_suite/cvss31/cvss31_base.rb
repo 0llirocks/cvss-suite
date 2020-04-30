@@ -37,7 +37,7 @@ module CvssSuite
                            7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
                          else
                            6.42 * isc_base
-                        end
+                         end
 
       return 0 if impact_sub_score <= 0
 

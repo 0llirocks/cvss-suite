@@ -8,7 +8,8 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-shared_examples 'a valid cvss vector' do |version, base_score, temporal_score, environmental_score, overall_score, severity|
+shared_examples 'a valid cvss vector' do |version, base_score, temporal_score,
+                                          environmental_score, overall_score, severity|
   it { should be_valid }
   its(:valid?) { should eql(true) }
   its(:version) { should eql(version) }

@@ -16,7 +16,8 @@ module CvssSuite
     ##
     # Creates a new CVSS property by a +property+.
     #
-    # +Property+ needs to consist of a name, a abbreviation, the possible positions in the CVSS vector, a weight, and the
+    # +Property+ needs to consist of a name, a abbreviation,
+    # the possible positions in the CVSS vector, a weight, and the
     # available choices for the property.
 
     def initialize(property)

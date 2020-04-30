@@ -61,17 +61,17 @@ module CvssSuite
       score = overall_score
 
       if score == 0.0
-        "None"
+        'None'
       elsif (0.1..3.9).include? score
-        "Low"
+        'Low'
       elsif (4.0..6.9).include? score
-        "Medium"
+        'Medium'
       elsif (7.0..8.9).include? score
-        "High"
+        'High'
       elsif (9.0..10.0).include? score
-        "Critical"
+        'Critical'
       else
-        "None"
+        'None'
       end
     end
 
