@@ -10,9 +10,9 @@
 
 require_relative 'spec_helper'
 
-describe Cvss do
+describe CvssSuite::Cvss do
   context 'when initialized without subclass' do
-    subject { Cvss.new('AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L', 2) }
+    subject { CvssSuite::Cvss.new('AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L', 2) }
 
     it 'raises InvalidParentClass error' do
       expect { subject }.to raise_error(CvssSuite::Errors::InvalidParentClass)

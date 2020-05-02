@@ -11,44 +11,46 @@
 # ##
 # # This class represents a invalid CVSS vector.
 
-class InvalidCvss < Cvss
-  ##
-  # Creates a new invalid CVSS vector.
+module CvssSuite
+  class InvalidCvss < Cvss
+    ##
+    # Creates a new invalid CVSS vector.
 
-  def initialize; end
+    def initialize; end
 
-  ##
-  # Since this is an invalid CVSS vector, it always returns false.
+    ##
+    # Since this is an invalid CVSS vector, it always returns false.
 
-  def valid?
-    false
-  end
+    def valid?
+      false
+    end
 
-  ##
-  # Since this is an invalid CVSS vector, it always throws an exception.
+    ##
+    # Since this is an invalid CVSS vector, it always throws an exception.
 
-  def version
-    check_validity
-  end
+    def version
+      check_validity
+    end
 
-  ##
-  # Since this is an invalid CVSS vector, it always throws an exception.
+    ##
+    # Since this is an invalid CVSS vector, it always throws an exception.
 
-  def base_score
-    check_validity
-  end
+    def base_score
+      check_validity
+    end
 
-  ##
-  # Since this is an invalid CVSS vector, it always throws an exception.
+    ##
+    # Since this is an invalid CVSS vector, it always throws an exception.
 
-  def temporal_score
-    check_validity
-  end
+    def temporal_score
+      check_validity
+    end
 
-  ##
-  # Since this is an invalid CVSS vector, it always throws an exception.
+    ##
+    # Since this is an invalid CVSS vector, it always throws an exception.
 
-  def environmental_score
-    check_validity
+    def environmental_score
+      check_validity
+    end
   end
 end
