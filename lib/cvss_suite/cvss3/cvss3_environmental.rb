@@ -29,17 +29,15 @@ module CvssSuite
     # Returns score of this metric
 
     def score(temporal_score)
-      privilege_score = Cvss3Helper.privileges_required_score @modified_privileges_required, @modified_scope
+      privilege_score = Cvss3Helper.privileges_required_score(@modified_privileges_required, @modified_scope)
 
-      modified_exploitability_sub_score = modified_exploitability_sub privilege_score
+      modified_exploitability_sub_score = modified_exploitability_sub(privilege_score)
 
-      isc_modified_score = isc_modified
-
-      modified_impact_sub_score = modified_impact_sub isc_modified_score
+      modified_impact_sub_score = modified_impact_sub(isc_modified)
 
       return 0 if modified_impact_sub_score <= 0
 
-      calculate_score modified_impact_sub_score, modified_exploitability_sub_score, temporal_score
+      calculate_score(modified_impact_sub_score, modified_exploitability_sub_score, temporal_score)
     end
 
     private
@@ -128,10 +126,8 @@ module CvssSuite
     end
 
     def modified_exploitability_sub(privilege_score)
-      modified_exploitability_sub_score = 8.22 * @modified_attack_vector.score
-      modified_exploitability_sub_score *= @modified_attack_complexity.score
-      modified_exploitability_sub_score *= privilege_score
-      modified_exploitability_sub_score *= @modified_user_interaction.score
+      8.22 * @modified_attack_vector.score * @modified_attack_complexity.score *
+        privilege_score * @modified_user_interaction.score
     end
 
     def calculate_score(modified_impact_sub_score, modified_exploitability_sub_score, temporal_score)

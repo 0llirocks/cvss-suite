@@ -29,7 +29,7 @@ module CvssSuite
     # Takes +Security+ +Requirement+ +Impacts+ for calculating environmental score.
 
     def score(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
-      impact = calc_impact sr_cr_score, sr_ir_score, sr_ar_score
+      impact = calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
 
       exploitability = calc_exploitability
 
