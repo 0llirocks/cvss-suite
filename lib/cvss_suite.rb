@@ -35,11 +35,11 @@ module CvssSuite
     @vector_string = vector
     case version
     when 2
-      Cvss2.new(@vector_string, version)
+      Cvss2.new(@vector_string)
     when 3.0
-      Cvss3.new(@vector_string, version)
+      Cvss3.new(@vector_string)
     when 3.1
-      Cvss31.new(@vector_string, version)
+      Cvss31.new(@vector_string)
     else
       InvalidCvss.new
     end

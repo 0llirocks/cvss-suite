@@ -19,6 +19,13 @@ require_relative 'cvss3_environmental'
 module CvssSuite
   class Cvss3 < Cvss
     ##
+    # Returns the Version of the CVSS vector.
+
+    def version
+      3.0
+    end
+    
+    ##
     # Returns the Base Score of the CVSS vector.
 
     def base_score

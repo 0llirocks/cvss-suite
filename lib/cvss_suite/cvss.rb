@@ -19,24 +19,18 @@ module CvssSuite
     attr_reader :base, :temporal, :environmental
 
     ##
-    # Returns version of current CVSS vector.
-
-    attr_reader :version
-
-    ##
     # Returns the vector itself.
 
     attr_reader :vector
 
     ##
-    # Creates a new CVSS vector by a +vector+ and a +version+.
+    # Creates a new CVSS vector by a +vector+.
     #
     # Raises an exception if it is called on Cvss class.
 
-    def initialize(vector, version)
+    def initialize(vector)
       raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.class == Cvss
 
-      @version = version
       @vector = vector
       @properties = []
       extract_metrics
