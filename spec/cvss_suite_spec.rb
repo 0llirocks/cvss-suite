@@ -22,7 +22,7 @@ describe CvssSuite do
 
   it 'is invalid' do
     expect { CvssSuite.new('Not a valid vector!').version }
-        .to raise_error(RuntimeError)
+      .to raise_error(RuntimeError)
   end
 
   it 'is invalid' do

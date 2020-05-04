@@ -8,7 +8,7 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-require_relative '../../../lib/cvss_suite/cvss'
+require_relative '../cvss'
 require_relative 'cvss2_base'
 require_relative 'cvss2_temporal'
 require_relative 'cvss2_environmental'

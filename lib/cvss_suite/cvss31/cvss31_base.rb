@@ -27,7 +27,7 @@ module CvssSuite
     # Returns score of this metric
 
     def score
-      privilege_score = Cvss3Helper.privileges_required_score @privileges_required, @scope
+      privilege_score = Cvss3Helper.privileges_required_score(@privileges_required, @scope)
 
       exploitability = 8.22 * @attack_vector.score * @attack_complexity.score * privilege_score * @user_interaction.score
 
@@ -37,7 +37,7 @@ module CvssSuite
                            7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
                          else
                            6.42 * isc_base
-                        end
+                         end
 
       return 0 if impact_sub_score <= 0
 
