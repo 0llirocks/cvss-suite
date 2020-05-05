@@ -25,6 +25,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install cvss-suite
+    
+## Version 1.x
+
+If your still using CvssSuite 1.x please refer to the [specific branch](https://github.com/siemens/cvss-suite/tree/1.x) for documentation and changelog.
 
 ## Usage
 
