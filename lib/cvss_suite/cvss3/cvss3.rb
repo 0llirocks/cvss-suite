@@ -27,13 +27,13 @@ module CvssSuite
     # Returns the Base Score of the CVSS vector.
     def base_score
       check_validity
-      @base.score.round_up(1)
+      Cvss3Helper.round_up(@base.score)
     end
 
     ##
     # Returns the Temporal Score of the CVSS vector.
     def temporal_score
-      (@base.score.round_up(1) * @temporal.score).round_up(1)
+      Cvss3Helper.round_up(Cvss3Helper.round_up(@base.score) * @temporal.score)
     end
 
     ##
@@ -41,7 +41,7 @@ module CvssSuite
     def environmental_score
       return temporal_score unless @environmental.valid?
 
-      (@environmental.score @temporal.score).round_up(1)
+      Cvss3Helper.round_up(@environmental.score(@temporal.score))
     end
 
     private

@@ -12,6 +12,7 @@ require_relative '../cvss'
 require_relative 'cvss31_base'
 require_relative 'cvss31_temporal'
 require_relative 'cvss31_environmental'
+require_relative '../helpers/cvss31_helper'
 
 module CvssSuite
   ##
@@ -29,14 +30,14 @@ module CvssSuite
 
     def base_score
       check_validity
-      @base.score.roundup
+      Cvss31Helper.round_up(@base.score)
     end
 
     ##
     # Returns the Temporal Score of the CVSS vector.
 
     def temporal_score
-      (@base.score.roundup * @temporal.score).roundup
+      Cvss31Helper.round_up(Cvss31Helper.round_up(@base.score) * @temporal.score)
     end
 
     ##
@@ -45,7 +46,7 @@ module CvssSuite
     def environmental_score
       return temporal_score unless @environmental.valid?
 
-      (@environmental.score @temporal.score).roundup
+      Cvss31Helper.round_up(@environmental.score(@temporal.score))
     end
 
     private
