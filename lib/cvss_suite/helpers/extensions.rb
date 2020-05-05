@@ -10,45 +10,52 @@
 
 ##
 # This class includes extensions for the Float datatype.
-
 class Float
   ##
-  # Since CVSS 3 all float values are rounded up, therefore this method is used instead of the mathematically correct method round().
-
+  # Since CVSS 3 all float values are rounded up, therefore this method is used
+  # instead of the mathematically correct method round().
   def round_up(decimal_paces = 0)
     (self * 10.0**decimal_paces).ceil / 10.0**decimal_paces
   end
 
   ##
-  # The “Round up” function in CVSS v3.0 has been renamed Roundup and is now defined more precisely to minimize the possibility of implementations generating different scores due to small floating-point inaccuracies. This can happen due to differences in floating point arithmetic between different languages and hardware platforms.
-
+  # The “Round up” function in CVSS v3.0 has been renamed Roundup
+  # and is now defined more precisely to minimize the possibility
+  # of implementations generating different scores due to small floating-point
+  # inaccuracies. This can happen due to differences in floating point arithmetic
+  # between different languages and hardware platforms.
   def roundup
-    output = (self * 100000).round
-    if (output % 10000) == 0
-      return output / 100000.0
+    output = (self * 100_000).round
+    if (output % 10_000).zero?
+      output / 100_000.0
     else
-      return ((output / 10000).floor + 1) / 10.0
+      ((output / 10_000).floor + 1) / 10.0
     end
   end
 end
 
+##
+# This class includes extensions for the Integer datatype.
 class Integer
   ##
-  # Since CVSS 3 all float values are rounded up, therefore this method is used instead of the mathematically correct method round().
-
+  # Since CVSS 3 all float values are rounded up, therefore this method is used
+  # instead of the mathematically correct method round().
   def round_up(decimal_paces = 0)
     (self * 10.0**decimal_paces).ceil / 10.0**decimal_paces
   end
 
   ##
-  # The “Round up” function in CVSS v3.0 has been renamed Roundup and is now defined more precisely to minimize the possibility of implementations generating different scores due to small floating-point inaccuracies. This can happen due to differences in floating point arithmetic between different languages and hardware platforms.
-
+  # The “Round up” function in CVSS v3.0 has been renamed Roundup
+  # and is now defined more precisely to minimize the possibility
+  # of implementations generating different scores due to small floating-point
+  # inaccuracies. This can happen due to differences in floating point arithmetic
+  # between different languages and hardware platforms.
   def roundup
-    output = (self * 100000).round
-    if (output % 10000) == 0
-      return output / 100000.0
+    output = (self * 100_000).round
+    if (output % 10_000).zero?
+      output / 100_000.0
     else
-      return ((output / 10000).floor + 1) / 10.0
+      ((output / 10_000).floor + 1) / 10.0
     end
   end
 end

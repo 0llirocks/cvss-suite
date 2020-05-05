@@ -8,10 +8,9 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-##
-# This class represents a CVSS property of a CVSS metric.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS property of a CVSS metric.
   class CvssProperty
     ##
     # Creates a new CVSS property by a +property+.

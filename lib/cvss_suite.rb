@@ -18,17 +18,15 @@ require 'cvss_suite/invalid_cvss'
 
 ##
 # Module of this gem.
-
 module CvssSuite
   CVSS_VECTOR_BEGINNINGS = [
     { string: 'AV:', version: 2 },
     { string: 'CVSS:3.0/', version: 3.0 },
     { string: 'CVSS:3.1/', version: 3.1 }
-  ]
+  ].freeze
 
   ##
   # Returns a CVSS class by a +vector+.
-
   def self.new(vector)
     return InvalidCvss.new unless vector.is_a? String
 
@@ -49,9 +47,7 @@ module CvssSuite
 
   def self.version
     CVSS_VECTOR_BEGINNINGS.each do |beginning|
-      if @vector_string.start_with? beginning[:string]
-        return beginning[:version]
-      end
+      return beginning[:version] if @vector_string.start_with? beginning[:string]
     end
   end
 end

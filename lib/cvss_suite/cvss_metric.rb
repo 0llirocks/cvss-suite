@@ -8,14 +8,12 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-##
-# This class represents any CVSS metric.
-
 module CvssSuite
+  ##
+  # This class represents any CVSS metric.
   class CvssMetric
     ##
     # Creates a new CVSS metric by +properties+
-
     def initialize(selected_properties)
       @properties = []
       init_properties
@@ -24,7 +22,6 @@ module CvssSuite
 
     ##
     # Returns if the metric is valid.
-
     def valid?
       @properties.each do |property|
         return false unless property.valid?
@@ -34,7 +31,6 @@ module CvssSuite
 
     ##
     # Returns number of properties for this metric.
-
     def count
       @properties.count
     end
@@ -46,7 +42,7 @@ module CvssSuite
         property = @properties.detect do |p|
           p.abbreviation == selected_property[:name] && p.position.include?(selected_property[:position])
         end
-        property.set_selected_choice selected_property[:selected] unless property.nil?
+        property&.set_selected_choice selected_property[:selected]
       end
     end
   end

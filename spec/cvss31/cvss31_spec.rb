@@ -33,60 +33,60 @@ describe CvssSuite::Cvss31 do
   describe 'valid cvss31' do
     subject { valid_cvss31 }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 4.2, 4.2, 4.2, 4.2, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.1, 4.2, 4.2, 4.2, 4.2, 'Medium'
   end
 
   describe 'valid cvss31 with base_score 10' do
     subject { valid_cvss31_base_score10 }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 10.0, 8.7, 8.7, 8.7, 'High'
+    it_behaves_like 'a valid cvss vector', 3.1, 10.0, 8.7, 8.7, 8.7, 'High'
   end
 
   describe 'valid cvss31 with temporal_score 10' do
     subject { valid_cvss31_temporal_score10 }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 10.0, 10.0, 10.0, 10.0, 'Critical'
+    it_behaves_like 'a valid cvss vector', 3.1, 10.0, 10.0, 10.0, 10.0, 'Critical'
   end
 
   describe 'valid cvss31 with temporal_round_up' do
     subject { valid_cvss31_temporal_round_up }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 5.0, 4.6, 4.6, 4.6, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.1, 5.0, 4.6, 4.6, 4.6, 'Medium'
   end
 
   describe 'valid cvss31 with temporal' do
     subject { valid_cvss31_temporal }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 4.0, 3.7, 3.7, 3.7, 'Low'
+    it_behaves_like 'a valid cvss vector', 3.1, 4.0, 3.7, 3.7, 3.7, 'Low'
   end
 
   describe 'valid cvss31 with environmental' do
     subject { valid_cvss31_environmental }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 5.0, 5.0, 7.3, 7.3, 'High'
+    it_behaves_like 'a valid cvss vector', 3.1, 5.0, 5.0, 7.3, 7.3, 'High'
   end
 
   describe 'valid cvss31 with temporal and environmental' do
     subject { valid_cvss31_temporal_environmental }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 5.0, 4.4, 7.4, 7.4, 'High'
+    it_behaves_like 'a valid cvss vector', 3.1, 5.0, 4.4, 7.4, 7.4, 'High'
   end
 
   describe 'valid cvss31 with temporal and environmental and modified confidentiality low' do
     subject { valid_cvss31_temporal_environmental_modified_confidentiality_low }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 10.0, 8.1, 5.6, 5.6, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.1, 10.0, 8.1, 5.6, 5.6, 'Medium'
   end
 
   describe 'valid cvss31 with temporal and environmental and modified confidentiality high' do
     subject { valid_cvss31_temporal_environmental_modified_confidentiality_high }
 
-    it_should_behave_like 'a valid cvss vector', 3.1, 10.0, 8.1, 5.6, 5.6, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.1, 10.0, 8.1, 5.6, 5.6, 'Medium'
   end
 
   describe 'invalid cvss31' do
     subject { invalid_cvss31_with_version }
 
-    it_should_behave_like 'a invalid cvss vector with version', 3.1
+    it_behaves_like 'a invalid cvss vector with version', 3.1
   end
 end

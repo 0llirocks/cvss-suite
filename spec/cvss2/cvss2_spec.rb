@@ -22,30 +22,30 @@ describe CvssSuite::Cvss2 do
   describe 'valid cvss2' do
     subject { valid_cvss2 }
 
-    it_should_behave_like 'a valid cvss vector', 2, 7.5, 7.5, 7.5, 7.5, 'High'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 7.5, 7.5, 7.5, 'High'
   end
 
   describe 'valid cvss2 with temporal' do
     subject { valid_cvss2_temporal }
 
-    it_should_behave_like 'a valid cvss vector', 2, 7.5, 5.5, 5.5, 5.5, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 5.5, 5.5, 5.5, 'Medium'
   end
 
   describe 'valid cvss2 with environmental' do
     subject { valid_cvss2_environmental }
 
-    it_should_behave_like 'a valid cvss vector', 2, 4.9, 4.9, 4.1, 4.1, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 4.9, 4.1, 4.1, 'Medium'
   end
 
   describe 'valid cvss2 with temporal and environmental' do
     subject { valid_cvss2_temporal_environmental }
 
-    it_should_behave_like 'a valid cvss vector', 2, 4.9, 3.6, 3.2, 3.2, 'Low'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 3.6, 3.2, 3.2, 'Low'
   end
 
   describe 'invalid cvss2' do
     subject { invalid_cvss2 }
 
-    it_should_behave_like 'a invalid cvss vector with version', 2
+    it_behaves_like 'a invalid cvss vector with version', 2
   end
 end

@@ -13,10 +13,9 @@ require_relative 'cvss31_base'
 require_relative 'cvss31_temporal'
 require_relative 'cvss31_environmental'
 
-##
-# This class represents a CVSS vector in version 3.1.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS vector in version 3.1.
   class Cvss31 < Cvss
     ##
     # Returns the Version of the CVSS vector.

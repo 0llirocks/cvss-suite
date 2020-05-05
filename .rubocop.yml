@@ -1,7 +1,13 @@
 inherit_from: .rubocop_todo.yml
 
+AllCops:
+  TargetRubyVersion: 2.4
+
 Metrics/LineLength:
   Max: 120
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/AsciiComments:
   Enabled: false
