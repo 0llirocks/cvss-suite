@@ -133,7 +133,9 @@ module CvssSuite
     def calculate_score(modified_impact_sub_score, modified_exploitability_sub_score, temporal_score)
       factor = @modified_scope.selected_choice[:name] == 'Changed' ? 1.08 : 1.0
 
-      ([factor * (modified_impact_sub_score + modified_exploitability_sub_score), 10].min.round_up(1) * temporal_score)
+      Cvss3Helper.round_up(
+        [factor * (modified_impact_sub_score + modified_exploitability_sub_score), 10].min
+      ) * temporal_score
     end
   end
 end
