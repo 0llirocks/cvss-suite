@@ -13,21 +13,18 @@ require_relative 'cvss3_base'
 require_relative 'cvss3_temporal'
 require_relative 'cvss3_environmental'
 
-##
-# This class represents a CVSS vector in version 3.0.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS vector in version 3.0.
   class Cvss3 < Cvss
     ##
     # Returns the Version of the CVSS vector.
-
     def version
       3.0
     end
 
     ##
     # Returns the Base Score of the CVSS vector.
-
     def base_score
       check_validity
       @base.score.round_up(1)
@@ -35,14 +32,12 @@ module CvssSuite
 
     ##
     # Returns the Temporal Score of the CVSS vector.
-
     def temporal_score
       (@base.score.round_up(1) * @temporal.score).round_up(1)
     end
 
     ##
     # Returns the Environmental Score of the CVSS vector.
-
     def environmental_score
       return temporal_score unless @environmental.valid?
 

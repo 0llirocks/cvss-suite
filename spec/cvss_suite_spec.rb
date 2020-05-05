@@ -16,24 +16,24 @@ describe CvssSuite do
   end
 
   it 'is invalid' do
-    expect { CvssSuite.new('Not a valid vector!').version }
+    expect { described_class.new('Not a valid vector!').version }
       .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
   end
 
   it 'is invalid' do
-    expect { CvssSuite.new('Not a valid vector!').version }
+    expect { described_class.new('Not a valid vector!').version }
       .to raise_error(RuntimeError)
   end
 
   it 'is invalid' do
-    expect(CvssSuite.new('Not a valid vector!').valid?).to be false
+    expect(described_class.new('Not a valid vector!').valid?).to be false
   end
 
   it 'is invalid' do
-    expect(CvssSuite.new(1337).valid?).to be false
+    expect(described_class.new(1337).valid?).to be false
   end
 
   it 'is invalid' do
-    expect(CvssSuite.new('CVSS:3.0/').valid?).to be false
+    expect(described_class.new('CVSS:3.0/').valid?).to be false
   end
 end

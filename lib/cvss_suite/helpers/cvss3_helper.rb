@@ -8,10 +8,9 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-##
-# This module includes methods which are used by the CVSS 3 classes.
-
 module CvssSuite
+  ##
+  # This module includes methods which are used by the CVSS 3 classes.
   module Cvss3Helper
     ##
     # Since CVSS 3 the Privilege Required score depends on the selected choice of the Scope metric.

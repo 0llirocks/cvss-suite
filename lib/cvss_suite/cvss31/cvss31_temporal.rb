@@ -11,19 +11,16 @@
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
 
-##
-# This class represents a CVSS Temporal metric in version 3.1.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS Temporal metric in version 3.1.
   class Cvss31Temporal < CvssMetric
     ##
     # Property of this metric
-
     attr_reader :exploit_code_maturity, :remediation_level, :report_confidence
 
     ##
     # Returns score of this metric
-
     def score
       return 1.0 unless valid?
 

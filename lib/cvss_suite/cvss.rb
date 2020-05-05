@@ -8,26 +8,22 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-##
-# This class represents any CVSS vector. Do not instantiate this class!
-
 module CvssSuite
+  ##
+  # This class represents any CVSS vector. Do not instantiate this class!
   class Cvss
     ##
     # Metric of a CVSS vector.
-
     attr_reader :base, :temporal, :environmental
 
     ##
     # Returns the vector itself.
-
     attr_reader :vector
 
     ##
     # Creates a new CVSS vector by a +vector+.
     #
     # Raises an exception if it is called on Cvss class.
-
     def initialize(vector)
       raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.class == Cvss
 
@@ -39,7 +35,6 @@ module CvssSuite
 
     ##
     # Returns if CVSS vector is valid.
-
     def valid?
       if @amount_of_properties == required_amount_of_properties
         base = @base.valid?
@@ -54,7 +49,6 @@ module CvssSuite
 
     ##
     # Returns the severity of the CVSS vector.
-
     def severity
       check_validity
 
@@ -62,13 +56,13 @@ module CvssSuite
 
       if score == 0.0
         'None'
-      elsif (0.1..3.9).include? score
+      elsif (0.1..3.9).cover? score
         'Low'
-      elsif (4.0..6.9).include? score
+      elsif (4.0..6.9).cover? score
         'Medium'
-      elsif (7.0..8.9).include? score
+      elsif (7.0..8.9).cover? score
         'High'
-      elsif (9.0..10.0).include? score
+      elsif (9.0..10.0).cover? score
         'Critical'
       else
         'None'
@@ -77,7 +71,6 @@ module CvssSuite
 
     ##
     # Returns the Overall Score of the CVSS vector.
-
     def overall_score
       check_validity
       return temporal_score if @temporal.valid? && !@environmental.valid?
@@ -115,7 +108,7 @@ module CvssSuite
       total = @base.count if @base.valid?
       total += @temporal.count if @temporal.valid?
       total += @environmental.count if @environmental.valid?
-      total ||= 0
+      total || 0
     end
   end
 end

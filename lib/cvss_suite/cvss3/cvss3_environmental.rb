@@ -12,14 +12,12 @@ require_relative '../cvss_property'
 require_relative '../cvss_metric'
 require_relative '../helpers/cvss3_helper'
 
-##
-# This class represents a CVSS Environmental metric in version 3.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS Environmental metric in version 3.
   class Cvss3Environmental < CvssMetric
     ##
     # Property of this metric
-
     attr_reader :confidentiality_requirement, :integrity_requirement, :availability_requirement,
                 :modified_attack_vector, :modified_attack_complexity, :modified_privileges_required,
                 :modified_user_interaction, :modified_scope, :modified_confidentiality,

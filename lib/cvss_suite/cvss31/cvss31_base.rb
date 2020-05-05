@@ -12,10 +12,9 @@ require_relative '../cvss_property'
 require_relative '../cvss_metric'
 require_relative '../helpers/cvss3_helper'
 
-##
-# This class represents a CVSS Base metric in version 3.1.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS Base metric in version 3.1.
   class Cvss31Base < CvssMetric
     ##
     # Property of this metric
@@ -25,11 +24,11 @@ module CvssSuite
 
     ##
     # Returns score of this metric
-
     def score
       privilege_score = Cvss3Helper.privileges_required_score(@privileges_required, @scope)
 
-      exploitability = 8.22 * @attack_vector.score * @attack_complexity.score * privilege_score * @user_interaction.score
+      exploitability = 8.22 * @attack_vector.score * @attack_complexity.score *
+                       privilege_score * @user_interaction.score
 
       isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
 

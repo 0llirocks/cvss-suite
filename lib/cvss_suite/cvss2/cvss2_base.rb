@@ -11,14 +11,12 @@
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
 
-##
-# This class represents a CVSS Base metric in version 2.
-
 module CvssSuite
+  ##
+  # This class represents a CVSS Base metric in version 2.
   class Cvss2Base < CvssMetric
     ##
     # Property of this metric
-
     attr_reader :access_vector, :access_complexity, :authentication,
                 :confidentiality_impact, :integrity_impact, :availability_impact
 
@@ -27,13 +25,12 @@ module CvssSuite
     # See CVSS documentation for further information https://www.first.org/cvss/v2/guide#i3.2.1 .
     #
     # Takes +Security+ +Requirement+ +Impacts+ for calculating environmental score.
-
     def score(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
       impact = calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
 
       exploitability = calc_exploitability
 
-      additional_impact = (impact == 0 ? 0 : 1.176)
+      additional_impact = (impact.zero? ? 0 : 1.176)
 
       ((0.6 * impact) + (0.4 * exploitability) - 1.5) * additional_impact
     end
