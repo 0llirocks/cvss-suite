@@ -2,6 +2,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.1] - tbd
+
+### Improvements
+* Added CvssSuite module to every class
+* Added rubocop to development environment (thanks to @fwininger)
+
+### Notes
+Adding CvssSuite module everywhere means it’s no longer possible to access a class without it. Since this only affects the undocumented and ‚internal‘ classes this should not affect you. If you’re using them, stop it.
+
+Still works:
+
+```ruby
+cvss = CvssSuite.new('string')
+```
+
+Won’t work anymore (without any code change):
+
+```ruby
+cvss = Cvss31.new('string')
+```
+
+This would need to be CvssSuite::Cvss31.new('string') to work. Or you could include the whole namespace.
+
 ## [1.2.0] - 2019-07-02
 
 ### Notes
