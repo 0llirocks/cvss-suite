@@ -12,7 +12,6 @@ require 'cvss_suite/cvss2/cvss2'
 require 'cvss_suite/cvss3/cvss3'
 require 'cvss_suite/cvss31/cvss31'
 require 'cvss_suite/version'
-require 'cvss_suite/helpers/extensions'
 require 'cvss_suite/errors'
 require 'cvss_suite/invalid_cvss'
 
