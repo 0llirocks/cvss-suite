@@ -66,15 +66,15 @@ overall_score = cvss.overall_score                  # 3.2
 access_vector = cvss.base.access_vector.name                # 'Access Vector'
 remediation_level = cvss.temporal.remediation_level.name    # 'Remediation Level'
 
-access_vector.choices.each do |choice|
-    choice[:name]           # 'Local', 'Adjacent Network', 'Network'
-    choice[:abbreviation]   # 'L', 'A', 'N'
-    choice[:selected]       # false, true, false
+access_vector.values.each do |value|
+    value[:name]           # 'Local', 'Adjacent Network', 'Network'
+    value[:abbreviation]   # 'L', 'A', 'N'
+    value[:selected]       # false, true, false
 end
 
 # Selected options
-cvss.base.access_vector.selected_choice[:name]          # Adjacent Network
-cvss.temporal.remediation_level.selected_choice[:name]  # Temporary Fix
+cvss.base.access_vector.selected_value[:name]          # Adjacent Network
+cvss.temporal.remediation_level.selected_value[:name]  # Temporary Fix
 
 # Exceptions
 

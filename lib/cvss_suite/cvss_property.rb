@@ -17,11 +17,11 @@ module CvssSuite
     #
     # +Property+ needs to consist of a name, a abbreviation,
     # the possible positions in the CVSS vector, a weight, and the
-    # available choices for the property.
+    # available values for the property.
 
     def initialize(property)
       @property = property
-      @property[:default_choice] ||= 'Not Available'
+      @property[:default_value] ||= 'Not Available'
     end
 
     ##
@@ -39,10 +39,10 @@ module CvssSuite
     end
 
     ##
-    # Returns all available choices of the property.
+    # Returns all available values of the property.
 
-    def choices
-      @property[:choices]
+    def values
+      @property[:values]
     end
 
     ##
@@ -53,34 +53,34 @@ module CvssSuite
     end
 
     ##
-    # Returns the selected choice of the property.
+    # Returns the selected value of the property.
 
-    def selected_choice
-      @selected_choice || @property[:default_choice]
+    def selected_value
+      @selected_value || @property[:default_value]
     end
 
     ##
     # Returns true if the property is valid.
 
     def valid?
-      !@selected_choice.nil?
+      !@selected_value.nil?
     end
 
     ##
-    # Returns the score of the selected choice.
+    # Returns the score of the selected value.
 
     def score
-      @selected_choice[:weight]
+      @selected_value[:weight]
     end
 
     ##
-    # Sets the selected choice by a +choice+.
+    # Sets the selected value by a +value+.
 
-    def set_selected_choice(selected_choice)
-      choices.each do |choice|
-        choice[:selected] = selected_choice.eql?(choice[:abbreviation])
+    def set_selected_value(selected_value)
+      values.each do |value|
+        value[:selected] = selected_value.eql?(value[:abbreviation])
       end
-      @selected_choice = choices.detect { |choice| choice[:selected] }
+      @selected_value = values.detect { |value| value[:selected] }
     end
   end
 end

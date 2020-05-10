@@ -17,7 +17,7 @@ module CvssSuite
     def initialize(selected_properties)
       @properties = []
       init_properties
-      extract_selected_choices_from selected_properties
+      extract_selected_values_from selected_properties
     end
 
     ##
@@ -37,12 +37,12 @@ module CvssSuite
 
     private
 
-    def extract_selected_choices_from(selected_properties)
+    def extract_selected_values_from(selected_properties)
       selected_properties.each do |selected_property|
         property = @properties.detect do |p|
           p.abbreviation == selected_property[:name] && p.position.include?(selected_property[:position])
         end
-        property&.set_selected_choice selected_property[:selected]
+        property&.set_selected_value selected_property[:selected]
       end
     end
   end
