@@ -6,13 +6,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        ruby: [ '2.0.x', '2.6.x' ]
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby
+    - name: Set up ${{ matrix.ruby }}
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: [ '2.0.x', '2.6.x' ]
+        ruby-version: ${{ matrix.ruby }}
     - name: Build
       run: |
         gem install bundler -v "~> 1.10"
