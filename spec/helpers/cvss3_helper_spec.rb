@@ -56,11 +56,19 @@ describe CvssSuite::Cvss3Helper do
   end
 
   context 'with long decimal place' do
-    context 'with small part below 5' do
-      let(:float) { 2.1412345678 }
+    context 'round up hundred thousandths .000 01' do
+      let(:float) { 2.00001 }
 
       it 'should roundup by one decimal place' do
-        expect(subject).to be(2.2)
+        expect(subject).to be(2.1)
+      end
+    end
+
+    context 'round up millionth .000 001' do
+      let(:float) { 2.000001 }
+
+      it 'should roundup by one decimal place' do
+        expect(subject).to be(2.1)
       end
     end
   end
