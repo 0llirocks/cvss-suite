@@ -2,13 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.0.0] - tbd
+## [2.0.0] - 2020-05-10
 
 ### Breaking Changes
 * Ruby >= 2.4 is now required
+* Renamed choice/choices to value/values
 
 ### Improvements
-* Added CvssSuite module to every class
+* Added CvssSuite module to every class (thanks to @fwininger)
+* Removed override for integer and float (thanks to @fwininger)
 * Added rubocop to development environment (thanks to @fwininger)
 
 ### Notes
