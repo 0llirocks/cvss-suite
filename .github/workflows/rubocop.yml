@@ -9,13 +9,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.6
+    - name: Set up Ruby 2.7
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.7
     - name: Build
       run: |
-        gem install bundler -v "~> 1.10"
+        gem install bundler -v "=> 1.10"
         gem install rubocop
     - name: Run tests
       run: rubocop -F --fail-level C -f s
