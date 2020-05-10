@@ -9,5 +9,5 @@
 # See the LICENSE.md file in the top-level directory.
 
 module CvssSuite
-  VERSION = '1.2.0'.freeze
+  VERSION = '2.0.0'.freeze
 end
