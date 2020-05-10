@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.2.1] - tbd
+## [1.2.1] - 2020-05-10
 
 ### Improvements
-* Added CvssSuite module to every class
+* Added CvssSuite module to every class (thanks to @fwininger)
+* Removed override for integer and float (thanks to @fwininger)
 * Added rubocop to development environment (thanks to @fwininger)
 
 ### Notes
