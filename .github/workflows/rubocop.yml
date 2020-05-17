@@ -13,9 +13,9 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.7
-    - name: Build
+    - name: Install gems
       run: |
         gem install bundler -v ">= 1.10"
         gem install rubocop
-    - name: Run tests
+    - name: Run checks
       run: rubocop -F --fail-level C -f s
