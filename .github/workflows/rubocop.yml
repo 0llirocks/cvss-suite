@@ -15,7 +15,7 @@ jobs:
         ruby-version: 2.7
     - name: Build
       run: |
-        gem install bundler -v "=> 1.10"
+        gem install bundler -v ">= 1.10"
         gem install rubocop
     - name: Run tests
       run: rubocop -F --fail-level C -f s
