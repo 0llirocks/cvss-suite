@@ -41,33 +41,33 @@ module CvssSuite
       @properties.push(@access_vector =
                          CvssProperty.new(name: 'Access Vector', abbreviation: 'AV', position: [0],
                                           values: [{ name: 'Network', abbreviation: 'N', weight: 1.0 },
-                                                    { name: 'Adjacent Network', abbreviation: 'A', weight: 0.646 },
-                                                    { name: 'Local', abbreviation: 'L', weight: 0.395 }]))
+                                                   { name: 'Adjacent Network', abbreviation: 'A', weight: 0.646 },
+                                                   { name: 'Local', abbreviation: 'L', weight: 0.395 }]))
       @properties.push(@access_complexity =
                          CvssProperty.new(name: 'Access Complexity', abbreviation: 'AC', position: [1],
                                           values: [{ name: 'Low', abbreviation: 'L', weight: 0.71 },
-                                                    { name: 'Medium', abbreviation: 'M', weight: 0.61 },
-                                                    { name: 'High', abbreviation: 'H', weight: 0.35 }]))
+                                                   { name: 'Medium', abbreviation: 'M', weight: 0.61 },
+                                                   { name: 'High', abbreviation: 'H', weight: 0.35 }]))
       @properties.push(@authentication =
                          CvssProperty.new(name: 'Authentication', abbreviation: 'Au', position: [2],
                                           values: [{ name: 'None', abbreviation: 'N', weight: 0.704 },
-                                                    { name: 'Single', abbreviation: 'S', weight: 0.56 },
-                                                    { name: 'Multiple', abbreviation: 'M', weight: 0.45 }]))
+                                                   { name: 'Single', abbreviation: 'S', weight: 0.56 },
+                                                   { name: 'Multiple', abbreviation: 'M', weight: 0.45 }]))
       @properties.push(@confidentiality_impact =
                          CvssProperty.new(name: 'Confidentiality Impact', abbreviation: 'C', position: [3],
                                           values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                    { name: 'Partial', abbreviation: 'P', weight: 0.275 },
-                                                    { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
+                                                   { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                   { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
       @properties.push(@integrity_impact =
                          CvssProperty.new(name: 'Integrity Impact', abbreviation: 'I', position: [4],
                                           values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                    { name: 'Partial', abbreviation: 'P', weight: 0.275 },
-                                                    { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
+                                                   { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                   { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
       @properties.push(@availability_impact =
                          CvssProperty.new(name: 'Availability Impact', abbreviation: 'A', position: [5],
                                           values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                    { name: 'Partial', abbreviation: 'P', weight: 0.275 },
-                                                    { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
+                                                   { name: 'Partial', abbreviation: 'P', weight: 0.275 },
+                                                   { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
     end
 
     def calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
