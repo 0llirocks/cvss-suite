@@ -36,5 +36,5 @@ Besides calculating the Base, Temporal and Environmental Score, you are able to 
   spec.add_development_dependency 'bundler', '>= 1.10'
   spec.add_development_dependency 'rspec', '~> 3.4'
   spec.add_development_dependency 'rspec-its', '~> 1.2'
-  spec.add_development_dependency 'simplecov', '~> 0.11'
+  spec.add_development_dependency 'simplecov', '~> 0.18'
 end
