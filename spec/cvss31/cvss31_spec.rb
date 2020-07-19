@@ -22,6 +22,12 @@ describe CvssSuite::Cvss31 do
   let(:valid_cvss31_temporal_environmental) do
     CvssSuite.new('CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/E:P/RL:W/RC:R/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:C/MC:N/MI:L/MA:H') # rubocop:disable Layout/LineLength
   end
+  let(:valid_cvss31_temporal_environmental_partly_not_defined) do
+    CvssSuite.new('CVSS:3.1/AV:P/AC:L/PR:H/UI:N/S:C/C:N/I:L/A:H/E:X/RL:T/RC:C/CR:M/IR:L/AR:H/MAV:P/MAC:L/MPR:L/MUI:X/MS:U/MC:N/MI:X/MA:H') # rubocop:disable Layout/LineLength
+  end
+  let(:valid_cvss31_temporal_environmental_not_defined) do
+    CvssSuite.new('CVSS:3.1/AV:P/AC:L/PR:H/UI:N/S:C/C:N/I:L/A:H/E:X/RL:T/RC:C/CR:M/IR:L/AR:H/MAV:X/MAC:X/MPR:X/MUI:X/MS:X/MC:X/MI:X/MA:X') # rubocop:disable Layout/LineLength
+  end
   let(:valid_cvss31_temporal_environmental_modified_confidentiality_low) do
     CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:L/MI:H/MA:H') # rubocop:disable Layout/LineLength
   end
@@ -29,6 +35,7 @@ describe CvssSuite::Cvss31 do
     CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:H/MI:H/MA:H') # rubocop:disable Layout/LineLength
   end
   let(:invalid_cvss31_with_version) { CvssSuite.new('CVSS:3.1/AV:L/AC:') }
+  let(:invalid_cvss31_not_defined) { CvssSuite.new('CVSS:3.1/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }
 
   describe 'valid cvss31' do
     subject { valid_cvss31 }
@@ -72,6 +79,18 @@ describe CvssSuite::Cvss31 do
     it_should_behave_like 'a valid cvss vector', 3.1, 5.0, 4.4, 7.4, 7.4, 'High'
   end
 
+  describe 'valid cvss31 with temporal and environmental and partly not defined' do
+    subject { valid_cvss31_temporal_environmental_partly_not_defined }
+
+    it_behaves_like 'a valid cvss vector', 3.1, 5.7, 5.5, 6.0, 6.0, 'Medium'
+  end
+
+  describe 'valid cvss31 with temporal and environmental and not defined' do
+    subject { valid_cvss31_temporal_environmental_not_defined }
+
+    it_behaves_like 'a valid cvss vector', 3.1, 5.7, 5.5, 6.9, 6.9, 'Medium'
+  end
+
   describe 'valid cvss31 with temporal and environmental and modified confidentiality low' do
     subject { valid_cvss31_temporal_environmental_modified_confidentiality_low }
 
@@ -88,5 +107,11 @@ describe CvssSuite::Cvss31 do
     subject { invalid_cvss31_with_version }
 
     it_should_behave_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with not defined' do
+    subject { invalid_cvss31_not_defined }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
   end
 end

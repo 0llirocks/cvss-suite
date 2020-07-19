@@ -28,9 +28,20 @@ module CvssSuite
 
     ##
     # Returns score of this metric
+    def score(base, temporal)
+      @base = base
 
-    def score(temporal_score)
-      privilege_score = Cvss3Helper.privileges_required_score(@modified_privileges_required, @modified_scope)
+      merged_modified_privileges_required = @modified_privileges_required
+      if @modified_privileges_required.selected_choice[:name] == 'Not Defined'
+        merged_modified_privileges_required = @base.privileges_required
+      end
+
+      merged_modified_scope = @modified_scope
+      if @modified_scope.selected_choice[:name] == 'Not Defined'
+        merged_modified_scope = @base.scope
+      end
+
+      privilege_score = Cvss3Helper.privileges_required_score(merged_modified_privileges_required, merged_modified_scope)
 
       modified_exploitability_sub_score = modified_exploitability_sub(privilege_score)
 
@@ -38,7 +49,7 @@ module CvssSuite
 
       return 0 if modified_impact_sub_score <= 0
 
-      calculate_score modified_impact_sub_score, modified_exploitability_sub_score, temporal_score
+      calculate_score modified_impact_sub_score, modified_exploitability_sub_score, temporal.score
     end
 
     private
@@ -89,7 +100,8 @@ module CvssSuite
       @properties.push(@modified_scope =
                          CvssProperty.new(name: 'Modified Scope', abbreviation: 'MS', position: [15, 18],
                                           choices: [{ name: 'Changed', abbreviation: 'C' },
-                                                    { name: 'Unchanged', abbreviation: 'U' }]))
+                                                    { name: 'Unchanged', abbreviation: 'U' },
+                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@modified_confidentiality =
                          CvssProperty.new(name: 'Modified Confidentiality', abbreviation: 'MC', position: [16, 19],
                                           choices: [{ name: 'None', abbreviation: 'N', weight: 0 },
@@ -111,6 +123,14 @@ module CvssSuite
     end
 
     def modified_impact_sub(isc_modified)
+      if @modified_scope.selected_choice[:name] == 'Not Defined'
+        if @base.scope.selected_choice[:name] == 'Changed'
+          return 7.52 * (isc_modified - 0.029) - 3.25 * (isc_modified * 0.9731 - 0.02)**13
+        else
+          return 6.42 * isc_modified
+        end
+      end
+
       if @modified_scope.selected_choice[:name] == 'Changed'
         7.52 * (isc_modified - 0.029) - 3.25 * (isc_modified * 0.9731 - 0.02)**13
       else
@@ -119,20 +139,54 @@ module CvssSuite
     end
 
     def isc_modified
-      confidentiality_score = 1 - @modified_confidentiality.score * @confidentiality_requirement.score
-      integrity_score = 1 - @modified_integrity.score * @integrity_requirement.score
-      availability_score = 1 - @modified_availability.score * @availability_requirement.score
+      merged_modified_confidentiality = @modified_confidentiality
+      if @modified_confidentiality.selected_choice[:name] == 'Not Defined'
+        merged_modified_confidentiality = @base.confidentiality
+      end
+
+      merged_modified_integrity = @modified_integrity
+      if @modified_integrity.selected_choice[:name] == 'Not Defined'
+        merged_modified_integrity = @base.integrity
+      end
+
+      merged_modified_availability = @modified_availability
+      if @modified_availability.selected_choice[:name] == 'Not Defined'
+        merged_modified_availability = @base.availability
+      end
+
+      confidentiality_score = 1 - merged_modified_confidentiality.score * @confidentiality_requirement.score
+      integrity_score = 1 - merged_modified_integrity.score * @integrity_requirement.score
+      availability_score = 1 - merged_modified_availability.score * @availability_requirement.score
 
       [0.915, (1 - confidentiality_score * integrity_score * availability_score)].min
     end
 
     def modified_exploitability_sub(privilege_score)
-      8.22 * @modified_attack_vector.score * @modified_attack_complexity.score *
-        privilege_score * @modified_user_interaction.score
+      merged_modified_attack_vector = @modified_attack_vector
+      if @modified_attack_vector.selected_choice[:name] == 'Not Defined'
+        merged_modified_attack_vector = @base.attack_vector
+      end
+
+      merged_modified_attack_complexity = @modified_attack_complexity
+      if @modified_attack_complexity.selected_choice[:name] == 'Not Defined'
+        merged_modified_attack_complexity = @base.attack_complexity
+      end
+
+      merged_modified_user_interaction = @modified_user_interaction
+      if @modified_user_interaction.selected_choice[:name] == 'Not Defined'
+        merged_modified_user_interaction = @base.user_interaction
+      end
+
+      8.22 * merged_modified_attack_vector.score * merged_modified_attack_complexity.score *
+        privilege_score * merged_modified_user_interaction.score
     end
 
     def calculate_score(modified_impact_sub_score, modified_exploitability_sub_score, temporal_score)
-      factor = @modified_scope.selected_choice[:name] == 'Changed' ? 1.08 : 1.0
+      if @modified_scope.selected_choice[:name] == 'Not Defined'
+        factor = @base.scope.selected_choice[:name] == 'Changed' ? 1.08 : 1.0
+      else
+        factor = @modified_scope.selected_choice[:name] == 'Changed' ? 1.08 : 1.0
+      end
 
       Cvss31Helper.round_up(
         [factor * (modified_impact_sub_score + modified_exploitability_sub_score), 10].min
