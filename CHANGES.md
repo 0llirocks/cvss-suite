@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.2] - 2020-07-19
+
+### Fixes
+Fixed an error that resulted in incorrect environmental score if modified attributes were not defined.
+
 ## [1.2.1] - 2020-05-10
 
 ### Improvements

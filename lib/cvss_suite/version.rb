@@ -9,5 +9,5 @@
 # See the LICENSE.md file in the top-level directory.
 
 module CvssSuite
-  VERSION = '1.2.1'
+  VERSION = '1.2.2'
 end
