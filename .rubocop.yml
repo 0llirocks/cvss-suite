@@ -5,6 +5,39 @@ AllCops:
 
 Metrics/LineLength:
   Max: 120
+  Exclude:
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/cvss3/cvss3_spec.rb'
+    - 'spec/cvss31/cvss31_spec.rb'
+
+Style/IfUnlessModifier:
+  Exclude:
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+
+Style/GuardClause:
+  Exclude:
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+
+Style/ConditionalAssignment:
+  Exclude:
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
 
 Style/FrozenStringLiteralComment:
   Enabled: false

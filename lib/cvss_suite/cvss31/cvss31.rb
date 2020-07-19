@@ -46,7 +46,7 @@ module CvssSuite
     def environmental_score
       return temporal_score unless @environmental.valid?
 
-      Cvss31Helper.round_up(@environmental.score(@temporal.score))
+      Cvss31Helper.round_up(@environmental.score(@base, @temporal))
     end
 
     private
