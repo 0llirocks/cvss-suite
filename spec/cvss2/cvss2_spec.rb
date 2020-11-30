@@ -64,7 +64,6 @@ describe CvssSuite::Cvss2 do
     end
   end
 
-
   # v2 Severity Med: 4.0 - 6.9
   describe 'valid cvss2_severity_med' do
     [

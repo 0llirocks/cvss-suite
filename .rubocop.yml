@@ -21,6 +21,7 @@ Metrics/MethodLength:
 
 Metrics/BlockLength:
   Exclude:
+    - 'spec/cvss2/cvss2_spec.rb'
     - 'spec/cvss3/cvss3_spec.rb'
     - 'spec/cvss31/cvss31_spec.rb'
 
