@@ -16,7 +16,7 @@ describe CvssSuite::Cvss2 do
   let(:valid_cvss2_temporal) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:valid_cvss2_temporal_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C)') }
   let(:valid_cvss2_environmental) { CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M') }
-  let(:valid_cvss2_environmental_parenthesis) do 
+  let(:valid_cvss2_environmental_parenthesis) do
     CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M)')
   end
   let(:valid_cvss2_temporal_environmental) do

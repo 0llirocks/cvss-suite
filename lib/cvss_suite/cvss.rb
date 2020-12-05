@@ -25,7 +25,7 @@ module CvssSuite
     #
     # Raises an exception if it is called on Cvss class.
     def initialize(vector)
-      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.instance_of? Cvss
+      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? Cvss
 
       @vector = vector
       @properties = []
@@ -99,19 +99,17 @@ module CvssSuite
 
       if start_of_vector.nil?
         ''
-      else
-        if start_of_vector == 1
-          matchArray =  @vector.scan(/\((?>[^)(]+|\g<0>)*\)/)
-          if matchArray.length == 1 && matchArray[0] == @vector
-            @vector.slice!(0)
-            @vector.slice!(@vector.length - 1)
-            @vector
-          else
-              ''
-          end
-        else          
-          @vector[start_of_vector..-1]
+      elsif start_of_vector == 1
+        match_array = @vector.scan(/\((?>[^)(]+|\g<0>)*\)/)
+        if match_array.length == 1 && match_array[0] == @vector
+          @vector.slice!(0)
+          @vector.slice!(@vector.length - 1)
+          @vector
+        else
+          ''
         end
+      else
+        @vector[start_of_vector..-1]
       end
     end
 
