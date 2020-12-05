@@ -1,6 +1,6 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) Siemens AG, 2016
+# Copyright (c) Siemens AG, 2020
 #
 # Authors:
 #   Oliver Hambörger <oliver.hamboerger@siemens.com>
@@ -12,15 +12,30 @@ require_relative '../spec_helper'
 
 describe CvssSuite::Cvss2 do
   let(:valid_cvss2) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P') }
+  let(:valid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P)') }
   let(:valid_cvss2_temporal) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
+  let(:valid_cvss2_temporal_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C)') }
   let(:valid_cvss2_environmental) { CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M') }
+  let(:valid_cvss2_environmental_parenthesis) do 
+    CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M)')
+  end
   let(:valid_cvss2_temporal_environmental) do
     CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
   end
+  let(:valid_cvss2_temporal_environmental_parenthesis) do
+    CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M)')
+  end
   let(:invalid_cvss2) { CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C') }
+  let(:invalid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P') }
 
   describe 'valid cvss2' do
     subject { valid_cvss2 }
+
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 7.5, 7.5, 7.5, 'High'
+  end
+
+  describe 'valid cvss2 enclosed with parenthesis' do
+    subject { valid_cvss2_parenthesis }
 
     it_behaves_like 'a valid cvss vector', 2, 7.5, 7.5, 7.5, 7.5, 'High'
   end
@@ -31,8 +46,20 @@ describe CvssSuite::Cvss2 do
     it_behaves_like 'a valid cvss vector', 2, 7.5, 5.5, 5.5, 5.5, 'Medium'
   end
 
+  describe 'valid cvss2 with temporal enclosed with parenthesis' do
+    subject { valid_cvss2_temporal_parenthesis }
+
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 5.5, 5.5, 5.5, 'Medium'
+  end
+
   describe 'valid cvss2 with environmental' do
     subject { valid_cvss2_environmental }
+
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 4.9, 4.1, 4.1, 'Medium'
+  end
+
+  describe 'valid cvss2 with environmental enclosed with parenthesis' do
+    subject { valid_cvss2_environmental_parenthesis }
 
     it_behaves_like 'a valid cvss vector', 2, 4.9, 4.9, 4.1, 4.1, 'Medium'
   end
@@ -43,8 +70,20 @@ describe CvssSuite::Cvss2 do
     it_behaves_like 'a valid cvss vector', 2, 4.9, 3.6, 3.2, 3.2, 'Low'
   end
 
+  describe 'valid cvss2 with temporal and environmental enclosed with parenthesis' do
+    subject { valid_cvss2_temporal_environmental_parenthesis }
+
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 3.6, 3.2, 3.2, 'Low'
+  end
+
   describe 'invalid cvss2' do
     subject { invalid_cvss2 }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with missing closing parenthesis' do
+    subject { invalid_cvss2_parenthesis }
 
     it_behaves_like 'a invalid cvss vector with version', 2
   end
