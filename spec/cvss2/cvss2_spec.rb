@@ -26,7 +26,8 @@ describe CvssSuite::Cvss2 do
     CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M)')
   end
   let(:invalid_cvss2) { CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C') }
-  let(:invalid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P') }
+  let(:invalid_cvss2_parenthesis_closed) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P') }
+  let(:invalid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N()/C:P/I:P/A:P') }
 
   describe 'valid cvss2' do
     subject { valid_cvss2 }
@@ -83,6 +84,12 @@ describe CvssSuite::Cvss2 do
   end
 
   describe 'invalid cvss2 with missing closing parenthesis' do
+    subject { invalid_cvss2_parenthesis_closed }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with incorrect parenthesis' do
     subject { invalid_cvss2_parenthesis }
 
     it_behaves_like 'a invalid cvss vector with version', 2
