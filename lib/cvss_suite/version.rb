@@ -1,6 +1,6 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) Siemens AG, 2019
+# Copyright (c) Siemens AG, 2020
 #
 # Authors:
 #   Oliver Hambörger <oliver.hamboerger@siemens.com>
@@ -9,5 +9,5 @@
 # See the LICENSE.md file in the top-level directory.
 
 module CvssSuite
-  VERSION = '2.0.1'.freeze
+  VERSION = '2.0.2'.freeze
 end
