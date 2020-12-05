@@ -25,6 +25,24 @@ module CvssSuite
       2
     end
 
+    # Returns the severity of the CVSSv2 vector.
+    # https://nvd.nist.gov/vuln-metrics/cvss
+    def severity
+      check_validity
+
+      score = overall_score
+
+      if (0.0..3.9).include? score
+        'Low'
+      elsif (4.0..6.9).include? score
+        'Medium'
+      elsif (7.0..10.0).include? score
+        'High'
+      else
+        'None'
+      end
+    end
+
     ##
     # Returns the Base Score of the CVSS vector.
 

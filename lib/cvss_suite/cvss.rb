@@ -107,7 +107,18 @@ module CvssSuite
       if start_of_vector.nil?
         ''
       else
-        @vector[start_of_vector..-1]
+        if start_of_vector == 1
+          matchArray =  @vector.scan(/\((?>[^)(]+|\g<0>)*\)/)
+          if matchArray.length == 1 && matchArray[0] == @vector
+            @vector.slice!(0)
+            @vector.slice!(@vector.length - 1)
+            @vector
+          else
+              ''
+          end
+        else          
+          @vector[start_of_vector..-1]
+        end
       end
     end
 
