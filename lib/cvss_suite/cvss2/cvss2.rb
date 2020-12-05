@@ -30,11 +30,12 @@ module CvssSuite
 
       score = overall_score
 
-      if (0.0..3.9).cover? score
+      case score
+      when 0.0..3.9
         'Low'
-      elsif (4.0..6.9).cover? score
+      when 4.0..6.9
         'Medium'
-      elsif (7.0..10.0).cover? score
+      when 7.0..10.0
         'High'
       else
         'None'

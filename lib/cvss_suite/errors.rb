@@ -19,10 +19,12 @@ module CvssSuite
 
       def initialize(message)
         @message = message
+        super
       end
     end
 
     class InvalidVector < RuntimeError; end
+
     class InvalidParentClass < ArgumentError; end
   end
 end

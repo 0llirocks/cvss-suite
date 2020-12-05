@@ -25,7 +25,7 @@ module CvssSuite
     #
     # Raises an exception if it is called on Cvss class.
     def initialize(vector)
-      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.class == Cvss
+      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if self.instance_of? Cvss
 
       @vector = vector
       @properties = []
@@ -54,7 +54,7 @@ module CvssSuite
 
       score = overall_score
 
-      if score == 0.0
+      if score <= 0.0
         'None'
       elsif (0.1..3.9).cover? score
         'Low'

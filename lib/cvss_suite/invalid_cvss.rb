@@ -12,9 +12,11 @@ module CvssSuite
   ##
   # This class represents a invalid CVSS vector.
   class InvalidCvss < Cvss
+    # rubocop:disable Lint/MissingSuper
     ##
     # Creates a new invalid CVSS vector.
     def initialize; end
+    # rubocop:enable Lint/MissingSuper
 
     ##
     # Since this is an invalid CVSS vector, it always returns false.
