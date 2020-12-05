@@ -26,6 +26,8 @@ Gem::Specification.new do |spec|
 Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.'
   spec.homepage      = 'https://siemens.github.io/cvss-suite/'
 
+  spec.post_install_message = 'Version 1.x of this gem is no longer supported, please update to a supported version.'
+
   spec.required_ruby_version = '>= 2.0.0'
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
