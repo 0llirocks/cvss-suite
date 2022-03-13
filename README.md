@@ -25,6 +25,10 @@ And then execute:
 Or install it yourself as:
 
     $ gem install cvss-suite
+
+## Version 2.x
+
+If you are still using CvssSuite 2.x please refer to the [specific branch](https://github.com/0llirocks/cvss-suite/tree/2.x) for documentation and changelog.
     
 ## Version 1.x
 

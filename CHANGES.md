@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2022-03-13
+
+### Breaking Changes
+* Ruby >= 2.6 is now required
+
+### Notes
+* Moved repository to its new home
+
 ## [2.0.2] - 2020-12-05
 
 ### Fixes
