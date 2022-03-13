@@ -24,7 +24,14 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Ruby gem for processing cvss vectors.'
   spec.description   = 'This Ruby gem helps you to process the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).
 Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.'
-  spec.homepage      = 'https://cvss-suite.0lli.rocks'
+
+  spec.metadata = {
+    'bug_tracker_uri'   => 'https://github.com/0llirocks/cvss-suite/issues',
+    'changelog_uri'     => 'https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/cvss-suite/' + CvssSuite::VERSION,
+    'homepage_uri'      => 'https://cvss-suite.0lli.rocks',
+    'source_code_uri'   => 'https://github.com/0llirocks/cvss-suite'
+  }
 
   spec.required_ruby_version = '>= 2.6.0'
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }

@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.1] - 2022-03-13
+
+### Notes
+* Updated specification reference due to [Removing the edit linkset form](https://blog.rubygems.org/2019/03/08/and-then-there-was-one-metadata-links.html) and [Unable to edit gem online](https://github.com/rubygems/rubygems.org/issues/1899)
+
 ## [3.0.0] - 2022-03-13
 
 ### Breaking Changes
