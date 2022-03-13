@@ -1,7 +1,7 @@
 # CvssSuite for Ruby
 
 [![Gem Version](http://img.shields.io/gem/v/cvss-suite.svg)](https://rubygems.org/gems/cvss-suite)
-[![Ruby Version](https://img.shields.io/badge/Ruby-2.4-brightgreen.svg)](https://rubygems.org/gems/cvss-suite)
+[![Ruby Version](https://img.shields.io/badge/Ruby-2.6-brightgreen.svg)](https://rubygems.org/gems/cvss-suite)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v2-brightgreen.svg)](https://www.first.org/cvss/v2/guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.0-brightgreen.svg)](https://www.first.org/cvss/v3.0/user-guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.1-brightgreen.svg)](https://www.first.org/cvss/v3.1/user-guide)

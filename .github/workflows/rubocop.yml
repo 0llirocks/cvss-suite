@@ -9,14 +9,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby 2.4
+    - name: Set up Ruby 2.6
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.4
+        ruby-version: 2.6
     - name: Install gems
       run: |
         gem update --system
         gem install bundler -v ">= 1.10"
-        gem install rubocop -v "1.12"
+        gem install rubocop
     - name: Run checks
       run: rubocop -F --fail-level C -f s
