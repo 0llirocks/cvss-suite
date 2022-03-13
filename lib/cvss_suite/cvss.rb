@@ -110,7 +110,7 @@ module CvssSuite
           ''
         end
       else
-        @vector[start_of_vector..-1]
+        @vector[start_of_vector..]
       end
     end
 
