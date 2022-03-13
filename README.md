@@ -5,7 +5,7 @@
 [![Cvss Support](https://img.shields.io/badge/CVSS-v2-brightgreen.svg)](https://www.first.org/cvss/v2/guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.0-brightgreen.svg)](https://www.first.org/cvss/v3.0/user-guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.1-brightgreen.svg)](https://www.first.org/cvss/v3.1/user-guide)
-[![RSpec](https://github.com/siemens/cvss-suite/workflows/RSpec/badge.svg)](https://github.com/siemens/cvss-suite/actions)
+[![RSpec](https://github.com/0llirocks/cvss-suite/workflows/RSpec/badge.svg)](https://github.com/0llirocks/cvss-suite/actions)
 
 This Ruby gem helps you to process the vector of the [**Common Vulnerability Scoring System**](https://www.first.org/cvss/specification-document).
 Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.
@@ -28,7 +28,7 @@ Or install it yourself as:
     
 ## Version 1.x
 
-If you are still using CvssSuite 1.x please refer to the [specific branch](https://github.com/siemens/cvss-suite/tree/1.x) for documentation and changelog.
+If you are still using CvssSuite 1.x please refer to the [specific branch](https://github.com/0llirocks/cvss-suite/tree/1.x) for documentation and changelog.
 
 ## Usage
 
@@ -108,11 +108,11 @@ There is a possibility of implementations generating different scores (+/- 0,1) 
 
 ## Changelog
 
-[Click here to see all changes.](https://github.com/siemens/cvss-suite/blob/master/CHANGES.md)
+[Click here to see all changes.](https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/siemens/cvss-suite. This project is intended to be a safe, welcoming space for collaboration.
+Bug reports and pull requests are welcome on GitHub at https://github.com/0llirocks/cvss-suite. This project is intended to be a safe, welcoming space for collaboration.
 
 ## References
-[CvssSuite for .NET](https://github.com/oliverhamboerger/CvssSuite)
+[CvssSuite for .NET](https://cvsssuite.0lli.rocks)

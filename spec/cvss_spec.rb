@@ -1,6 +1,7 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) Siemens AG, 2016
+# Copyright (c) 2016-2022 Siemens AG
+# Copyright (c) 2022 0llirocks
 #
 # Authors:
 #   Adam David <adamrdavid@gmail.com>
