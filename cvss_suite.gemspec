@@ -1,9 +1,10 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) Siemens AG, 2016
+# Copyright (c) 2016-2022 Siemens AG
+# Copyright (c) 2022 0llirocks
 #
 # Authors:
-#   Oliver Hambörger <oliver.hamboerger@siemens.com>
+#   0llirocks <http://0lli.rocks>
 #
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
@@ -18,15 +19,21 @@ Gem::Specification.new do |spec|
   spec.name          = 'cvss-suite'
   spec.version       = CvssSuite::VERSION
   spec.license       = 'MIT'
-  spec.authors       = ['Oliver Hamboerger']
-  spec.email         = ['oliver.hamboerger@siemens.com']
+  spec.authors       = ['0llirocks']
 
   spec.summary       = 'Ruby gem for processing cvss vectors.'
   spec.description   = 'This Ruby gem helps you to process the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).
 Besides calculating the Base, Temporal and Environmental Score, you are able to extract the selected option.'
-  spec.homepage      = 'https://siemens.github.io/cvss-suite/'
 
-  spec.required_ruby_version = '>= 2.4.0'
+  spec.metadata = {
+    'bug_tracker_uri' => 'https://github.com/0llirocks/cvss-suite/issues',
+    'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md',
+    'documentation_uri' => "https://www.rubydoc.info/gems/cvss-suite/#{CvssSuite::VERSION}",
+    'homepage_uri' => 'https://cvss-suite.0lli.rocks',
+    'source_code_uri' => 'https://github.com/0llirocks/cvss-suite'
+  }
+
+  spec.required_ruby_version = '>= 2.6.0'
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
