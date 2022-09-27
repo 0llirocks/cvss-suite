@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.0] - 2022-09-27
+
+### Fixes
+* Metrics are no longer order-dependent. Fixes [#30](https://github.com/0llirocks/cvss-suite/issues/30)
+
+### Improvements
+* Temporal and Environmental metrics can now be partly omitted instead of setting them to X.
+
 ## [3.0.1] - 2022-03-13
 
 ### Notes
