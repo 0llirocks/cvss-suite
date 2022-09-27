@@ -54,32 +54,35 @@ module CvssSuite
 
   def self.prepare_vector(vector)
     vector = vector.clone
-    if(version == 2)
-      start_of_vector = vector.index('AV')
 
-      if start_of_vector.nil?
-        ''
-      elsif start_of_vector == 1
-        match_array = vector.scan(/\((?>[^)(]+|\g<0>)*\)/)
-        if match_array.length == 1 && match_array[0] == vector
-          vector.slice!(0)
-          vector.slice!(vector.length - 1)
-          vector
-        else
-          ''
-        end
+    return prepare_cvss2_vector(vector) if version == 2
+
+    version_string = CVSS_VECTOR_BEGINNINGS.detect { |v| v[:version] == version } [:string]
+    start_of_vector = vector.index(version_string)
+
+    if start_of_vector.nil?
+      ''
+    else
+      vector[version_string.length..]
+    end
+  end
+
+  def self.prepare_cvss2_vector(vector)
+    start_of_vector = vector.index('AV')
+
+    if start_of_vector.nil?
+      ''
+    elsif start_of_vector == 1
+      match_array = vector.scan(/\((?>[^)(]+|\g<0>)*\)/)
+      if match_array.length == 1 && match_array[0] == vector
+        vector.slice!(0)
+        vector.slice!(vector.length - 1)
+        vector
       else
-        vector[start_of_vector..]
+        ''
       end
     else
-      version_string = CVSS_VECTOR_BEGINNINGS.detect{ |v| v[:version] == version}[:string]
-      start_of_vector = vector.index(version_string)
-
-      if start_of_vector.nil?
-        ''
-      else
-        vector[version_string.length..]
-      end
+      vector[start_of_vector..]
     end
   end
 end
