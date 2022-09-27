@@ -13,12 +13,17 @@ require_relative '../spec_helper'
 
 describe CvssSuite::Cvss3 do
   let(:valid_cvss3) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L') }
+  let(:valid_reordered_cvss3) { CvssSuite.new('CVSS:3.0/A:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/AV:L') }
   let(:valid_cvss3_base_score10) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:O/RC:C') }
   let(:valid_cvss3_temporal_score10) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H/RL:U/RC:C') }
   let(:valid_cvss3_temporal_round_up) { CvssSuite.new('CVSS:3.0/AV:P/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:H/E:H/RL:U/RC:U') }
   let(:valid_cvss3_temporal) { CvssSuite.new('CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/RC:C') }
+  let(:valid_reordered_cvss3_temporal) { CvssSuite.new('CVSS:3.0/RC:C/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/AV:N') }
   let(:valid_cvss3_environmental) do
     CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H') # rubocop:disable Layout/LineLength
+  end
+  let(:valid_reordered_cvss3_environmental) do
+    CvssSuite.new('CVSS:3.0/MA:H/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/AV:L') # rubocop:disable Layout/LineLength
   end
   let(:valid_cvss3_temporal_environmental) do
     CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/E:P/RL:W/RC:R/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:C/MC:N/MI:L/MA:H') # rubocop:disable Layout/LineLength
@@ -40,6 +45,12 @@ describe CvssSuite::Cvss3 do
 
   describe 'valid cvss3' do
     subject { valid_cvss3 }
+
+    it_behaves_like 'a valid cvss vector', 3.0, 4.2, 4.2, 4.2, 4.2, 'Medium'
+  end
+
+  describe 'valid reordered cvss3' do
+    subject { valid_reordered_cvss3 }
 
     it_behaves_like 'a valid cvss vector', 3.0, 4.2, 4.2, 4.2, 4.2, 'Medium'
   end
@@ -68,8 +79,20 @@ describe CvssSuite::Cvss3 do
     it_behaves_like 'a valid cvss vector', 3.0, 4.0, 3.7, 3.7, 3.7, 'Low'
   end
 
+  describe 'valid reordered cvss3 with temporal' do
+    subject { valid_reordered_cvss3_temporal }
+
+    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 3.7, 3.7, 3.7, 'Low'
+  end
+
   describe 'valid cvss3 with environmental' do
     subject { valid_cvss3_environmental }
+
+    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 5.0, 7.3, 7.3, 'High'
+  end
+
+  describe 'valid reordered cvss3 with environmental' do
+    subject { valid_reordered_cvss3_environmental }
 
     it_behaves_like 'a valid cvss vector', 3.0, 5.0, 5.0, 7.3, 7.3, 'High'
   end

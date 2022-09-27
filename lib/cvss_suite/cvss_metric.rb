@@ -41,7 +41,7 @@ module CvssSuite
     def extract_selected_values_from(selected_properties)
       selected_properties.each do |selected_property|
         property = @properties.detect do |p|
-          p.abbreviation == selected_property[:name] && p.position.include?(selected_property[:position])
+          p.abbreviation == selected_property[:name] && (p.position&.include?(selected_property[:position]) || p.position.nil?)
         end
         property&.set_selected_value selected_property[:selected]
       end

@@ -83,7 +83,7 @@ module CvssSuite
     private
 
     def extract_metrics
-      properties = prepared_vector.split('/')
+      properties = @vector.split('/')
       @amount_of_properties = properties.size
       properties.each_with_index do |property, index|
         property = property.split(':')
@@ -93,25 +93,6 @@ module CvssSuite
 
     def check_validity
       raise CvssSuite::Errors::InvalidVector, 'Vector is not valid!' unless valid?
-    end
-
-    def prepared_vector
-      start_of_vector = @vector.index('AV')
-
-      if start_of_vector.nil?
-        ''
-      elsif start_of_vector == 1
-        match_array = @vector.scan(/\((?>[^)(]+|\g<0>)*\)/)
-        if match_array.length == 1 && match_array[0] == @vector
-          @vector.slice!(0)
-          @vector.slice!(@vector.length - 1)
-          @vector
-        else
-          ''
-        end
-      else
-        @vector[start_of_vector..]
-      end
     end
 
     def required_amount_of_properties
