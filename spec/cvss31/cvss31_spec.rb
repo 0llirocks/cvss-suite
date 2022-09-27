@@ -18,6 +18,7 @@ describe CvssSuite::Cvss31 do
   let(:valid_cvss31_temporal_score10) { CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H/RL:U/RC:C') }
   let(:valid_cvss31_temporal_round_up) { CvssSuite.new('CVSS:3.1/AV:P/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:H/E:H/RL:U/RC:U') }
   let(:valid_cvss31_temporal) { CvssSuite.new('CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/RC:C') }
+  let(:valid_incomplete_cvss31_temporal) { CvssSuite.new('CVSS:3.1/RC:C/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/RL:T/AV:N') }
   let(:valid_reordered_cvss31_temporal) { CvssSuite.new('CVSS:3.1/RC:C/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/AV:N') }
   let(:valid_cvss31_environmental) do
     CvssSuite.new('CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H') # rubocop:disable Layout/LineLength
@@ -42,6 +43,8 @@ describe CvssSuite::Cvss31 do
   end
   let(:invalid_cvss31_with_version) { CvssSuite.new('CVSS:3.1/AV:L/AC:') }
   let(:invalid_cvss31_not_defined) { CvssSuite.new('CVSS:3.1/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }
+  let(:invalid_cvss31_missing_metric) { CvssSuite.new('CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L') }
+  let(:invalid_cvss31_multiple_metrics) { CvssSuite.new('CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L/A:L') }
 
   describe 'valid cvss31' do
     subject { valid_cvss31 }
@@ -77,6 +80,12 @@ describe CvssSuite::Cvss31 do
     subject { valid_cvss31_temporal }
 
     it_behaves_like 'a valid cvss vector', 3.1, 4.0, 3.7, 3.7, 3.7, 'Low'
+  end
+
+  describe 'valid incomplete cvss31 with temporal' do
+    subject { valid_incomplete_cvss31_temporal }
+
+    it_behaves_like 'a valid cvss vector', 3.1, 4.0, 3.9, 3.9, 3.9, 'Low'
   end
 
   describe 'valid reordered cvss31 with temporal' do
@@ -135,6 +144,18 @@ describe CvssSuite::Cvss31 do
 
   describe 'invalid cvss31 with not defined' do
     subject { invalid_cvss31_not_defined }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with missing base metric' do
+    subject { invalid_cvss31_missing_metric }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with multiple base metrics' do
+    subject { invalid_cvss31_multiple_metrics }
 
     it_behaves_like 'a invalid cvss vector with version', 3.1
   end

@@ -22,7 +22,7 @@ module CvssSuite
 
     def initialize(property)
       @property = property
-      @property[:default_value] ||= 'Not Available'
+      @property[:default_value] ||= 'Not Defined'
     end
 
     ##
@@ -82,6 +82,18 @@ module CvssSuite
         value[:selected] = selected_value.eql?(value[:abbreviation])
       end
       @selected_value = values.detect { |value| value[:selected] }
+    end
+
+    ##
+    # Sets the default value.
+
+    def set_default_value
+      values.each do |value|
+        value[:selected] = value[:abbreviation].eql?('X')
+      end
+      @selected_value = values.detect { |value| value[:selected] }
+      #@selected_value = values.detect { |value| value[:abbreviation] == 'X' }
+      #@selected_value[:selected] = true unless @selected_value.nil?
     end
   end
 end

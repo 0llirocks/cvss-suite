@@ -18,6 +18,7 @@ describe CvssSuite::Cvss3 do
   let(:valid_cvss3_temporal_score10) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:H/RL:U/RC:C') }
   let(:valid_cvss3_temporal_round_up) { CvssSuite.new('CVSS:3.0/AV:P/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:H/E:H/RL:U/RC:U') }
   let(:valid_cvss3_temporal) { CvssSuite.new('CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/RC:C') }
+  let(:valid_incomplete_cvss3_temporal) { CvssSuite.new('CVSS:3.0/RC:C/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/RL:T/AV:N') }
   let(:valid_reordered_cvss3_temporal) { CvssSuite.new('CVSS:3.0/RC:C/AC:H/PR:N/UI:N/S:C/C:L/I:N/A:N/E:P/RL:T/AV:N') }
   let(:valid_cvss3_environmental) do
     CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H') # rubocop:disable Layout/LineLength
@@ -40,8 +41,11 @@ describe CvssSuite::Cvss3 do
   let(:valid_cvss3_temporal_environmental_modified_confidentiality_high) do
     CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:H/MI:H/MA:H') # rubocop:disable Layout/LineLength
   end
+
   let(:invalid_cvss3_with_version) { CvssSuite.new('CVSS:3.0/AV:L/AC:') }
-  let(:invalid_cvss3_not_defined) { CvssSuite.new('CVSS:3.0/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }
+  let(:invalid_cvss3_not_defined) { CvssSuite.new('CVSS:3.0/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }  
+  let(:invalid_cvss3_missing_metric) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L') }
+  let(:invalid_cvss3_multiple_metrics) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L/A:L') }
 
   describe 'valid cvss3' do
     subject { valid_cvss3 }
@@ -77,6 +81,12 @@ describe CvssSuite::Cvss3 do
     subject { valid_cvss3_temporal }
 
     it_behaves_like 'a valid cvss vector', 3.0, 4.0, 3.7, 3.7, 3.7, 'Low'
+  end
+
+  describe 'valid incomplete cvss3 with temporal' do
+    subject { valid_incomplete_cvss3_temporal }
+
+    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 3.9, 3.9, 3.9, 'Low'
   end
 
   describe 'valid reordered cvss3 with temporal' do
@@ -135,6 +145,18 @@ describe CvssSuite::Cvss3 do
 
   describe 'invalid cvss3 with not defined' do
     subject { invalid_cvss3_not_defined }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.0
+  end
+
+  describe 'invalid cvss3 with missing base metric' do
+    subject { invalid_cvss3_missing_metric }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.0
+  end
+
+  describe 'invalid cvss3 with multiple base metrics' do
+    subject { invalid_cvss3_multiple_metrics }
 
     it_behaves_like 'a invalid cvss vector with version', 3.0
   end

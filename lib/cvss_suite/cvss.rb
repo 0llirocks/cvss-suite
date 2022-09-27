@@ -37,7 +37,7 @@ module CvssSuite
     ##
     # Returns if CVSS vector is valid.
     def valid?
-      if @amount_of_properties == required_amount_of_properties
+      if @amount_of_properties >= required_amount_of_properties
         base = @base.valid?
         temporal = @base.valid? && @temporal.valid?
         environmental = @base.valid? && @environmental.valid?
@@ -89,6 +89,7 @@ module CvssSuite
         property = property.split(':')
         @properties.push({ name: property[0], selected: property[1], position: index })
       end
+      @properties = [] if @properties.group_by{ |p| p[:name] }.select { |k, v| v.size > 1 }.length > 0
     end
 
     def check_validity
@@ -96,9 +97,7 @@ module CvssSuite
     end
 
     def required_amount_of_properties
-      total = @base.count if @base.valid?
-      total += @temporal.count if @temporal.valid?
-      total += @environmental.count if @environmental.valid?
+      total = @base.count
       total || 0
     end
   end
