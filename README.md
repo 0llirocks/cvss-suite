@@ -100,13 +100,7 @@ valid = cvss.valid?     # false
 cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 ```
 
-## Notable Features
-
-Properties (Access Vector, Remediation Level, etc) do have a position attribute, with this they can be ordered the same way they appear in the vector.
-
 ## Known Issues
-
-Currently it is not possible to leave an attribute blank instead of ND/X. If you don't have a value for an attribute, please use ND/X instead.
 
 There is a possibility of implementations generating different scores (+/- 0,1) due to small floating-point inaccuracies. This can happen due to differences in floating point arithmetic between different languages and hardware platforms.
 
