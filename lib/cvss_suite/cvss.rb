@@ -89,7 +89,7 @@ module CvssSuite
         property = property.split(':')
         @properties.push({ name: property[0], selected: property[1], position: index })
       end
-      @properties = [] if @properties.group_by{ |p| p[:name] }.select { |k, v| v.size > 1 }.length > 0
+      @properties = [] if @properties.group_by { |p| p[:name] }.select { |_k, v| v.size > 1 }.length.positive?
     end
 
     def check_validity

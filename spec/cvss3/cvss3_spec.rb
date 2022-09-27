@@ -43,7 +43,7 @@ describe CvssSuite::Cvss3 do
   end
 
   let(:invalid_cvss3_with_version) { CvssSuite.new('CVSS:3.0/AV:L/AC:') }
-  let(:invalid_cvss3_not_defined) { CvssSuite.new('CVSS:3.0/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }  
+  let(:invalid_cvss3_not_defined) { CvssSuite.new('CVSS:3.0/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }
   let(:invalid_cvss3_missing_metric) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L') }
   let(:invalid_cvss3_multiple_metrics) { CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L/A:L') }
 

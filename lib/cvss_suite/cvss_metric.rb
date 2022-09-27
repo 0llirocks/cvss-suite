@@ -46,9 +46,7 @@ module CvssSuite
         end
         property&.set_selected_value selected_property[:selected]
       end
-      @properties.select{|property| !property.valid?}.each do |p|
-        p.set_default_value
-      end
+      @properties.reject(&:valid?).each(&:set_default_value)
     end
   end
 end

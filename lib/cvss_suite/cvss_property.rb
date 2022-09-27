@@ -92,8 +92,6 @@ module CvssSuite
         value[:selected] = value[:abbreviation].eql?('X')
       end
       @selected_value = values.detect { |value| value[:selected] }
-      #@selected_value = values.detect { |value| value[:abbreviation] == 'X' }
-      #@selected_value[:selected] = true unless @selected_value.nil?
     end
   end
 end
