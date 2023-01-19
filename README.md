@@ -18,6 +18,12 @@ Add this line to your application's Gemfile:
 gem 'cvss-suite'
 ```
 
+Since the naming of this gem is not following the naming convention you can also add the following line to automatically require the gem:
+
+```ruby
+gem 'cvss-suite', require: 'cvss_suite'
+```
+
 And then execute:
 
     $ bundle
