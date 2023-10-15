@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.1] - 2023-10-15
+
+### Fixes
+* CVSS prefix is missing in v3.1.0. Fixes [#33](https://github.com/0llirocks/cvss-suite/issues/33)
+
 ## [3.1.0] - 2022-09-27
 
 ### Fixes

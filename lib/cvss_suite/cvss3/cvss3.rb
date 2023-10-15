@@ -1,7 +1,7 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # Copyright (c) 2016-2022 Siemens AG
-# Copyright (c) 2022 0llirocks
+# Copyright (c) 2022-2023 0llirocks
 #
 # Authors:
 #   0llirocks <http://0lli.rocks>
@@ -43,6 +43,12 @@ module CvssSuite
       return temporal_score unless @environmental.valid?
 
       Cvss3Helper.round_up(@environmental.score(@base, @temporal))
+    end
+
+    ##
+    # Returns the vector itself.
+    def vector
+      "#{CvssSuite::CVSS_VECTOR_BEGINNINGS.find { |beginning| beginning[:version] == version }[:string]}#{@vector}"
     end
 
     private
