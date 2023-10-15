@@ -1,7 +1,7 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # Copyright (c) 2016-2022 Siemens AG
-# Copyright (c) 2022 0llirocks
+# Copyright (c) 2022-2023 0llirocks
 #
 # Authors:
 #   0llirocks <http://0lli.rocks>
@@ -16,10 +16,6 @@ module CvssSuite
     ##
     # Metric of a CVSS vector.
     attr_reader :base, :temporal, :environmental
-
-    ##
-    # Returns the vector itself.
-    attr_reader :vector
 
     ##
     # Creates a new CVSS vector by a +vector+.
@@ -78,6 +74,12 @@ module CvssSuite
       return environmental_score if @environmental.valid?
 
       base_score
+    end
+
+    ##
+    # Returns the vector itself.
+    def vector
+      "#{@vector}"
     end
 
     private
