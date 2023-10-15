@@ -79,7 +79,7 @@ module CvssSuite
     ##
     # Returns the vector itself.
     def vector
-      "#{@vector}"
+      @vector.to_s
     end
 
     private

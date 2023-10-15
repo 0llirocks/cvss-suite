@@ -165,7 +165,10 @@ describe CvssSuite::Cvss3 do
     [
       ['CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L', 'CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L'],
       ['CVSS:3.0/A:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/AV:L', 'CVSS:3.0/A:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/AV:L'],
-      ['CVSS:3.0/AV:P/AC:L/PR:H/UI:N/S:C/C:N/I:L/A:H/E:X/RL:T/RC:C/CR:M/IR:L/AR:H/MAV:X/MAC:X/MPR:X/MUI:X/MS:X/MC:X/MI:X/MA:X', 'CVSS:3.0/AV:P/AC:L/PR:H/UI:N/S:C/C:N/I:L/A:H/E:X/RL:T/RC:C/CR:M/IR:L/AR:H/MAV:X/MAC:X/MPR:X/MUI:X/MS:X/MC:X/MI:X/MA:X']
+      [
+        'CVSS:3.0/AV:P/AC:L/PR:H/UI:N/S:C/C:N/I:L/A:H/E:X/RL:T/RC:C/CR:M/IR:L/AR:H/MAV:X/MAC:X/MPR:X/MUI:X/MS:X/MC:X/MI:X/MA:X', # rubocop:disable Layout/LineLength
+        'CVSS:3.0/AV:P/AC:L/PR:H/UI:N/S:C/C:N/I:L/A:H/E:X/RL:T/RC:C/CR:M/IR:L/AR:H/MAV:X/MAC:X/MPR:X/MUI:X/MS:X/MC:X/MI:X/MA:X' # rubocop:disable Layout/LineLength
+      ]
     ].each do |vector|
       it "'#{vector[0]}' is expected to return '#{vector[1]}'" do
         expect(CvssSuite.new(vector[0]).vector).to eq(vector[1])

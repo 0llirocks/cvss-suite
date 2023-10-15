@@ -53,7 +53,7 @@ module CvssSuite
     ##
     # Returns the vector itself.
     def vector
-      "#{CvssSuite::CVSS_VECTOR_BEGINNINGS.find {|beginning| beginning[:version] == version }[:string]}#{@vector}"
+      "#{CvssSuite::CVSS_VECTOR_BEGINNINGS.find { |beginning| beginning[:version] == version }[:string]}#{@vector}"
     end
 
     private
