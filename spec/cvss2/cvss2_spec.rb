@@ -1,7 +1,7 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # Copyright (c) 2016-2022 Siemens AG
-# Copyright (c) 2022 0llirocks
+# Copyright (c) 2022-2023 0llirocks
 #
 # Authors:
 #   0llirocks <http://0lli.rocks>
@@ -134,6 +134,17 @@ describe CvssSuite::Cvss2 do
       it "'#{vector}' severity is expected to eql \"Low\"" do
         cv2 = CvssSuite.new(vector)
         expect(cv2.severity).to eq('Low')
+      end
+    end
+  end
+
+  describe 'correct vector' do
+    [
+      ['AV:N/AC:L/Au:N/C:P/I:P/A:P', 'AV:N/AC:L/Au:N/C:P/I:P/A:P'],
+      ['(AV:N/AC:L/Au:N/C:P/I:P/A:P)', 'AV:N/AC:L/Au:N/C:P/I:P/A:P']
+    ].each do |vector|
+      it "'#{vector[0]}' is expected to return '#{vector[1]}'" do
+        expect(CvssSuite.new(vector[0]).vector).to eq(vector[1])
       end
     end
   end
