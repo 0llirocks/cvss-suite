@@ -19,8 +19,9 @@ module CvssSuite
     ##
     # Property of this metric
 
-    attr_reader :attack_vector, :attack_complexity, :privileges_required, :user_interaction,
-                :scope, :confidentiality, :integrity, :availability
+    attr_reader :attack_vector, :attack_complexity, :attack_requirements, :privileges_required, :user_interaction,
+                :vulnerable_confidentiality, :vulnerable_integrity, :vulnerable_availability, 
+                :subsequent_confidentiality, :subsequent_integrity, :subsequent_availability
 
     ##
     # Returns score of this metric
@@ -52,42 +53,58 @@ module CvssSuite
     def init_properties
       @properties.push(@attack_vector =
                          CvssProperty.new(name: 'Attack Vector', abbreviation: 'AV',
-                                          values: [{ name: 'Network', abbreviation: 'N', weight: 0.85 },
-                                                   { name: 'Adjacent', abbreviation: 'A', weight: 0.62 },
-                                                   { name: 'Local', abbreviation: 'L', weight: 0.55 },
-                                                   { name: 'Physical', abbreviation: 'P', weight: 0.2 }]))
+                                          values: [{ name: 'Network', abbreviation: 'N' },
+                                                   { name: 'Adjacent', abbreviation: 'A' },
+                                                   { name: 'Local', abbreviation: 'L' },
+                                                   { name: 'Physical', abbreviation: 'P' }]))
       @properties.push(@attack_complexity =
                          CvssProperty.new(name: 'Attack Complexity', abbreviation: 'AC',
-                                          values: [{ name: 'Low', abbreviation: 'L', weight: 0.77 },
-                                                   { name: 'High', abbreviation: 'H', weight: 0.44 }]))
+                                          values: [{ name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
+      @properties.push(@attack_requirements =
+                         CvssProperty.new(name: 'Attack Requirements', abbreviation: 'AT',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Present', abbreviation: 'P' }]))
       @properties.push(@privileges_required =
                          CvssProperty.new(name: 'Privileges Required', abbreviation: 'PR',
-                                          values: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
-                                                   { name: 'Low', abbreviation: 'L', weight: 0.62 },
-                                                   { name: 'High', abbreviation: 'H', weight: 0.27 }]))
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@user_interaction =
                          CvssProperty.new(name: 'User Interaction', abbreviation: 'UI',
-                                          values: [{ name: 'None', abbreviation: 'N', weight: 0.85 },
-                                                   { name: 'Required', abbreviation: 'R', weight: 0.62 }]))
-      @properties.push(@scope =
-                         CvssProperty.new(name: 'Scope', abbreviation: 'S',
-                                          values: [{ name: 'Unchanged', abbreviation: 'U' },
-                                                   { name: 'Changed', abbreviation: 'C' }]))
-      @properties.push(@confidentiality =
-                         CvssProperty.new(name: 'Confidentiality', abbreviation: 'C',
-                                          values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                   { name: 'Low', abbreviation: 'L', weight: 0.22 },
-                                                   { name: 'High', abbreviation: 'H', weight: 0.56 }]))
-      @properties.push(@integrity =
-                         CvssProperty.new(name: 'Integrity', abbreviation: 'I',
-                                          values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                   { name: 'Low', abbreviation: 'L', weight: 0.22 },
-                                                   { name: 'High', abbreviation: 'H', weight: 0.56 }]))
-      @properties.push(@availability =
-                         CvssProperty.new(name: 'Availability', abbreviation: 'A',
-                                          values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
-                                                   { name: 'Low', abbreviation: 'L', weight: 0.22 },
-                                                   { name: 'High', abbreviation: 'H', weight: 0.56 }]))
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Passive', abbreviation: 'P' },
+                                                   { name: 'Active', abbreviation: 'A' }]))
+      @properties.push(@vulnerable_confidentiality =
+                         CvssProperty.new(name: 'Vulnerable Confidentiality', abbreviation: 'VC',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
+      @properties.push(@vulnerable_integrity =
+                         CvssProperty.new(name: 'Vulnerable Integrity', abbreviation: 'VI',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
+      @properties.push(@vulnerable_availability =
+                         CvssProperty.new(name: 'Vulnerable Availability', abbreviation: 'VA',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
+      @properties.push(@subsequent_confidentiality =
+                         CvssProperty.new(name: 'Subsequent Confidentiality', abbreviation: 'SC',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
+      @properties.push(@subsequent_integrity =
+                         CvssProperty.new(name: 'Subsequent Integrity', abbreviation: 'SI',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
+      @properties.push(@subsequent_availability =
+                         CvssProperty.new(name: 'Subsequent Availability', abbreviation: 'SA',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
     end
   end
 end
