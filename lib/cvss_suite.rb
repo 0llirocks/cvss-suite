@@ -23,7 +23,8 @@ module CvssSuite
     { string: 'AV:', version: 2 },
     { string: '(AV:', version: 2 },
     { string: 'CVSS:3.0/', version: 3.0 },
-    { string: 'CVSS:3.1/', version: 3.1 }
+    { string: 'CVSS:3.1/', version: 3.1 },
+    { string: 'CVSS:4.0/', version: 4.0 }
   ].freeze
 
   ##
@@ -39,6 +40,8 @@ module CvssSuite
       Cvss3.new(prepare_vector(@vector_string))
     when 3.1
       Cvss31.new(prepare_vector(@vector_string))
+    when 4.0
+      Cvss40.new(prepare_vector(@vector_string))
     else
       InvalidCvss.new
     end
