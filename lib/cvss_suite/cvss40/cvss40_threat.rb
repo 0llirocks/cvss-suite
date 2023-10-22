@@ -18,7 +18,7 @@ module CvssSuite
   class Cvss40Threat < CvssMetric
     ##
     # Property of this metric
-    attr_reader :exploit_code_maturity, :remediation_level, :report_confidence
+    attr_reader :exploit_maturity
 
     ##
     # Returns score of this metric
@@ -31,27 +31,12 @@ module CvssSuite
     private
 
     def init_properties
-      @properties.push(@exploit_code_maturity =
-                         CvssProperty.new(name: 'Exploit Code Maturity', abbreviation: 'E',
-                                          values: [{ name: 'Not Defined', abbreviation: 'X', weight: 1.0 },
-                                                   { name: 'Unproven', abbreviation: 'U', weight: 0.91 },
-                                                   { name: 'Proof-of-Concept', abbreviation: 'P', weight: 0.94 },
-                                                   { name: 'Functional', abbreviation: 'F', weight: 0.97 },
-                                                   { name: 'High', abbreviation: 'H', weight: 1.0 }]))
-      @properties.push(@remediation_level =
-                         CvssProperty.new(name: 'Remediation Level', abbreviation: 'RL',
-                                          values: [{ name: 'Not Defined', abbreviation: 'X', weight: 1.0 },
-                                                   { name: 'Official Fix', abbreviation: 'O', weight: 0.95 },
-                                                   { name: 'Temporary Fix', abbreviation: 'T', weight: 0.96 },
-                                                   { name: 'Workaround', abbreviation: 'W', weight: 0.97 },
-                                                   { name: 'Unavailable', abbreviation: 'U', weight: 1.0 }]))
-
-      @properties.push(@report_confidence =
-                         CvssProperty.new(name: 'Report Confidence', abbreviation: 'RC',
-                                          values: [{ name: 'Not Defined', abbreviation: 'X', weight: 1.0 },
-                                                   { name: 'Unknown', abbreviation: 'U', weight: 0.92 },
-                                                   { name: 'Reasonable', abbreviation: 'R', weight: 0.96 },
-                                                   { name: 'Confirmed', abbreviation: 'C', weight: 1.0 }]))
+      @properties.push(@exploit_maturity =
+                         CvssProperty.new(name: 'Exploit Maturity', abbreviation: 'E',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'Attacked', abbreviation: 'A', default: false },
+                                                   { name: 'Proof-of-Concept', abbreviation: 'P', default: false },
+                                                   { name: 'Unreported', abbreviation: 'U', default: false }]))
     end
   end
 end
