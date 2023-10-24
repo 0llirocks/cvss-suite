@@ -18,7 +18,7 @@ module CvssSuite
   class Cvss40Supplemental < CvssMetric
     ##
     # Property of this metric
-    attr_reader :exploit_code_maturity, :remediation_level, :report_confidence
+    attr_reader :safety, :automatable, :recovery, :value_density, :vulnerability_response_effort, :provider_urgency
 
     ##
     # Returns score of this metric
@@ -31,27 +31,45 @@ module CvssSuite
     private
 
     def init_properties
-      @properties.push(@exploit_code_maturity =
-                         CvssProperty.new(name: 'Exploit Code Maturity', abbreviation: 'E',
-                                          values: [{ name: 'Not Defined', abbreviation: 'X', weight: 1.0 },
-                                                   { name: 'Unproven', abbreviation: 'U', weight: 0.91 },
-                                                   { name: 'Proof-of-Concept', abbreviation: 'P', weight: 0.94 },
-                                                   { name: 'Functional', abbreviation: 'F', weight: 0.97 },
-                                                   { name: 'High', abbreviation: 'H', weight: 1.0 }]))
-      @properties.push(@remediation_level =
-                         CvssProperty.new(name: 'Remediation Level', abbreviation: 'RL',
-                                          values: [{ name: 'Not Defined', abbreviation: 'X', weight: 1.0 },
-                                                   { name: 'Official Fix', abbreviation: 'O', weight: 0.95 },
-                                                   { name: 'Temporary Fix', abbreviation: 'T', weight: 0.96 },
-                                                   { name: 'Workaround', abbreviation: 'W', weight: 0.97 },
-                                                   { name: 'Unavailable', abbreviation: 'U', weight: 1.0 }]))
-
-      @properties.push(@report_confidence =
-                         CvssProperty.new(name: 'Report Confidence', abbreviation: 'RC',
-                                          values: [{ name: 'Not Defined', abbreviation: 'X', weight: 1.0 },
-                                                   { name: 'Unknown', abbreviation: 'U', weight: 0.92 },
-                                                   { name: 'Reasonable', abbreviation: 'R', weight: 0.96 },
-                                                   { name: 'Confirmed', abbreviation: 'C', weight: 1.0 }]))
+      @properties.push(@safety =
+                         CvssProperty.new(name: 'Safety', abbreviation: 'S',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'Present', abbreviation: 'P', default: false },
+                                                   { name: 'Negligible', abbreviation: 'N', default: false }]))
+      @properties.push(@automatable =
+                         CvssProperty.new(name: 'Automatable', abbreviation: 'AU',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'No', abbreviation: 'N', default: false },
+                                                   { name: 'Yes', abbreviation: 'Y', default: false }]))
+      @properties.push(@recovery =
+                         CvssProperty.new(name: 'Recovery', abbreviation: 'AU',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'Automatic', abbreviation: 'A', default: false },
+                                                   { name: 'User', abbreviation: 'U', default: false },
+                                                   { name: 'Irrecoverable', abbreviation: 'I', default: false }]))
+      @properties.push(@value_density =
+                         CvssProperty.new(name: 'Value Density', abbreviation: 'V',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'Diffuse', abbreviation: 'D',
+                                                     default: false },
+                                                   { name: 'Concentrated', abbreviation: 'C',
+                                                     default: false }]))
+      @properties.push(@vulnerability_response_effort =
+                         CvssProperty.new(name: 'Vulnerability Response Effort', abbreviation: 'RE',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'Low', abbreviation: 'L',
+                                                     default: false },
+                                                   { name: 'Moderate', abbreviation: 'M',
+                                                     default: false },
+                                                   { name: 'High', abbreviation: 'H',
+                                                     default: false }]))
+      @properties.push(@provider_urgency =
+                         CvssProperty.new(name: 'Provider Urgency', abbreviation: 'U',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X', default: true },
+                                                   { name: 'Clear', abbreviation: 'Clear', default: false },
+                                                   { name: 'Green', abbreviation: 'Green', default: false },
+                                                   { name: 'Amber', abbreviation: 'Amber', default: false },
+                                                   { name: 'Red', abbreviation: 'Red', default: false }]))
     end
   end
 end
