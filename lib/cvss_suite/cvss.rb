@@ -35,9 +35,9 @@ module CvssSuite
     def valid?
       if @amount_of_properties >= required_amount_of_properties
         base = @base.valid?
-        temporal = @base.valid? && @temporal.valid?
-        environmental = @base.valid? && @environmental.valid?
-        full = @base.valid? && @temporal.valid? && @environmental.valid?
+        temporal = @base.valid? && @temporal&.valid?
+        environmental = @base.valid? && @environmental&.valid?
+        full = @base.valid? && @temporal&.valid? && @environmental&.valid?
         base || temporal || environmental || full
       else
         false
