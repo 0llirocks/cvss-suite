@@ -1,0 +1,50 @@
+# CVSS-Suite, a Ruby gem to manage the CVSS vector
+#
+# This work is licensed under the terms of the MIT license.
+# See the LICENSE.md file in the top-level directory.
+
+require_relative 'cvss'
+
+module CvssSuite
+  ##
+  # This class represents any CVSS vector. Do not instantiate this class!
+  class CvssThrough3_1 < Cvss
+    ##
+    # Metric of a CVSS vector for CVSS 2, 3, 3.1.
+    attr_reader :temporal, :environmental
+
+    ##
+    # Creates a new CVSS vector by a +vector+, for all CVSS versions through 3.1.
+    #
+    # Raises an exception if it is called on CvssThrough3_1 class.
+    def initialize(vector)
+      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? CvssThrough3_1
+
+      super
+    end
+
+    ##
+    # Returns if CVSS vector is valid.
+    def valid?
+      if @amount_of_properties >= required_amount_of_properties
+        base = @base.valid?
+        temporal = @base.valid? && @temporal&.valid?
+        environmental = @base.valid? && @environmental&.valid?
+        full = @base.valid? && @temporal&.valid? && @environmental&.valid?
+        base || temporal || environmental || full
+      else
+        false
+      end
+    end
+
+    ##
+    # Returns the Overall Score of the CVSS vector.
+    def overall_score
+      check_validity
+      return temporal_score if @temporal.valid? && !@environmental.valid?
+      return environmental_score if @environmental.valid?
+
+      base_score
+    end
+  end
+end

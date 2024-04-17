@@ -21,30 +21,7 @@ module CvssSuite
     ##
     # Returns score of this metric
     def score
-      # Should look roughly like:
-      # '{"AV":"A","AC":"L","AT":"N","PR":"N","UI":"N","VC":"N","VI":"N","VA":"N","SC":"N","SI":"N","SA":"N","S":"X","AU":"X","R":"X","V":"X","RE":"X","U":"X","MAV":"X","MAC":"X","MAT":"X","MPR":"X","MUI":"X","MVC":"X","MVI":"X","MVA":"X","MSC":"X","MSI":"X","MSA":"X","CR":"X","IR":"X","AR":"X","E":"X"}'
       Cvss40CalcHelper.new(@properties.map { |p| [p.abbreviation, p.selected_value[:abbreviation]] }.to_h).score
-
-      # privilege_score = Cvss3Helper.privileges_required_score(@privileges_required, @scope)
-
-      # exploitability = 8.22 * @attack_vector.score * @attack_complexity.score *
-      #                  privilege_score * @user_interaction.score
-
-      # isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
-
-      # impact_sub_score = if @scope.selected_value[:name] == 'Changed'
-      #                      7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
-      #                    else
-      #                      6.42 * isc_base
-      #                    end
-
-      # return 0 if impact_sub_score <= 0
-
-      # if @scope.selected_value[:name] == 'Changed'
-      #   [10, 1.08 * (impact_sub_score + exploitability)].min
-      # else
-      #   [10, impact_sub_score + exploitability].min
-      # end
     end
 
     private

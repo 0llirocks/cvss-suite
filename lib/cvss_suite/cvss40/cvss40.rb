@@ -3,17 +3,14 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-require_relative '../cvss'
+require_relative '../cvss_v4'
 require_relative 'cvss40_base'
 require_relative 'cvss40_invalid'
-# require_relative 'cvss40_threat'
-# require_relative 'cvss40_environmental'
-# require_relative 'cvss40_supplemental'
 
 module CvssSuite
   ##
   # This class represents a CVSS vector in version 4.0.
-  class Cvss40 < Cvss
+  class Cvss40 < CvssFrom4_0
     ##
     # Returns the Version of the CVSS vector.
 
@@ -50,8 +47,7 @@ module CvssSuite
     ##
     # Returns the vector itself.
     def vector
-      raise 'Not Implemented'
-      # "#{CvssSuite::CVSS_VECTOR_BEGINNINGS.find { |beginning| beginning[:version] == version }[:string]}#{@vector}"
+      "#{CvssSuite::CVSS_VECTOR_BEGINNINGS.find { |beginning| beginning[:version] == version }[:string]}#{@vector}"
     end
 
     private

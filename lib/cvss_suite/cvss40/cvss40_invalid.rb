@@ -5,7 +5,6 @@
 
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
-require_relative "cvss40_calc_helper"
 
 module CvssSuite
   ##
