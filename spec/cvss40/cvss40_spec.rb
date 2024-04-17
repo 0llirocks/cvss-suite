@@ -12,6 +12,6 @@ describe CvssSuite::Cvss40 do
   describe 'valid cvss40' do
     subject { valid_cvss40 }
    
-    it_behaves_like 'a valid cvss vector', 4.0, 4.2, 4.2, 4.2, 4.2, 'Medium'
+    it_behaves_like 'a valid cvss vector', 4.0, 6.6, 6.6, 6.6, 6.6, 'Medium'
   end
 end

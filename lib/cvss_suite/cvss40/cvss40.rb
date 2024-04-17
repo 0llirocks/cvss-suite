@@ -5,6 +5,7 @@
 
 require_relative '../cvss'
 require_relative 'cvss40_base'
+require_relative 'cvss40_invalid'
 # require_relative 'cvss40_threat'
 # require_relative 'cvss40_environmental'
 # require_relative 'cvss40_supplemental'
@@ -25,7 +26,7 @@ module CvssSuite
 
     def base_score
       check_validity
-      @base.score.round_up
+      @base.score.round(1, half: :up)
     end
 
     ##
@@ -57,9 +58,8 @@ module CvssSuite
 
     def init_metrics
       @base = Cvss40Base.new(@properties)
-      # @temporal = Cvss40Threat.new(@properties)
-      # @environmental = Cvss40Environmental.new(@properties)
-      # @environmental = Cvss40Supplemental.new(@properties)
+      @temporal = Cvss40Invalid.new(@properties)
+      @environmental = Cvss40Invalid.new(@properties)
     end
   end
 end
