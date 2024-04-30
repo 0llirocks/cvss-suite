@@ -12,13 +12,13 @@ module CvssSuite
       selected = @cvss_property_bag[metric]
 
       # If E=X it will default to the worst case i.e. E=A
-      return 'A' if metric == 'E' && selected == 'X'
+      return 'A' if metric == 'E' && (selected == 'X' || selected.nil?)
       # If CR=X, IR=X or AR=X they will default to the worst case i.e. CR=H, IR=H and AR=H
-      return 'H' if metric == 'CR' && selected == 'X'
+      return 'H' if metric == 'CR' && (selected == 'X' || selected.nil?)
       # IR:X is the same as IR:H
-      return 'H' if metric == 'IR' && selected == 'X'
+      return 'H' if metric == 'IR' && (selected == 'X' || selected.nil?)
       # AR:X is the same as AR:H
-      return 'H' if metric == 'AR' && selected == 'X'
+      return 'H' if metric == 'AR' && (selected == 'X' || selected.nil?)
 
       # All other environmental metrics just overwrite base score values,
       # so if they’re not defined just use the base score value.
@@ -139,31 +139,31 @@ module CvssSuite
       eq6_val = parse_int(macro_vector[5])
 
       # compute next lower macro, it can also not exist
-      eq1_next_lower_macro = ''.concat(eq1_val + 1, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val)
-      eq2_next_lower_macro = ''.concat(eq1_val, eq2_val + 1, eq3_val, eq4_val, eq5_val, eq6_val)
+      eq1_next_lower_macro = concat_and_stringify(eq1_val + 1, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val)
+      eq2_next_lower_macro = concat_and_stringify(eq1_val, eq2_val + 1, eq3_val, eq4_val, eq5_val, eq6_val)
 
       # eq3 and eq6 are related
       if eq3_val == 1 && eq6_val == 1
         # 11 --> 21
-        eq3eq6_next_lower_macro = ''.concat(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
+        eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
       elsif eq3_val.zero? && eq6_val == 1
         # 01 --> 11
-        eq3eq6_next_lower_macro = ''.concat(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
+        eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
       elsif eq3_val == 1 && eq6_val.zero?
         # 10 --> 11
-        eq3eq6_next_lower_macro = ''.concat(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val + 1)
+        eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val + 1)
       elsif eq3_val.zero? && eq6_val.zero?
         # 00 --> 01
         # 00 --> 10
-        eq3eq6_next_lower_macro_left = ''.concat(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val + 1)
-        eq3eq6_next_lower_macro_right = ''.concat(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
+        eq3eq6_next_lower_macro_left = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val + 1)
+        eq3eq6_next_lower_macro_right = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
       else
         # 21 --> 32 (do not exist)
-        eq3eq6_next_lower_macro = ''.concat(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val + 1)
+        eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val + 1)
       end
 
-      eq4_next_lower_macro = ''.concat(eq1_val, eq2_val, eq3_val, eq4_val + 1, eq5_val, eq6_val)
-      eq5_next_lower_macro = ''.concat(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val + 1, eq6_val)
+      eq4_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val + 1, eq5_val, eq6_val)
+      eq5_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val + 1, eq6_val)
 
       # get their score, if the next lower macro score do not exist the result is NaN
       score_eq1_next_lower_macro = LOOKUP[eq1_next_lower_macro]
@@ -339,7 +339,7 @@ module CvssSuite
       value -= mean_distance
       value = 0.0 if value.negative?
       value = 10.0 if value > 10
-      value
+      round_up(value)
     end
 
     def get_eq_maxes(lookup, eq_value)
@@ -348,6 +348,10 @@ module CvssSuite
 
     def nil?(value)
       value.nil?
+    end
+
+    def concat_and_stringify(first, second, third, fourth, fifth, sixth)
+      ''.concat(first.to_s, second.to_s, third.to_s, fourth.to_s, fifth.to_s, sixth.to_s)
     end
 
     def sum_or_nil(values)
@@ -362,6 +366,15 @@ module CvssSuite
 
     def parse_int(string_to_parse)
       Integer(string_to_parse)
+    end
+
+    def round_up(float)
+      output = (float * 100_000).round
+      if (output % 10_000).zero?
+        output / 100_000.0
+      else
+        ((output / 10_000).floor + 1) / 10.0
+      end
     end
 
     def extract_value_metric(metric, str)
