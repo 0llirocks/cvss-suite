@@ -8,17 +8,17 @@ require_relative 'cvss'
 module CvssSuite
   ##
   # This class represents any CVSS vector. Do not instantiate this class!
-  class CvssFrom4_0 < Cvss
+  class Cvss3_1AndBefore < Cvss
     ##
     # Metric of a CVSS vector for CVSS 2, 3, 3.1.
     attr_reader :temporal, :environmental
 
     ##
-    # Creates a new CVSS vector by a +vector+, for all CVSS versions from 4.0.
+    # Creates a new CVSS vector by a +vector+, for all CVSS versions through 3.1.
     #
-    # Raises an exception if it is called on CvssFrom4_0 class.
+    # Raises an exception if it is called on CvssThrough3_1 class.
     def initialize(vector)
-      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? CvssFrom4_0
+      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? CvssThrough3_1
 
       super
     end
@@ -28,7 +28,10 @@ module CvssSuite
     def valid?
       if @amount_of_properties >= required_amount_of_properties
         base = @base.valid?
-        base 
+        temporal = @base.valid? && @temporal&.valid?
+        environmental = @base.valid? && @environmental&.valid?
+        full = @base.valid? && @temporal&.valid? && @environmental&.valid?
+        base || temporal || environmental || full
       else
         false
       end
@@ -38,6 +41,8 @@ module CvssSuite
     # Returns the Overall Score of the CVSS vector.
     def overall_score
       check_validity
+      return temporal_score if @temporal.valid? && !@environmental.valid?
+      return environmental_score if @environmental.valid?
 
       base_score
     end

@@ -19,6 +19,7 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'cvss_suite'
 require 'rspec/its'
 require 'shared_examples'
+require 'shared_examples_4_0_and_later'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |c|

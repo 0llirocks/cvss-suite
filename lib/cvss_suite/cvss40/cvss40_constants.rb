@@ -5,22 +5,22 @@ module CvssSuite
         PR_LEVELS = { "N"=> 0.0, "L"=> 0.1, "H"=> 0.2 }.freeze
         UI_LEVELS = { "N"=> 0.0, "P"=> 0.1, "A"=> 0.2 }.freeze
 
-        AC_LEVELS = { 'L'=> 0.0, 'H'=> 0.1 }.freeze
-        AT_LEVELS = { 'N'=> 0.0, 'P'=> 0.1 }.freeze
+        AC_LEVELS = { "L"=> 0.0, "H"=> 0.1 }.freeze
+        AT_LEVELS = { "N"=> 0.0, "P"=> 0.1 }.freeze
 
-        VC_LEVELS = { 'H'=> 0.0, 'L'=> 0.1, 'N'=> 0.2 }.freeze
-        VI_LEVELS = { 'H'=> 0.0, 'L'=> 0.1, 'N'=> 0.2 }.freeze
-        VA_LEVELS = { 'H'=> 0.0, 'L'=> 0.1, 'N'=> 0.2 }.freeze
+        VC_LEVELS = { "H"=> 0.0, "L"=> 0.1, "N"=> 0.2 }.freeze
+        VI_LEVELS = { "H"=> 0.0, "L"=> 0.1, "N"=> 0.2 }.freeze
+        VA_LEVELS = { "H"=> 0.0, "L"=> 0.1, "N"=> 0.2 }.freeze
 
-        SC_LEVELS = { 'H'=> 0.1, 'L'=> 0.2, 'N'=> 0.3 }.freeze
-        SI_LEVELS = { 'S'=> 0.0, 'H'=> 0.1, 'L'=> 0.2, 'N'=> 0.3 }.freeze
-        SA_LEVELS = { 'S'=> 0.0, 'H'=> 0.1, 'L'=> 0.2, 'N'=> 0.3 }.freeze
+        SC_LEVELS = { "H"=> 0.1, "L"=> 0.2, "N"=> 0.3 }.freeze
+        SI_LEVELS = { "S"=> 0.0, "H"=> 0.1, "L"=> 0.2, "N"=> 0.3 }.freeze
+        SA_LEVELS = { "S"=> 0.0, "H"=> 0.1, "L"=> 0.2, "N"=> 0.3 }.freeze
 
-        CR_LEVELS = { 'H'=> 0.0, 'M'=> 0.1, 'L'=> 0.2 }.freeze
-        IR_LEVELS = { 'H'=> 0.0, 'M'=> 0.1, 'L'=> 0.2 }.freeze
-        AR_LEVELS = { 'H'=> 0.0, 'M'=> 0.1, 'L'=> 0.2 }.freeze
+        CR_LEVELS = { "H"=> 0.0, "M"=> 0.1, "L"=> 0.2 }.freeze
+        IR_LEVELS = { "H"=> 0.0, "M"=> 0.1, "L"=> 0.2 }.freeze
+        AR_LEVELS = { "H"=> 0.0, "M"=> 0.1, "L"=> 0.2 }.freeze
 
-        E_LEVELS = { 'U'=> 0.2, 'P'=> 0.1, 'A'=> 0 }.freeze
+        E_LEVELS = { "U"=> 0.2, "P"=> 0.1, "A"=> 0 }.freeze
 
         MAX_SEVERITY = {
         "eq1"=> {
@@ -53,36 +53,36 @@ module CvssSuite
     MAX_COMPOSED = {
         # // EQ1
         "eq1"=> {
-          "0" => ['AV:N/PR:N/UI:N/'],
-          "1" => ['AV:A/PR:N/UI:N/', 'AV:N/PR:L/UI:N/', 'AV:N/PR:N/UI:P/'],
-          "2" => ['AV:P/PR:N/UI:N/', 'AV:A/PR:L/UI:P/']
+          "0" => ["AV:N/PR:N/UI:N/"],
+          "1" => ["AV:A/PR:N/UI:N/", "AV:N/PR:L/UI:N/", "AV:N/PR:N/UI:P/"],
+          "2" => ["AV:P/PR:N/UI:N/", "AV:A/PR:L/UI:P/"]
         },
         # // EQ2
         "eq2"=> {
-          "0" => ['AC:L/AT:N/'],
-          "1" => ['AC:H/AT:N/', 'AC:L/AT:P/']
+          "0" => ["AC:L/AT:N/"],
+          "1" => ["AC:H/AT:N/", "AC:L/AT:P/"]
         },
         # // EQ3+EQ6
         "eq3"=> {
-          "0" => { "0"=> ['VC:H/VI:H/VA:H/CR:H/IR:H/AR:H/'],
-                 "1"=> ['VC:H/VI:H/VA:L/CR:M/IR:M/AR:H/', 'VC:H/VI:H/VA:H/CR:M/IR:M/AR:M/'] },
-          "1" => { "0"=> ['VC:L/VI:H/VA:H/CR:H/IR:H/AR:H/', 'VC:H/VI:L/VA:H/CR:H/IR:H/AR:H/'],
-                 "1"=> ['VC:L/VI:H/VA:L/CR:H/IR:M/AR:H/', 'VC:L/VI:H/VA:H/CR:H/IR:M/AR:M/',
-                       'VC:H/VI:L/VA:H/CR:M/IR:H/AR:M/', 'VC:H/VI:L/VA:L/CR:M/IR:H/AR:H/',
-                       'VC:L/VI:L/VA:H/CR:H/IR:H/AR:M/'] },
-          "2" => { "1"=> ['VC:L/VI:L/VA:L/CR:H/IR:H/AR:H/'] }
+          "0" => { "0"=> ["VC:H/VI:H/VA:H/CR:H/IR:H/AR:H/"],
+                 "1"=> ["VC:H/VI:H/VA:L/CR:M/IR:M/AR:H/", "VC:H/VI:H/VA:H/CR:M/IR:M/AR:M/"] },
+          "1" => { "0"=> ["VC:L/VI:H/VA:H/CR:H/IR:H/AR:H/", "VC:H/VI:L/VA:H/CR:H/IR:H/AR:H/"],
+                 "1"=> ["VC:L/VI:H/VA:L/CR:H/IR:M/AR:H/", "VC:L/VI:H/VA:H/CR:H/IR:M/AR:M/",
+                       "VC:H/VI:L/VA:H/CR:M/IR:H/AR:M/", "VC:H/VI:L/VA:L/CR:M/IR:H/AR:H/",
+                       "VC:L/VI:L/VA:H/CR:H/IR:H/AR:M/"] },
+          "2" => { "1"=> ["VC:L/VI:L/VA:L/CR:H/IR:H/AR:H/"] }
         },
         # // EQ4
         "eq4"=> {
-          "0" => ['SC:H/SI:S/SA:S/'],
-          "1" => ['SC:H/SI:H/SA:H/'],
-          "2" => ['SC:L/SI:L/SA:L/']
+          "0" => ["SC:H/SI:S/SA:S/"],
+          "1" => ["SC:H/SI:H/SA:H/"],
+          "2" => ["SC:L/SI:L/SA:L/"]
         },
         # // EQ5
         "eq5"=> {
-          "0" => ['E:A/'],
-          "1" => ['E:P/'],
-          "2" => ['E:U/']
+          "0" => ["E:A/"],
+          "1" => ["E:P/"],
+          "2" => ["E:U/"]
         }
       }.freeze
 

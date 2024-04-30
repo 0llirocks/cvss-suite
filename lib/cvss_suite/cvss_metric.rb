@@ -36,6 +36,12 @@ module CvssSuite
       @properties.count
     end
 
+    ##
+    # We aggregate these in some other classes
+    def properties
+      @properties
+    end
+
     private
 
     def extract_selected_values_from(selected_properties)
