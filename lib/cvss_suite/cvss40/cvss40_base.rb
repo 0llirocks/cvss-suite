@@ -5,7 +5,7 @@
 
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
-require_relative "cvss40_calc_helper"
+require_relative 'cvss40_calc_helper'
 
 module CvssSuite
   ##
@@ -52,35 +52,35 @@ module CvssSuite
                                                    { name: 'Passive', abbreviation: 'P' },
                                                    { name: 'Active', abbreviation: 'A' }]))
       @properties.push(@vulnerable_system_confidentiality =
-                        CvssProperty.new(name: 'Vulnerable System Confidentiality Impact', abbreviation: 'VC',
-                                        values: [{ name: 'None', abbreviation: 'N' },
-                                                  { name: 'Low', abbreviation: 'L' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Vulnerable System Confidentiality Impact', abbreviation: 'VC',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@vulnerable_system_integrity =
-                        CvssProperty.new(name: 'Vulnerable System Integrity Impact', abbreviation: 'VI',
-                                        values: [{ name: 'None', abbreviation: 'N' },
-                                                  { name: 'Low', abbreviation: 'L' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Vulnerable System Integrity Impact', abbreviation: 'VI',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@vulnerable_system_availability =
-                        CvssProperty.new(name: 'Vulnerable System Availability Impact', abbreviation: 'VA',
-                                        values: [{ name: 'None', abbreviation: 'N' },
-                                                  { name: 'Low', abbreviation: 'L' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Vulnerable System Availability Impact', abbreviation: 'VA',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@subsequent_system_confidentiality =
-                        CvssProperty.new(name: 'Subsequent System Confidentiality Impact', abbreviation: 'SC',
-                                        values: [{ name: 'None', abbreviation: 'N' },
-                                                  { name: 'Low', abbreviation: 'L' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Subsequent System Confidentiality Impact', abbreviation: 'SC',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@subsequent_system_integrity =
-                        CvssProperty.new(name: 'Subsequent System Integrity Impact', abbreviation: 'SI',
-                                        values: [{ name: 'None', abbreviation: 'N' },
-                                                  { name: 'Low', abbreviation: 'L' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Subsequent System Integrity Impact', abbreviation: 'SI',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@subsequent_system_availability =
-                        CvssProperty.new(name: 'Subsequent System Availability Impact', abbreviation: 'SA',
-                                        values: [{ name: 'None', abbreviation: 'N' },
-                                                  { name: 'Low', abbreviation: 'L' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Subsequent System Availability Impact', abbreviation: 'SA',
+                                          values: [{ name: 'None', abbreviation: 'N' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'High', abbreviation: 'H' }]))
     end
   end
 end

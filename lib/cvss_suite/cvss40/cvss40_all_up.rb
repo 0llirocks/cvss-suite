@@ -19,21 +19,21 @@ module CvssSuite
     end
 
     def initialize(properties, base, threat, environmental, environmental_security, supplemental)
-        @properties_to_later_initialize_from = properties
-        @base = base
-        @threat = threat
-        @environmental = environmental
-        @environmental_security = environmental_security
-        @supplemental = supplemental
-        super(properties)
+      @properties_to_later_initialize_from = properties
+      @base = base
+      @threat = threat
+      @environmental = environmental
+      @environmental_security = environmental_security
+      @supplemental = supplemental
+      super(properties)
     end
 
     private
 
     def init_properties
-        # All up takes it's properties from all other scores
-        properties_to_add = @base.properties + @threat.properties + @environmental.properties + @environmental_security.properties + @supplemental.properties
-        properties_to_add.each { |p| @properties.push p }
+      # All up takes it's properties from all other scores
+      properties_to_add = @base.properties + @threat.properties + @environmental.properties + @environmental_security.properties + @supplemental.properties
+      properties_to_add.each { |p| @properties.push p }
     end
   end
 end

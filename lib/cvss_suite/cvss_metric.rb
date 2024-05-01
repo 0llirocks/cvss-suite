@@ -38,9 +38,7 @@ module CvssSuite
 
     ##
     # We aggregate these in some other classes
-    def properties
-      @properties
-    end
+    attr_reader :properties
 
     private
 

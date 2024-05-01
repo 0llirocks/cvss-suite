@@ -24,8 +24,8 @@ module CvssSuite
 
     def init_properties
       @properties.push(@exploit_maturity =
-                          CvssProperty.new(name: 'Exploit Maturity', abbreviation: 'E',
-                                        values: [{ name: 'Not Defined', abbreviation: 'X' },
+                         CvssProperty.new(name: 'Exploit Maturity', abbreviation: 'E',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X' },
                                                    { name: 'Attacked', abbreviation: 'A' },
                                                    { name: 'Proof-of-Concept', abbreviation: 'P' },
                                                    { name: 'Unreported', abbreviation: 'U' }]))

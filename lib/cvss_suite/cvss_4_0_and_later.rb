@@ -27,8 +27,8 @@ module CvssSuite
     # Returns if CVSS vector is valid.
     def valid?
       if @amount_of_properties >= required_amount_of_properties
-        base = @base.valid?
-        base 
+        @base.valid?
+
       else
         false
       end

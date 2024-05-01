@@ -24,23 +24,24 @@ module CvssSuite
 
     def init_properties
       @properties.push(@confidentiality_requirements =
-                          CvssProperty.new(name: 'Confidentiality Requirements', abbreviation: 'CR',
-                                        values: [{ name: 'Not Defined', abbreviation: 'X' },
-                                                  { name: 'Low', abbreviation: 'L' },          
-                                                  { name: 'Medium', abbreviation: 'M' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Confidentiality Requirements', abbreviation: 'CR',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'Medium', abbreviation: 'M' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@integrity_requirements =
-                          CvssProperty.new(name: 'Integrity Requirements', abbreviation: 'IR',
-                                        values: [{ name: 'Not Defined', abbreviation: 'X' },
-                                                  { name: 'Low', abbreviation: 'L' },          
-                                                  { name: 'Medium', abbreviation: 'M' },
-                                                  { name: 'High', abbreviation: 'H' }]))
+                         CvssProperty.new(name: 'Integrity Requirements', abbreviation: 'IR',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'Medium', abbreviation: 'M' },
+                                                   { name: 'High', abbreviation: 'H' }]))
       @properties.push(@availability_requirements =
-                          CvssProperty.new(name: 'Availability Requirements', abbreviation: 'AR',
-                                        values: [{ name: 'Not Defined', abbreviation: 'X' },
-                                                  { name: 'Low', abbreviation: 'L' },          
-                                                  { name: 'Medium', abbreviation: 'M' },
-                                                  { name: 'High', abbreviation: 'H' }]))                                                
+                         CvssProperty.new(name: 'Availability Requirements', abbreviation: 'AR',
+                                          values: [{ name: 'Not Defined', abbreviation: 'X' },
+                                                   { name: 'Low', abbreviation: 'L' },
+                                                   { name: 'Medium', abbreviation: 'M' },
+                                                   { name: 'High',
+                                                     abbreviation: 'H' }]))
     end
   end
 end
