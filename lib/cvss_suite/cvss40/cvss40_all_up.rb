@@ -18,11 +18,12 @@ module CvssSuite
       Cvss40CalcHelper.new(@properties.map { |p| [p.abbreviation, p.selected_value[:abbreviation]] }.to_h).score
     end
 
-    def initialize(properties, base, threat, environmental, supplemental)
+    def initialize(properties, base, threat, environmental, environmental_security, supplemental)
         @properties_to_later_initialize_from = properties
         @base = base
         @threat = threat
         @environmental = environmental
+        @environmental_security = environmental_security
         @supplemental = supplemental
         super(properties)
     end
@@ -31,7 +32,7 @@ module CvssSuite
 
     def init_properties
         # All up takes it's properties from all other scores
-        properties_to_add = @base.properties + @threat.properties + @environmental.properties + @supplemental.properties
+        properties_to_add = @base.properties + @threat.properties + @environmental.properties + @environmental_security.properties + @supplemental.properties
         properties_to_add.each { |p| @properties.push p }
     end
   end

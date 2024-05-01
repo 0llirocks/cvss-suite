@@ -339,7 +339,7 @@ module CvssSuite
       value -= mean_distance
       value = 0.0 if value.negative?
       value = 10.0 if value > 10
-      round_up(value)
+      value.round(1)
     end
 
     def get_eq_maxes(lookup, eq_value)
@@ -366,15 +366,6 @@ module CvssSuite
 
     def parse_int(string_to_parse)
       Integer(string_to_parse)
-    end
-
-    def round_up(float)
-      output = (float * 100_000).round
-      if (output % 10_000).zero?
-        output / 100_000.0
-      else
-        ((output / 10_000).floor + 1) / 10.0
-      end
     end
 
     def extract_value_metric(metric, str)

@@ -81,12 +81,14 @@ module CvssSuite
       @properties.push(@modified_subsequent_system_integrity =
                         CvssProperty.new(name: 'Modified Subsequent System Integrity Impact', abbreviation: 'MSI',
                                         values: [{ name: 'None', abbreviation: 'N' },
+                                                  { name: 'Safety', abbreviation: 'S' },
                                                   { name: 'Low', abbreviation: 'L' },
                                                   { name: 'High', abbreviation: 'H' },
                                                   { name: 'Not Defined', abbreviation: 'X'}]))
       @properties.push(@modified_subsequent_system_availability =
                         CvssProperty.new(name: 'Modified Subsequent System Availability Impact', abbreviation: 'MSA',
                                         values: [{ name: 'None', abbreviation: 'N' },
+                                                  { name: 'Safety', abbreviation: 'S' },
                                                   { name: 'Low', abbreviation: 'L' },
                                                   { name: 'High', abbreviation: 'H' },
                                                   { name: 'Not Defined', abbreviation: 'X'}]))

@@ -8,6 +8,7 @@ require_relative 'cvss40_base'
 require_relative 'cvss40_supplemental'
 require_relative 'cvss40_threat'
 require_relative 'cvss40_environmental'
+require_relative 'cvss40_environmental_security'
 require_relative 'cvss40_all_up'
 
 module CvssSuite
@@ -33,9 +34,10 @@ module CvssSuite
       @base = Cvss40Base.new(@properties)
       @threat = Cvss40Threat.new(@properties)
       @environmental = Cvss40Environmental.new(@properties)
+      @environmental_security = Cvss40EnvironmentalSecurity.new(@properties)
       @supplemental = Cvss40Supplemental.new(@properties)
 
-      @all_up = Cvss40AllUp.new(@properties, @base, @threat, @environmental, @supplemental)
+      @all_up = Cvss40AllUp.new(@properties, @base, @threat, @environmental, @environmental_security, @supplemental)
     end
   end
 end
