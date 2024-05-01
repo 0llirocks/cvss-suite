@@ -32,7 +32,8 @@ module CvssSuite
 
     def init_properties
       # All up takes it's properties from all other scores
-      properties_to_add = @base.properties + @threat.properties + @environmental.properties + @environmental_security.properties + @supplemental.properties
+      properties_to_add = @base.properties + @threat.properties + @environmental.properties +
+                          @environmental_security.properties + @supplemental.properties
       properties_to_add.each { |p| @properties.push p }
     end
   end

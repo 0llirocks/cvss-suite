@@ -12,9 +12,11 @@ module CvssSuite
   class Cvss40Environmental < CvssMetric
     ##
     # Property of this metric
-    attr_reader :modified_attack_vector, :modified_attack_complexity, :modified_attack_requirements, :modified_privileges_required, :modified_user_interaction,
-                :modified_vulnerable_system_confidentiality, :modified_vulnerable_system_integrity, :modified_vulnerable_system_availability,
-                :modified_subsequent_system_confidentiality, :modified_subsequent_system_integrity, :modified_subsequent_system_availability
+    attr_reader :modified_attack_vector, :modified_attack_complexity, :modified_attack_requirements,
+                :modified_privileges_required, :modified_user_interaction, :modified_vulnerable_system_confidentiality,
+                :modified_vulnerable_system_integrity, :modified_vulnerable_system_availability,
+                :modified_subsequent_system_confidentiality, :modified_subsequent_system_integrity,
+                :modified_subsequent_system_availability
 
     ##
     # Returns score of this metric
@@ -55,38 +57,44 @@ module CvssSuite
                                                    { name: 'Active', abbreviation: 'A' },
                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@vulnerable_system_confidentiality =
-                         CvssProperty.new(name: 'Modified Vulnerable System Confidentiality Impact', abbreviation: 'MVC',
+                         CvssProperty.new(name: 'Modified Vulnerable System Confidentiality Impact',
+                                          abbreviation: 'MVC',
                                           values: [{ name: 'None', abbreviation: 'N' },
                                                    { name: 'Low', abbreviation: 'L' },
                                                    { name: 'High', abbreviation: 'H' },
                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@modified_vulnerable_system_integrity =
-                         CvssProperty.new(name: 'Modified Vulnerable System Integrity Impact', abbreviation: 'MVI',
+                         CvssProperty.new(name: 'Modified Vulnerable System Integrity Impact',
+                                          abbreviation: 'MVI',
                                           values: [{ name: 'None', abbreviation: 'N' },
                                                    { name: 'Low', abbreviation: 'L' },
                                                    { name: 'High', abbreviation: 'H' },
                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@modified_vulnerable_system_availability =
-                         CvssProperty.new(name: 'Modified Vulnerable System Availability Impact', abbreviation: 'MVA',
+                         CvssProperty.new(name: 'Modified Vulnerable System Availability Impact',
+                                          abbreviation: 'MVA',
                                           values: [{ name: 'None', abbreviation: 'N' },
                                                    { name: 'Low', abbreviation: 'L' },
                                                    { name: 'High', abbreviation: 'H' },
                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@modified_subsequent_system_confidentiality =
-                         CvssProperty.new(name: 'Modified Subsequent System Confidentiality Impact', abbreviation: 'MSC',
+                         CvssProperty.new(name: 'Modified Subsequent System Confidentiality Impact',
+                                          abbreviation: 'MSC',
                                           values: [{ name: 'None', abbreviation: 'N' },
                                                    { name: 'Low', abbreviation: 'L' },
                                                    { name: 'High', abbreviation: 'H' },
                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@modified_subsequent_system_integrity =
-                         CvssProperty.new(name: 'Modified Subsequent System Integrity Impact', abbreviation: 'MSI',
+                         CvssProperty.new(name: 'Modified Subsequent System Integrity Impact',
+                                          abbreviation: 'MSI',
                                           values: [{ name: 'None', abbreviation: 'N' },
                                                    { name: 'Safety', abbreviation: 'S' },
                                                    { name: 'Low', abbreviation: 'L' },
                                                    { name: 'High', abbreviation: 'H' },
                                                    { name: 'Not Defined', abbreviation: 'X' }]))
       @properties.push(@modified_subsequent_system_availability =
-                         CvssProperty.new(name: 'Modified Subsequent System Availability Impact', abbreviation: 'MSA',
+                         CvssProperty.new(name: 'Modified Subsequent System Availability Impact',
+                                          abbreviation: 'MSA',
                                           values: [{ name: 'None', abbreviation: 'N' },
                                                    { name: 'Safety', abbreviation: 'S' },
                                                    { name: 'Low', abbreviation: 'L' },

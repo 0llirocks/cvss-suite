@@ -1,6 +1,10 @@
-require_relative "cvss40_constants"
+require_relative 'cvss40_constants'
 
 module CvssSuite
+  # This class performs much of the score calculation logic for CVSS 4.0.
+  # It is heavily ported from the m and scoring methods in https://github.com/FIRSTdotorg/cvss-v4-calculator/blob/ac71416d935ad2ac87cd107ff87024561ea954a7/app.js#L121
+  # This class has a few rubocop exclusions but maintaining parity with the ported
+  #  code seems more valuable than trying to follow the cops in this case.
   class Cvss40CalcHelper
     include Cvss40Constants
 
@@ -87,16 +91,17 @@ module CvssSuite
       #      1-E:P
       #      2-E:U
 
-      if m('E') == 'A'
-        eq5 = '0'
-      elsif m('E') == 'P'
-        eq5 = '1'
-      elsif m('E') == 'U'
-        eq5 = '2'
-      else
-        # brphelps TODO added figure it out
-        eq5 = '0'
-      end
+      eq5 = case m('E')
+            when 'A'
+              '0'
+            when 'P'
+              '1'
+            when 'U'
+              '2'
+            else
+              # brphelps TODO added figure it out
+              '0'
+            end
 
       # EQ6: 0-(CR:H and VC:H) or (IR:H and VI:H) or (AR:H and VA:H)
       #      1-not[(CR:H and VC:H) or (IR:H and VI:H) or (AR:H and VA:H)]
@@ -122,7 +127,7 @@ module CvssSuite
       macro_vector = retrieve_macro_vector
 
       # Exception for no impact on system (shortcut)
-      return 0.0 if ['VC','VI','VA','SC','SI','SA'].all? { |metric| m(metric) == 'N'}
+      return 0.0 if %w[VC VI VA SC SI SA].all? { |metric| m(metric) == 'N' }
 
       value = LOOKUP[macro_vector]
 
@@ -239,10 +244,9 @@ module CvssSuite
         # if any is less than zero this is not the right max
         if [severity_distance_av, severity_distance_pr, severity_distance_ui, severity_distance_ac,
             severity_distance_at, severity_distance_vc, severity_distance_vi, severity_distance_va,
-            severity_distance_sc, severity_distance_si, severity_distance_sa, 
+            severity_distance_sc, severity_distance_si, severity_distance_sa,
             severity_distance_cr,
-            severity_distance_ir, severity_distance_ar
-        ].compact.any? { |met| met < 0 }
+            severity_distance_ir, severity_distance_ar].compact.any?(&:negative?)
           next
         end
 
@@ -253,9 +257,8 @@ module CvssSuite
       current_severity_distance_eq1 = severity_distance_av + severity_distance_pr + severity_distance_ui
       current_severity_distance_eq2 = severity_distance_ac + severity_distance_at
       current_severity_distance_eq3eq6 = sum_or_nil([severity_distance_vc, severity_distance_vi, severity_distance_va,
-                                        severity_distance_cr, severity_distance_ir, severity_distance_ar])
+                                                     severity_distance_cr, severity_distance_ir, severity_distance_ar])
       current_severity_distance_eq4 = severity_distance_sc + severity_distance_si + severity_distance_sa
-      current_severity_distance_eq5 = 0
 
       step = 0.1
 
@@ -266,12 +269,6 @@ module CvssSuite
       available_distance_eq3eq6 = score_eq3eq6_next_lower_macro ? value - score_eq3eq6_next_lower_macro : nil
       available_distance_eq4 = score_eq4_next_lower_macro ? value - score_eq4_next_lower_macro : nil
       available_distance_eq5 = score_eq5_next_lower_macro ? value - score_eq5_next_lower_macro : nil
-
-      percent_to_next_eq1_severity = 0
-      percent_to_next_eq2_severity = 0
-      percent_to_next_eq3eq6_severity = 0
-      percent_to_next_eq4_severity = 0
-      percent_to_next_eq5_severity = 0
 
       # some of them do not exist, we will find them by retrieving the score. If score null then do not exist
       n_existing_lower = 0
@@ -355,12 +352,14 @@ module CvssSuite
     end
 
     def sum_or_nil(values)
-      return nil if values.any? { |v| v.nil? }
+      return nil if values.any?(&:nil?)
+
       values.sum
     end
 
     def subtract_or_nil(left, right)
       return nil if left.nil? || right.nil?
+
       left - right
     end
 
@@ -374,7 +373,8 @@ module CvssSuite
       extracted = str.slice(index..)
       # remove what follow
       if extracted.index('/').positive?
-        metric_val = extracted[..(extracted.index('/') - 1)]
+        index_to_drop_after = extracted.index('/') - 1
+        metric_val = extracted.truncate(index_to_drop_after)
       elsif extracted
         metric_val = extracted
         # case where it is the last metric so no ending /
@@ -382,6 +382,5 @@ module CvssSuite
 
       metric_val
     end
-
   end
 end

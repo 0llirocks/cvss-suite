@@ -14,7 +14,7 @@ require_relative 'cvss40_all_up'
 module CvssSuite
   ##
   # This class represents a CVSS vector in version 4.0.
-  class Cvss40 < Cvss4_0AndLater
+  class Cvss40 < Cvss40AndLater
     ##
     # Returns the Version of the CVSS vector.
 

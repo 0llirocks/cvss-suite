@@ -8,7 +8,7 @@ require_relative 'cvss'
 module CvssSuite
   ##
   # This class represents any CVSS vector. Do not instantiate this class!
-  class Cvss4_0AndLater < Cvss
+  class Cvss40AndLater < Cvss
     ##
     # Metric of a CVSS vector for CVSS 2, 3, 3.1.
     attr_reader :temporal, :environmental
@@ -16,9 +16,9 @@ module CvssSuite
     ##
     # Creates a new CVSS vector by a +vector+, for all CVSS versions from 4.0.
     #
-    # Raises an exception if it is called on Cvss4_0AndLater class.
+    # Raises an exception if it is called on Cvss40AndLater class.
     def initialize(vector)
-      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? Cvss4_0AndLater
+      raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? Cvss40AndLater
 
       super
     end
