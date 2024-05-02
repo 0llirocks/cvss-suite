@@ -17,7 +17,7 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
     - name: Install gems
       run: |
-        gem install bundler -v ">= 1.10"
+        gem install bundler -v "2.4.22"
         bundle install --jobs 4 --retry 3
     - name: Run tests
       run: bundle exec rspec spec
