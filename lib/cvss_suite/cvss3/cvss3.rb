@@ -9,7 +9,7 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-require_relative '../cvss'
+require_relative '../cvss_3_1_and_before'
 require_relative 'cvss3_base'
 require_relative 'cvss3_temporal'
 require_relative 'cvss3_environmental'
@@ -17,7 +17,7 @@ require_relative 'cvss3_environmental'
 module CvssSuite
   ##
   # This class represents a CVSS vector in version 3.0.
-  class Cvss3 < Cvss
+  class Cvss3 < Cvss3_1AndBefore
     ##
     # Returns the Version of the CVSS vector.
     def version

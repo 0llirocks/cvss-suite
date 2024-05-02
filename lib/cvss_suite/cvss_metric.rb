@@ -36,6 +36,10 @@ module CvssSuite
       @properties.count
     end
 
+    ##
+    # We aggregate these in some other classes
+    attr_reader :properties
+
     private
 
     def extract_selected_values_from(selected_properties)

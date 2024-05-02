@@ -4,6 +4,10 @@ AllCops:
   TargetRubyVersion: 2.6
   SuggestExtensions: false
 
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
+
 Metrics/LineLength:
   Max: 120
   Exclude:
@@ -14,17 +18,33 @@ Metrics/ClassLength:
   Exclude:
     - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
     - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+    - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude: 
+    - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
 
 Metrics/MethodLength:
   Exclude:
     - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
     - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+    - 'lib/cvss_suite/cvss40/cvss40_environmental.rb'
+    - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'lib/cvss_suite/cvss40/cvss40_constants_macro_vector_lookup.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/cvss2/cvss2_spec.rb'
     - 'spec/cvss3/cvss3_spec.rb'
     - 'spec/cvss31/cvss31_spec.rb'
+    - 'spec/cvss40/cvss40_spec.rb'
 
 Style/IfUnlessModifier:
   Exclude:
