@@ -16,6 +16,6 @@ jobs:
     - name: Install gems
       run: |
         gem install bundler -v "2.4.22"
-        gem install rubocop -v "1.50.2"
+        bundle install --jobs 4 --retry 3
     - name: Run checks
       run: rubocop -F --fail-level C -f s
