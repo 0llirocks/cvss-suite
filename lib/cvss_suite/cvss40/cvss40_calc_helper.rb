@@ -1,4 +1,7 @@
-require_relative 'cvss40_constants'
+require_relative 'cvss40_constants_macro_vector_lookup'
+require_relative 'cvss40_constants_max_composed'
+require_relative 'cvss40_constants_max_severity'
+require_relative 'cvss40_constants_levels'
 
 module CvssSuite
   # This class performs much of the score calculation logic for CVSS 4.0.

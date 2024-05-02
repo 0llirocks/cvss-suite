@@ -3,7 +3,7 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-require_relative '../cvss_4_0_and_later'
+require_relative '../cvss_40_and_later'
 require_relative 'cvss40_base'
 require_relative 'cvss40_supplemental'
 require_relative 'cvss40_threat'

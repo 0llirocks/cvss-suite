@@ -3,7 +3,6 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-require 'debug'
 require_relative '../spec_helper'
 
 describe CvssSuite::Cvss40 do
