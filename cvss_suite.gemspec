@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['0llirocks']
 
   spec.summary       = 'Ruby gem for processing cvss vectors.'
-  spec.description   = 'This Ruby gem calculates the score based on the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).'
+  spec.description   = 'This Ruby gem calculates the score based on the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document) in version 4.0, 3.1, 3.0 and 2.'
 
   spec.homepage    = 'https://cvss-suite.0lli.rocks'
 
