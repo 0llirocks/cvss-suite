@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.0] - 2024-05-04
+
+### Improvements
+* Add support for CVSS version 4. Closes [#32](https://github.com/0llirocks/cvss-suite/issues/32). Many thanks to @brphelps for adding this feature.
+
 ## [3.1.1] - 2023-10-15
 
 ### Fixes
