@@ -1,15 +1,9 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) 2016-2022 Siemens AG
-# Copyright (c) 2022 0llirocks
-#
-# Authors:
-#   0llirocks <http://0lli.rocks>
-#
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-require_relative '../cvss'
+require_relative '../cvss_31_and_before'
 require_relative 'cvss2_base'
 require_relative 'cvss2_temporal'
 require_relative 'cvss2_environmental'
@@ -17,7 +11,7 @@ require_relative 'cvss2_environmental'
 module CvssSuite
   ##
   # This class represents a CVSS vector in version 2.
-  class Cvss2 < Cvss
+  class Cvss2 < Cvss31AndBefore
     ##
     # Returns the Version of the CVSS vector.
     def version

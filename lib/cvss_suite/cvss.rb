@@ -1,11 +1,5 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) 2016-2022 Siemens AG
-# Copyright (c) 2022-2023 0llirocks
-#
-# Authors:
-#   0llirocks <http://0lli.rocks>
-#
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
@@ -15,7 +9,7 @@ module CvssSuite
   class Cvss
     ##
     # Metric of a CVSS vector.
-    attr_reader :base, :temporal, :environmental
+    attr_reader :base
 
     ##
     # Creates a new CVSS vector by a +vector+.
@@ -28,20 +22,6 @@ module CvssSuite
       @properties = []
       extract_metrics
       init_metrics
-    end
-
-    ##
-    # Returns if CVSS vector is valid.
-    def valid?
-      if @amount_of_properties >= required_amount_of_properties
-        base = @base.valid?
-        temporal = @base.valid? && @temporal.valid?
-        environmental = @base.valid? && @environmental.valid?
-        full = @base.valid? && @temporal.valid? && @environmental.valid?
-        base || temporal || environmental || full
-      else
-        false
-      end
     end
 
     ##
@@ -64,16 +44,6 @@ module CvssSuite
       else
         'None'
       end
-    end
-
-    ##
-    # Returns the Overall Score of the CVSS vector.
-    def overall_score
-      check_validity
-      return temporal_score if @temporal.valid? && !@environmental.valid?
-      return environmental_score if @environmental.valid?
-
-      base_score
     end
 
     ##

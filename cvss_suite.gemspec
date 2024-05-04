@@ -1,11 +1,5 @@
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
-# Copyright (c) 2016-2022 Siemens AG
-# Copyright (c) 2022 0llirocks
-#
-# Authors:
-#   0llirocks <http://0lli.rocks>
-#
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
@@ -40,8 +34,9 @@ Besides calculating the Base, Temporal and Environmental Score, you are able to 
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '>= 1.10'
+  spec.add_development_dependency 'bundler', '2.4.22'
   spec.add_development_dependency 'rspec', '~> 3.4'
   spec.add_development_dependency 'rspec-its', '~> 1.2'
+  spec.add_development_dependency 'rubocop', '1.50.2'
   spec.add_development_dependency 'simplecov', '~> 0.18'
 end

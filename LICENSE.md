@@ -1,7 +1,16 @@
 The MIT License (MIT)
 
 Copyright (c) 2016-2022 Siemens AG
-Copyright (c) 2022 0llirocks
+Copyright (c) 2022-2024 0llirocks
+
+Authors:
+   0llirocks <https://github.com/0llirocks>
+Contributors:
+    Florian Wininger <https://github.com/fwininger>
+    Adam David <https://github.com/adamrdavid>
+    Alexandre Zanni <https://github.com/noraj>
+    joePedantic <https://github.com/joePedantic>
+    Brandyn Phelps <https://github.com/brphelps>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
