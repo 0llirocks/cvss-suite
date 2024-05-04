@@ -74,4 +74,25 @@ describe CvssSuite::Cvss40 do
       it_behaves_like 'a valid 4.0 cvss vector', 4.0, a[:expected_score], a[:expected_severity]
     end
   end
+
+  [
+    {
+      name: 'missing metric',
+      cvss_string: 'CVSS:4.0/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H'
+    },
+    {
+      name: 'incorrect metric value',
+      cvss_string: 'CVSS:4.0/AV:X/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N'
+    },
+    {
+      name: 'duplicate metric value',
+      cvss_string: 'CVSS:4.0/AV:A/AV:A/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N'
+    }
+  ].each do |a|
+    describe "CVSS string #{a[:name]} is incorrect" do
+      subject { CvssSuite.new(a[:cvss_string]) }
+
+      it_behaves_like 'a invalid cvss vector with version', 4.0
+    end
+  end
 end
