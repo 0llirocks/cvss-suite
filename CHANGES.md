@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Improvements
 * Add support for CVSS version 4. Closes [#32](https://github.com/0llirocks/cvss-suite/issues/32). Many thanks to @brphelps for adding this feature.
 
+### Notes
+* CVSS version 4 no longer has multiple scores, only one overall score. Keep that in mind when using CVSS version 4.
+
 ## [3.1.1] - 2023-10-15
 
 ### Fixes

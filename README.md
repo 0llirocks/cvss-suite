@@ -5,6 +5,7 @@
 [![Cvss Support](https://img.shields.io/badge/CVSS-v2-brightgreen.svg)](https://www.first.org/cvss/v2/guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.0-brightgreen.svg)](https://www.first.org/cvss/v3.0/user-guide)
 [![Cvss Support](https://img.shields.io/badge/CVSS-v3.1-brightgreen.svg)](https://www.first.org/cvss/v3.1/user-guide)
+[![Cvss Support](https://img.shields.io/badge/CVSS-v4.0-brightgreen.svg)](https://www.first.org/cvss/v4.0/user-guide)
 [![RSpec](https://github.com/0llirocks/cvss-suite/workflows/RSpec/badge.svg)](https://github.com/0llirocks/cvss-suite/actions)
 
 This Ruby gem helps you to process the vector of the [**Common Vulnerability Scoring System**](https://www.first.org/cvss/specification-document).
@@ -45,12 +46,12 @@ If you are still using CvssSuite 1.x please refer to the [specific branch](https
 ```ruby
 require 'cvss_suite'
 
-cvss3 = CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H')
+cvss4 = CvssSuite.new('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N')
 
-vector = cvss3.vector       # 'CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H'
-version = cvss3.version     # 3.0
-valid = cvss3.valid?        # true
-severity = cvss3.severity   # 'High'
+vector = cvss4.vector       # 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N'
+version = cvss4.version     # 4.0
+valid = cvss4.valid?        # true
+severity = cvss4.severity   # 'Critical'
 
 cvss31 = CvssSuite.new('CVSS:3.1/AV:P/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:H/E:H/RL:U/RC:U')
 
@@ -58,6 +59,13 @@ vector = cvss31.vector     # 'CVSS:3.1/AV:P/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:H/E:H/R
 version = cvss31.version   # 3.1
 valid = cvss31.valid?      # true
 severity = cvss31.severity # 'Medium'
+
+cvss3 = CvssSuite.new('CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H')
+
+vector = cvss3.vector       # 'CVSS:3.0/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:L/CR:L/IR:M/AR:H/MAV:N/MAC:H/MPR:N/MUI:R/MS:U/MC:N/MI:L/MA:H'
+version = cvss3.version     # 3.0
+valid = cvss3.valid?        # true
+severity = cvss3.severity   # 'High'
 
 cvss = CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
 
@@ -67,6 +75,7 @@ valid = cvss.valid?        # true
 severity = cvss.severity   # 'Low'
 
 # Scores
+score = cvss4.overall_score                         # 9.3, cvss4 only has overall score
 base_score = cvss.base_score                        # 4.9
 temporal_score = cvss.temporal_score                # 3.6
 environmental_score = cvss.environmental_score      # 3.2
