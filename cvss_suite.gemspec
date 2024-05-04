@@ -18,11 +18,12 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Ruby gem for processing cvss vectors.'
   spec.description   = 'This Ruby gem calculates the score based on the vector of the Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document).'
 
+  spec.homepage    = 'https://cvss-suite.0lli.rocks'
+
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/0llirocks/cvss-suite/issues',
     'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md',
     'documentation_uri' => "https://www.rubydoc.info/gems/cvss-suite/#{CvssSuite::VERSION}",
-    'homepage_uri' => 'https://cvss-suite.0lli.rocks',
     'source_code_uri' => 'https://github.com/0llirocks/cvss-suite'
   }
 
