@@ -10,7 +10,6 @@ require 'cvss_suite/cvss40/cvss40'
 require 'cvss_suite/version'
 require 'cvss_suite/errors'
 require 'cvss_suite/invalid_cvss'
-require 'cvss_suite/extensions/string'
 
 ##
 # Module of this gem.

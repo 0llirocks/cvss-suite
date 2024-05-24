@@ -377,13 +377,21 @@ module CvssSuite
       # remove what follow
       if extracted.index('/').positive?
         index_to_drop_after = extracted.index('/') - 1
-        metric_val = extracted.truncate(index_to_drop_after)
+        metric_val = truncate(extracted, index_to_drop_after)
       elsif extracted
         metric_val = extracted
         # case where it is the last metric so no ending /
       end
 
       metric_val
+    end
+
+    # rails defines this method on String, so we need to avoid polluting the
+    #  String class to preserve Rails behavior.
+    def truncate(string_to_truncate, truncate_to)
+      return string_to_truncate.dup unless string_to_truncate.length > truncate_to
+
+      (string_to_truncate[0, truncate_to + 1]).to_s
     end
   end
 end
