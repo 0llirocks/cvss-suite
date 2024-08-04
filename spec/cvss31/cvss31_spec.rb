@@ -47,6 +47,7 @@ describe CvssSuite::Cvss31 do
   end
   let(:invalid_cvss31_extra_slash) { CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N//I:N/A:H/E:P/RL:U/RC:C/') }
   let(:invalid_cvss31_wrong_value) { CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:R/RL:U/RC:C') }
+  let(:invalid_cvss31_empty_value) { CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:/RL:U/RC:C') }
 
   describe 'valid cvss31' do
     subject { valid_cvss31 }
@@ -182,6 +183,12 @@ describe CvssSuite::Cvss31 do
 
   describe 'invalid cvss31 with wrong value for Exploit Code Maturity (E)' do
     subject { invalid_cvss31_wrong_value }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with wrong value for Exploit Code Maturity (E)' do
+    subject { invalid_cvss31_empty_value }
 
     it_behaves_like 'a invalid cvss vector with version', 3.1
   end

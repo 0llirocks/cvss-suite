@@ -33,6 +33,7 @@ describe CvssSuite::Cvss2 do
   end
   let(:invalid_cvss2_extra_slash) { CvssSuite.new('AV:N//AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:invalid_cvss2_wrong_value) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:R/RL:OF/RC:C') }
+  let(:invalid_cvss2_empty_value) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:/RL:OF/RC:C') }
 
   describe 'valid cvss2' do
     subject { valid_cvss2 }
@@ -132,6 +133,12 @@ describe CvssSuite::Cvss2 do
 
   describe 'invalid cvss2 with wrong value for Exploit Code Maturity (E)' do
     subject { invalid_cvss2_wrong_value }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with empty value for Exploit Code Maturity (E)' do
+    subject { invalid_cvss2_empty_value }
 
     it_behaves_like 'a invalid cvss vector with version', 2
   end
