@@ -23,7 +23,7 @@ describe CvssSuite::Cvss2 do
   let(:invalid_cvss2) { CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C') }
   let(:invalid_cvss2_parenthesis_closed) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P') }
   let(:invalid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N()/C:P/I:P/A:P') }
-  let(:invalid_cvss2_missing_metric) { CvssSuite.new('AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
+  let(:invalid_cvss2_missing_metric) { CvssSuite.new('AV:N/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:invalid_cvss2_multiple_metrics) { CvssSuite.new('AV:N/AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:invalid_cvss2_additional_fields) do
     CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C/Extra/')
