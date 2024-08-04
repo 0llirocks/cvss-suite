@@ -27,11 +27,10 @@ module CvssSuite
     # Returns if CVSS vector is valid.
     def valid?
       if @amount_of_properties >= required_amount_of_properties
-        base = @base.valid?
-        temporal = @base.valid? && @temporal&.valid?
-        environmental = @base.valid? && @environmental&.valid?
-        full = @base.valid? && @temporal&.valid? && @environmental&.valid?
-        base || temporal || environmental || full
+        entered_keys = @properties.collect { |p| p[:name] }
+        return false if (entered_keys - allowed_abbreviations).size.positive?
+
+        check_metrics_validity
       else
         false
       end
@@ -45,6 +44,18 @@ module CvssSuite
       return environmental_score if @environmental.valid?
 
       base_score
+    end
+
+    private
+
+    def allowed_abbreviations
+      @base.properties.collect(&:abbreviation) +
+        @temporal.properties.collect(&:abbreviation) +
+        @environmental.properties.collect(&:abbreviation)
+    end
+
+    def check_metrics_validity
+      @base.valid? && @temporal&.valid? && @environmental&.valid?
     end
   end
 end

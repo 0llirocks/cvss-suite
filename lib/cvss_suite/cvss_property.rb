@@ -58,7 +58,7 @@ module CvssSuite
     # Returns true if the property is valid.
 
     def valid?
-      !@selected_value.nil?
+      !@selected_value.nil? && @property[:values].map { |p| p[:abbreviation] }.include?(@selected_value[:abbreviation])
     end
 
     ##
@@ -76,6 +76,9 @@ module CvssSuite
         value[:selected] = selected_value.eql?(value[:abbreviation])
       end
       @selected_value = values.detect { |value| value[:selected] }
+      return unless @selected_value.nil?
+
+      @selected_value = { abbreviation: selected_value }
     end
 
     ##
@@ -84,8 +87,16 @@ module CvssSuite
     def set_default_value
       values.each do |value|
         value[:selected] = value[:abbreviation].eql?('X')
+        value[:selected] ||= value[:abbreviation].eql?('ND')
       end
       @selected_value = values.detect { |value| value[:selected] }
+    end
+
+    ##
+    # Returns whether a selected_value is set
+
+    def non_selected?
+      @selected_value.nil?
     end
   end
 end

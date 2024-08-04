@@ -39,6 +39,14 @@ describe CvssSuite::Cvss31 do
   let(:invalid_cvss31_not_defined) { CvssSuite.new('CVSS:3.1/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }
   let(:invalid_cvss31_missing_metric) { CvssSuite.new('CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L') }
   let(:invalid_cvss31_multiple_metrics) { CvssSuite.new('CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:L/A:L/A:L') }
+  let(:invalid_cvss31_additional_fields) do
+    CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:P/RL:U/RC:C/Extra/')
+  end
+  let(:invalid_cvss31_additional_fields_missing_temporal) do
+    CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/Extra/')
+  end
+  let(:invalid_cvss31_extra_slash) { CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N//I:N/A:H/E:P/RL:U/RC:C/') }
+  let(:invalid_cvss31_wrong_value) { CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:R/RL:U/RC:C') }
 
   describe 'valid cvss31' do
     subject { valid_cvss31 }
@@ -150,6 +158,30 @@ describe CvssSuite::Cvss31 do
 
   describe 'invalid cvss31 with multiple base metrics' do
     subject { invalid_cvss31_multiple_metrics }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with additional fields' do
+    subject { invalid_cvss31_additional_fields }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with additional fields missing temporal' do
+    subject { invalid_cvss31_additional_fields_missing_temporal }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with extra slash' do
+    subject { invalid_cvss31_extra_slash }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.1
+  end
+
+  describe 'invalid cvss31 with wrong value for Exploit Code Maturity (E)' do
+    subject { invalid_cvss31_wrong_value }
 
     it_behaves_like 'a invalid cvss vector with version', 3.1
   end

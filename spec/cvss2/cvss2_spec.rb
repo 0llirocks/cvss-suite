@@ -23,6 +23,16 @@ describe CvssSuite::Cvss2 do
   let(:invalid_cvss2) { CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C') }
   let(:invalid_cvss2_parenthesis_closed) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P') }
   let(:invalid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N()/C:P/I:P/A:P') }
+  let(:invalid_cvss2_missing_metric) { CvssSuite.new('AV:N/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
+  let(:invalid_cvss2_multiple_metrics) { CvssSuite.new('AV:N/AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
+  let(:invalid_cvss2_additional_fields) do
+    CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C/Extra/')
+  end
+  let(:invalid_cvss2_additional_fields_missing_temporal) do
+    CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/RL:OF/RC:C/Extra/')
+  end
+  let(:invalid_cvss2_extra_slash) { CvssSuite.new('AV:N//AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
+  let(:invalid_cvss2_wrong_value) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:R/RL:OF/RC:C') }
 
   describe 'valid cvss2' do
     subject { valid_cvss2 }
@@ -86,6 +96,42 @@ describe CvssSuite::Cvss2 do
 
   describe 'invalid cvss2 with incorrect parenthesis' do
     subject { invalid_cvss2_parenthesis }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with missing base metric' do
+    subject { invalid_cvss2_missing_metric }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with multiple base metrics' do
+    subject { invalid_cvss2_multiple_metrics }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with additional fields' do
+    subject { invalid_cvss2_additional_fields }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with additional fields missing temporal' do
+    subject { invalid_cvss2_additional_fields_missing_temporal }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with extra slash' do
+    subject { invalid_cvss2_extra_slash }
+
+    it_behaves_like 'a invalid cvss vector with version', 2
+  end
+
+  describe 'invalid cvss2 with wrong value for Exploit Code Maturity (E)' do
+    subject { invalid_cvss2_wrong_value }
 
     it_behaves_like 'a invalid cvss vector with version', 2
   end
