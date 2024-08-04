@@ -47,6 +47,7 @@ describe CvssSuite::Cvss3 do
     CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/Extra/')
   end
   let(:invalid_cvss3_extra_slash) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N//I:N/A:H/E:P/RL:U/RC:C/') }
+  let(:invalid_cvss3_wrong_value) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:R/RL:U/RC:C') }
 
   describe 'valid cvss3' do
     subject { valid_cvss3 }
@@ -162,20 +163,26 @@ describe CvssSuite::Cvss3 do
     it_behaves_like 'a invalid cvss vector with version', 3.0
   end
 
-  describe 'invalid cvss31 with additional fields' do
+  describe 'invalid cvss3 with additional fields' do
     subject { invalid_cvss3_additional_fields }
 
     it_behaves_like 'a invalid cvss vector with version', 3.0
   end
 
-  describe 'invalid cvss31 with additional fields missing temporal' do
+  describe 'invalid cvss3 with additional fields missing temporal' do
     subject { invalid_cvss3_additional_fields_missing_temporal }
 
     it_behaves_like 'a invalid cvss vector with version', 3.0
   end
 
-  describe 'invalid cvss31 with extra slash' do
+  describe 'invalid cvss3 with extra slash' do
     subject { invalid_cvss3_extra_slash }
+
+    it_behaves_like 'a invalid cvss vector with version', 3.0
+  end
+
+  describe 'invalid cvss3 with wrong value for Exploit Code Maturity (E)' do
+    subject { invalid_cvss3_wrong_value }
 
     it_behaves_like 'a invalid cvss vector with version', 3.0
   end
