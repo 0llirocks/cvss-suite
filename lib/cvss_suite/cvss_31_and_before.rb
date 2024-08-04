@@ -55,11 +55,7 @@ module CvssSuite
     end
 
     def check_metrics_validity
-      base = @base.valid?
-      temporal = @base.valid? && @temporal&.valid?
-      environmental = @base.valid? && @environmental&.valid?
-      full = @base.valid? && @temporal&.valid? && @environmental&.valid?
-      base || temporal || environmental || full
+      @base.valid? && @temporal&.valid? && @environmental&.valid?
     end
   end
 end
