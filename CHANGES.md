@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.2.2] - 2024-08-04
+
+### Fixes
+* Add extra CVSS vector validations for 3.1 and lower. Fixes [#41](https://github.com/0llirocks/cvss-suite/issues/41)
+
+### Notes
+* An invalid value like E:R (R doesn't exists) now counts as invalid, resulting in an invalid vector. In <= 3.2.1 an invalid value would be ignored/counted as default value.
+
 ## [3.2.1] - 2024-05-25
 
 ### Fixes
