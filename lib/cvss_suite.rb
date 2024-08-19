@@ -27,7 +27,12 @@ module CvssSuite
   def self.new(vector)
     return InvalidCvss.new unless vector.is_a? String
 
-    @vector_string = vector
+    if vector.frozen?
+      @vector_string = vector.dup
+    else
+      @vector_string = vector
+    end
+
     case version
     when 2
       Cvss2.new(prepare_vector(@vector_string))
