@@ -351,7 +351,7 @@ module CvssSuite
     end
 
     def concat_and_stringify(first, second, third, fourth, fifth, sixth)
-      ''.concat(first.to_s, second.to_s, third.to_s, fourth.to_s, fifth.to_s, sixth.to_s)
+      String.new.concat(first.to_s, second.to_s, third.to_s, fourth.to_s, fifth.to_s, sixth.to_s)
     end
 
     def sum_or_nil(values)
