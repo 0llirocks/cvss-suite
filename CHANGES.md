@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.0] - 2024-08-31
+
+### Improvements
+* Prepare support for ruby 3.4. Closes [#44](https://github.com/0llirocks/cvss-suite/issues/44). Many thanks to @HParker for adding this feature.
+* Add score method for CVSS 4.0 and later as an alias for overall_score.
+
 ## [3.2.2] - 2024-08-04
 
 ### Fixes
