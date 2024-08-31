@@ -15,14 +15,6 @@ module CvssSuite
     attr_reader :safety, :automatable, :recovery, :value_density,
                 :vulnerability_response_effort, :provider_urgency
 
-    ##
-    # Returns score of this metric
-    def score
-      return 1.0 unless valid?
-
-      @exploit_code_maturity.score * @remediation_level.score * @report_confidence.score
-    end
-
     private
 
     def init_properties

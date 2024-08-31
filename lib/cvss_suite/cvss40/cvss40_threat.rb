@@ -14,12 +14,6 @@ module CvssSuite
     # Property of this metric
     attr_reader :exploit_maturity
 
-    ##
-    # Returns score of this metric
-    def score
-      Cvss40CalcHelper.new(@properties.map { |p| [p.abbreviation, p.selected_value[:abbreviation]] }.to_h).score
-    end
-
     private
 
     def init_properties

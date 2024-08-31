@@ -18,12 +18,6 @@ module CvssSuite
                 :modified_subsequent_system_confidentiality, :modified_subsequent_system_integrity,
                 :modified_subsequent_system_availability
 
-    ##
-    # Returns score of this metric
-    def score
-      Cvss40CalcHelper.new(@properties.map { |p| [p.abbreviation, p.selected_value[:abbreviation]] }.to_h).score
-    end
-
     private
 
     def init_properties
