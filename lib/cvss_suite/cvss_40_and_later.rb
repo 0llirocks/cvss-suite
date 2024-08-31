@@ -41,5 +41,11 @@ module CvssSuite
 
       @all_up.score
     end
+
+    ##
+    # Alias for overall_score.
+    def score
+      overall_score
+    end
   end
 end
