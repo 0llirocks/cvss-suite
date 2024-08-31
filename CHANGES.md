@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.0.0] - 2024-08-31
+
+### Breaking Changes
+* Removed score method for all CVSS 4.0 metrics. Since CVSS 4.0 only has one score, it doesn't make sense for each metric to return a separate score. See [#46](https://github.com/0llirocks/cvss-suite/issues/46) for more information.
+
 ## [3.3.0] - 2024-08-31
 
 ### Improvements
