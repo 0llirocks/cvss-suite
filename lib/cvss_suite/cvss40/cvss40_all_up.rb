@@ -10,7 +10,7 @@ require_relative 'cvss40_threat'
 
 module CvssSuite
   ##
-  # This class represents a CVSS Threat metric in version 3.1.
+  # This class represents all CVSS metrics combined in version 4.0.
   class Cvss40AllUp < CvssMetric
     ##
     # Returns score of this metric
