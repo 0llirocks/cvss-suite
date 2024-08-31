@@ -33,6 +33,10 @@ Or install it yourself as:
 
     $ gem install cvss-suite
 
+## Version 3.x
+
+If you are still using CvssSuite 3.x please refer to the [specific branch](https://github.com/0llirocks/cvss-suite/tree/3.x) for documentation and changelog.
+
 ## Version 2.x
 
 If you are still using CvssSuite 2.x please refer to the [specific branch](https://github.com/0llirocks/cvss-suite/tree/2.x) for documentation and changelog.
