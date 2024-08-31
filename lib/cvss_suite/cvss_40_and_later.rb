@@ -10,8 +10,8 @@ module CvssSuite
   # This class represents any CVSS vector. Do not instantiate this class!
   class Cvss40AndLater < Cvss
     ##
-    # Metric of a CVSS vector for CVSS 2, 3, 3.1.
-    attr_reader :temporal, :environmental
+    # Metric of a CVSS vector for CVSS 4.0.
+    attr_reader :supplemental, :environmental, :environmental_security, :threat
 
     ##
     # Creates a new CVSS vector by a +vector+, for all CVSS versions from 4.0.
