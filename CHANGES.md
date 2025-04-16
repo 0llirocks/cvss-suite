@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Improvements
+* Expose impact and exploitability sub-scores. (@jgarber-cisco)
+
 ## [4.0.0] - 2024-08-31
 
 ### Breaking Changes

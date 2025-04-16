@@ -30,6 +30,14 @@ module CvssSuite
       ((0.6 * impact) + (0.4 * exploitability) - 1.5) * additional_impact
     end
 
+    def impact_subscore
+      calc_impact.round(1)
+    end
+
+    def exploitability_subscore
+      calc_exploitability.round(1)
+    end
+
     private
 
     def init_properties
@@ -65,7 +73,7 @@ module CvssSuite
                                                    { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
     end
 
-    def calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
+    def calc_impact(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
       confidentiality_score = 1 - @confidentiality_impact.score * sr_cr_score
       integrity_score = 1 - @integrity_impact.score * sr_ir_score
       availability_score = 1 - @availability_impact.score * sr_ar_score

@@ -13,6 +13,7 @@ Contributors:
 - Brandyn Phelps <https://github.com/brphelps>
 - Karim ElGhandour <https://github.com/kghandour>
 - Adam Hess <https://github.com/HParker>
+- Jason Garber <https://github.com/jgarber>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
