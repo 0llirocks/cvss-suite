@@ -20,18 +20,8 @@ module CvssSuite
     ##
     # Returns score of this metric
     def score
-      privilege_score = Cvss3Helper.privileges_required_score(@privileges_required, @scope)
-
-      exploitability = 8.22 * @attack_vector.score * @attack_complexity.score *
-                       privilege_score * @user_interaction.score
-
-      isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
-
-      impact_sub_score = if @scope.selected_value[:name] == 'Changed'
-                           7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
-                         else
-                           6.42 * isc_base
-                         end
+      exploitability = calc_exploitability
+      impact_sub_score = calc_impact
 
       return 0 if impact_sub_score <= 0
 
@@ -40,6 +30,14 @@ module CvssSuite
       else
         [10, impact_sub_score + exploitability].min
       end
+    end
+
+    def impact_subscore
+      calc_impact.round(1)
+    end
+
+    def exploitability_subscore
+      calc_exploitability.round(1)
     end
 
     private
@@ -83,6 +81,23 @@ module CvssSuite
                                           values: [{ name: 'None', abbreviation: 'N', weight: 0.0 },
                                                    { name: 'Low', abbreviation: 'L', weight: 0.22 },
                                                    { name: 'High', abbreviation: 'H', weight: 0.56 }]))
+    end
+
+    def calc_exploitability
+      privilege_score = Cvss3Helper.privileges_required_score(@privileges_required, @scope)
+
+      8.22 * @attack_vector.score * @attack_complexity.score *
+        privilege_score * @user_interaction.score
+    end
+
+    def calc_impact
+      isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
+
+      if @scope.selected_value[:name] == 'Changed'
+        7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
+      else
+        6.42 * isc_base
+      end
     end
   end
 end
