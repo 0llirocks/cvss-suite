@@ -2,10 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [4.1.0] - 2025-04-27
 
 ### Improvements
-* Expose impact and exploitability sub-scores. (@jgarber-cisco)
+* Expose impact and exploitability sub-scores for CVSS 2 and CVSS 3.x. (@jgarber-cisco)
 
 ## [4.0.0] - 2024-08-31
 
