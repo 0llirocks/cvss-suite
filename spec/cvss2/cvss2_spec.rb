@@ -8,6 +8,7 @@ require_relative '../spec_helper'
 describe CvssSuite::Cvss2 do
   let(:valid_cvss2) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P') }
   let(:valid_cvss2_issue49) { CvssSuite.new('AV:L/AC:L/Au:N/C:C/I:C/A:C') }
+  let(:valid_cvss2_issue50) { CvssSuite.new('AV:L/AC:L/Au:N/C:C/I:C/A:C/E:U/RL:U/RC:UR') }
   let(:valid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P)') }
   let(:valid_cvss2_temporal) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:valid_cvss2_temporal_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C)') }
@@ -46,6 +47,12 @@ describe CvssSuite::Cvss2 do
     subject { valid_cvss2_issue49 }
 
     it_behaves_like 'a valid cvss vector', 2, 7.2, 10.0, 3.9, 7.2, 7.2, 7.2, 'High'
+  end
+
+  describe 'valid cvss2 for issue 50' do
+    subject { valid_cvss2_issue50 }
+
+    it_behaves_like 'a valid cvss vector', 2, 7.2, 10.0, 3.9, 5.8, 5.8, 5.8, 'High'
   end
 
   describe 'valid cvss2 enclosed with parenthesis' do
