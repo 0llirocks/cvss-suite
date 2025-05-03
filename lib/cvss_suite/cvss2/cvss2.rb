@@ -23,7 +23,7 @@ module CvssSuite
     def severity
       check_validity
 
-      score = overall_score
+      score = base_score
 
       case score
       when 0.0..3.9
