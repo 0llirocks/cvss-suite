@@ -57,13 +57,13 @@ describe CvssSuite::Cvss2 do
   describe 'valid cvss2 with temporal' do
     subject { valid_cvss2_temporal }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 5.5, 5.5, 5.5, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 5.5, 5.5, 5.5, 'High'
   end
 
   describe 'valid cvss2 with temporal enclosed with parenthesis' do
     subject { valid_cvss2_temporal_parenthesis }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 5.5, 5.5, 5.5, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 5.5, 5.5, 5.5, 'High'
   end
 
   describe 'valid cvss2 with environmental' do
@@ -81,13 +81,13 @@ describe CvssSuite::Cvss2 do
   describe 'valid cvss2 with temporal and environmental' do
     subject { valid_cvss2_temporal_environmental }
 
-    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 3.6, 3.2, 3.2, 'Low'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 3.6, 3.2, 3.2, 'Medium'
   end
 
   describe 'valid cvss2 with temporal and environmental enclosed with parenthesis' do
     subject { valid_cvss2_temporal_environmental_parenthesis }
 
-    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 3.6, 3.2, 3.2, 'Low'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 3.6, 3.2, 3.2, 'Medium'
   end
 
   describe 'invalid cvss2' do
