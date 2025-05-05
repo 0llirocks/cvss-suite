@@ -18,12 +18,12 @@ module CvssSuite
       2
     end
 
-    # Returns the severity of the CVSSv2 vector.
+    # Returns the severity of the CVSSv2 base score.
     # https://nvd.nist.gov/vuln-metrics/cvss
     def severity
       check_validity
 
-      score = overall_score
+      score = base_score
 
       case score
       when 0.0..3.9
