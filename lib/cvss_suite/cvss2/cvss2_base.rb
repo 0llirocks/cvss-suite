@@ -31,11 +31,11 @@ module CvssSuite
     end
 
     def impact_subscore
-      calc_impact.round(1)
+      calc_impact
     end
 
     def exploitability_subscore
-      calc_exploitability.round(1)
+      calc_exploitability
     end
 
     private
