@@ -78,7 +78,10 @@ module CvssSuite
       integrity_score = 1 - @integrity_impact.score * sr_ir_score
       availability_score = 1 - @availability_impact.score * sr_ar_score
 
-      10.41 * (1 - confidentiality_score * integrity_score * availability_score)
+      impact = 10.41 * (1 - confidentiality_score * integrity_score * availability_score)
+      return impact if sr_cr_score == 1 && sr_ir_score == 1 && sr_ar_score == 1
+
+      [10, impact].min
     end
 
     def calc_exploitability
