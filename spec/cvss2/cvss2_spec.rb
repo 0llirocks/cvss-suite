@@ -14,10 +14,12 @@ describe CvssSuite::Cvss2 do
   let(:valid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P)') }
   let(:valid_cvss2_temporal) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:valid_cvss2_temporal_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C)') }
+  let(:valid_cvss2_temporal_rounding) { CvssSuite.new('AV:N/AC:L/Au:N/C:C/I:P/A:P/E:H/RL:U/RC:UR') }
   let(:valid_cvss2_environmental) { CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M') }
   let(:valid_cvss2_environmental_parenthesis) do
     CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M)')
   end
+  let(:valid_cvss2_environmental_rounding) { CvssSuite.new('AV:N/AC:L/Au:N/C:C/I:P/A:P/E:H/RL:U/RC:UR') }
   let(:valid_cvss2_temporal_environmental) do
     CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
   end
@@ -75,6 +77,13 @@ describe CvssSuite::Cvss2 do
     it_behaves_like 'a valid cvss vector', 2, 7.5, 6.44, 10.00, 5.5, 5.5, 5.5, 'High'
   end
 
+  describe 'valid cvss2 with temporal that causes floating point errors' do
+    subject { valid_cvss2_temporal_rounding }
+
+    # base_score = 9, temporal_score = 0.95. Product should be 8.55
+    it_behaves_like 'a valid cvss vector', 2, 9.0, 8.55, 10.00, 8.6, 8.6, 8.6, 'High'
+  end
+
   describe 'valid cvss2 with environmental' do
     subject { valid_cvss2_environmental }
 
@@ -85,6 +94,13 @@ describe CvssSuite::Cvss2 do
     subject { valid_cvss2_environmental_parenthesis }
 
     it_behaves_like 'a valid cvss vector', 2, 4.9, 6.44, 4.41, 4.9, 4.1, 4.1, 'Medium'
+  end
+
+  describe 'valid cvss2 with environmental that causes floating point errors' do
+    subject { valid_cvss2_environmental_rounding }
+
+    # base_score = 9, temporal_score = 0.95. Product should be 8.55
+    it_behaves_like 'a valid cvss vector', 2, 9.0, 8.55, 10.00, 8.6, 8.6, 8.6, 'High'
   end
 
   describe 'valid cvss2 with temporal and environmental' do

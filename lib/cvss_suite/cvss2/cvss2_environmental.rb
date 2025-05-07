@@ -3,6 +3,8 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
+require 'bigdecimal/util'
+
 require_relative '../cvss_property'
 require_relative '../cvss_metric'
 
@@ -22,7 +24,7 @@ module CvssSuite
                               @security_requirements_ir.score,
                               @security_requirements_ar.score).round(1)
 
-      adjusted_temporal = (base_score * temporal_score).round(1)
+      adjusted_temporal = (base_score * temporal_score.to_d).round(1).to_f
       (adjusted_temporal + (10 - adjusted_temporal) * @collateral_damage_potential.score) * @target_distribution.score
     end
 
