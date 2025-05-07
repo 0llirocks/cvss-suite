@@ -53,92 +53,92 @@ describe CvssSuite::Cvss3 do
   describe 'valid cvss3' do
     subject { valid_cvss3 }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 4.2, 3.4, 0.8, 4.2, 4.2, 4.2, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 4.2, 3.37, 0.77, 4.2, 4.2, 4.2, 'Medium'
   end
 
   describe 'valid reordered cvss3' do
     subject { valid_reordered_cvss3 }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 4.2, 3.4, 0.8, 4.2, 4.2, 4.2, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 4.2, 3.37, 0.77, 4.2, 4.2, 4.2, 'Medium'
   end
 
   describe 'valid cvss3 with base_score 10' do
     subject { valid_cvss3_base_score10 }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.0, 3.9, 8.7, 8.7, 8.7, 'High'
+    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.05, 3.89, 8.7, 8.7, 8.7, 'High'
   end
 
   describe 'valid cvss3 with temporal_score 10' do
     subject { valid_cvss3_temporal_score10 }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.0, 3.9, 10.0, 10.0, 10.0, 'Critical'
+    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.05, 3.89, 10.0, 10.0, 10.0, 'Critical'
   end
 
   describe 'valid cvss3 with temporal_round_up' do
     subject { valid_cvss3_temporal_round_up }
     # FIXME: shouldn't this round down?
 
-    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 4.7, 0.3, 4.7, 4.7, 4.7, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 4.70, 0.28, 4.7, 4.7, 4.7, 'Medium'
   end
 
   describe 'valid cvss3 with temporal' do
     subject { valid_cvss3_temporal }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 1.4, 2.2, 3.7, 3.7, 3.7, 'Low'
+    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 1.44, 2.22, 3.7, 3.7, 3.7, 'Low'
   end
 
   describe 'valid incomplete cvss3 with temporal' do
     subject { valid_incomplete_cvss3_temporal }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 1.4, 2.2, 3.9, 3.9, 3.9, 'Low'
+    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 1.44, 2.22, 3.9, 3.9, 3.9, 'Low'
   end
 
   describe 'valid reordered cvss3 with temporal' do
     subject { valid_reordered_cvss3_temporal }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 1.4, 2.2, 3.7, 3.7, 3.7, 'Low'
+    it_behaves_like 'a valid cvss vector', 3.0, 4.0, 1.44, 2.22, 3.7, 3.7, 3.7, 'Low'
   end
 
   describe 'valid cvss3 with environmental' do
     subject { valid_cvss3_environmental }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 3.7, 0.8, 5.0, 7.3, 7.3, 'High'
+    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 3.73, 0.84, 5.0, 7.3, 7.3, 'High'
   end
 
   describe 'valid reordered cvss3 with environmental' do
     subject { valid_reordered_cvss3_environmental }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 3.7, 0.8, 5.0, 7.3, 7.3, 'High'
+    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 3.73, 0.84, 5.0, 7.3, 7.3, 'High'
   end
 
   describe 'valid cvss3 with temporal and environmental' do
     subject { valid_cvss3_temporal_environmental }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 3.7, 0.8, 4.4, 7.3, 7.3, 'High'
+    it_behaves_like 'a valid cvss vector', 3.0, 5.0, 3.73, 0.84, 4.4, 7.3, 7.3, 'High'
   end
 
   describe 'valid cvss3 with temporal and environmental and partly not defined' do
     subject { valid_cvss3_temporal_environmental_partly_not_defined }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 5.7, 4.7, 0.5, 5.5, 6.0, 6.0, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 5.7, 4.72, 0.54, 5.5, 6.0, 6.0, 'Medium'
   end
 
   describe 'valid cvss3 with temporal and environmental and not defined' do
     subject { valid_cvss3_temporal_environmental_not_defined }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 5.7, 4.7, 0.5, 5.5, 6.9, 6.9, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 5.7, 4.72, 0.54, 5.5, 6.9, 6.9, 'Medium'
   end
 
   describe 'valid cvss3 with temporal and environmental and modified confidentiality low' do
     subject { valid_cvss3_temporal_environmental_modified_confidentiality_low }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.0, 3.9, 8.1, 5.6, 5.6, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.05, 3.89, 8.1, 5.6, 5.6, 'Medium'
   end
 
   describe 'valid cvss3 with temporal and environmental and modified confidentiality high' do
     subject { valid_cvss3_temporal_environmental_modified_confidentiality_high }
 
-    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.0, 3.9, 8.1, 5.5, 5.5, 'Medium'
+    it_behaves_like 'a valid cvss vector', 3.0, 10.0, 6.05, 3.89, 8.1, 5.5, 5.5, 'Medium'
   end
 
   describe 'invalid cvss3' do

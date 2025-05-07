@@ -11,3 +11,4 @@
 .idea/
 /*.gem
 .ruby-version
+.rspec_status

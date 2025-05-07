@@ -3,6 +3,8 @@ require_relative 'cvss40_constants_max_composed'
 require_relative 'cvss40_constants_max_severity'
 require_relative 'cvss40_constants_levels'
 
+require 'bigdecimal/util'
+
 module CvssSuite
   # This class performs much of the score calculation logic for CVSS 4.0.
   # It is heavily ported from the m and scoring methods in https://github.com/FIRSTdotorg/cvss-v4-calculator/blob/ac71416d935ad2ac87cd107ff87024561ea954a7/app.js#L121
@@ -132,7 +134,7 @@ module CvssSuite
       # Exception for no impact on system (shortcut)
       return 0.0 if %w[VC VI VA SC SI SA].all? { |metric| m(metric) == 'N' }
 
-      value = LOOKUP[macro_vector]
+      value = LOOKUP[macro_vector].to_d
 
       # 1. For each of the EQs:
       #   a. The maximal scoring difference is determined as the difference
@@ -257,7 +259,7 @@ module CvssSuite
         break
       end
 
-      current_severity_distance_eq1 = severity_distance_av + severity_distance_pr + severity_distance_ui
+      current_severity_distance_eq1 = (severity_distance_av.to_d + severity_distance_pr + severity_distance_ui).to_f
       current_severity_distance_eq2 = severity_distance_ac + severity_distance_at
       current_severity_distance_eq3eq6 = sum_or_nil([severity_distance_vc, severity_distance_vi, severity_distance_va,
                                                      severity_distance_cr, severity_distance_ir, severity_distance_ar])
@@ -339,7 +341,7 @@ module CvssSuite
       value -= mean_distance
       value = 0.0 if value.negative?
       value = 10.0 if value > 10
-      value.round(1)
+      value.round(1).to_f
     end
 
     def get_eq_maxes(lookup, eq_value)

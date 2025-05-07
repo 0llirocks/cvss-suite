@@ -50,6 +50,18 @@ describe CvssSuite::Cvss40 do
       expected_severity: 'Low'
     },
     {
+      name: 'floating-point-rounding: CVE-2024-11193',
+      cvss_string: 'CVSS:4.0/AV:L/AC:H/AT:N/PR:H/UI:N/VC:L/VI:L/VA:L/SC:H/SI:H/SA:H',
+      expected_score: 5.0,
+      expected_severity: 'Medium'
+    },
+    {
+      name: 'floating-point-rounding: CVE-2025-27498',
+      cvss_string: 'CVSS:4.0/AV:L/AC:H/AT:N/PR:N/UI:A/VC:L/VI:H/VA:N/SC:N/SI:N/SA:N',
+      expected_score: 5.7,
+      expected_severity: 'Medium'
+    },
+    {
       name: 'clement-b',
       cvss_string: 'CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:P/VC:N/VI:H/VA:H/SC:N/SI:L/SA:L',
       expected_score: 5.2,
