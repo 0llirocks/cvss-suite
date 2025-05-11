@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.1] - 2025-05-11
+
+### Fixes
+
+See [v4.1.1](https://github.com/0llirocks/cvss-suite/releases/tag/v4.1.1). (@jgarber-cisco)
+
 ## [4.1.0] - 2025-04-27
 
 ### Improvements
