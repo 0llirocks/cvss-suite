@@ -3,6 +3,8 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
+require 'bigdecimal/util'
+
 require_relative '../cvss_31_and_before'
 require_relative 'cvss2_base'
 require_relative 'cvss2_temporal'
@@ -18,12 +20,12 @@ module CvssSuite
       2
     end
 
-    # Returns the severity of the CVSSv2 vector.
+    # Returns the severity of the CVSSv2 base score.
     # https://nvd.nist.gov/vuln-metrics/cvss
     def severity
       check_validity
 
-      score = overall_score
+      score = base_score
 
       case score
       when 0.0..3.9
@@ -47,7 +49,7 @@ module CvssSuite
     ##
     # Returns the Temporal Score of the CVSS vector.
     def temporal_score
-      (base_score * @temporal.score).round(1)
+      (base_score * @temporal.score.to_d).round(1).to_f
     end
 
     ##

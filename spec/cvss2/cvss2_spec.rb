@@ -8,13 +8,18 @@ require_relative '../spec_helper'
 describe CvssSuite::Cvss2 do
   let(:valid_cvss2) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P') }
   let(:valid_cvss2_issue49) { CvssSuite.new('AV:L/AC:L/Au:N/C:C/I:C/A:C') }
+  let(:valid_cvss2_maxed_out_environmental) do
+    CvssSuite.new('AV:N/AC:L/Au:N/C:C/I:C/A:C/E:H/RL:U/RC:C/CDP:H/TD:H/CR:H/IR:H/AR:H')
+  end
   let(:valid_cvss2_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P)') }
   let(:valid_cvss2_temporal) { CvssSuite.new('AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C') }
   let(:valid_cvss2_temporal_parenthesis) { CvssSuite.new('(AV:N/AC:L/Au:N/C:P/I:P/A:P/E:U/RL:OF/RC:C)') }
+  let(:valid_cvss2_temporal_rounding) { CvssSuite.new('AV:N/AC:L/Au:N/C:C/I:P/A:P/E:H/RL:U/RC:UR') }
   let(:valid_cvss2_environmental) { CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M') }
   let(:valid_cvss2_environmental_parenthesis) do
     CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M)')
   end
+  let(:valid_cvss2_environmental_rounding) { CvssSuite.new('AV:N/AC:L/Au:N/C:C/I:P/A:P/E:H/RL:U/RC:UR') }
   let(:valid_cvss2_temporal_environmental) do
     CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
   end
@@ -39,55 +44,75 @@ describe CvssSuite::Cvss2 do
   describe 'valid cvss2' do
     subject { valid_cvss2 }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 7.5, 7.5, 7.5, 'High'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.44, 10.00, 7.5, 7.5, 7.5, 'High'
   end
 
   describe 'valid cvss2 for issue 49' do
     subject { valid_cvss2_issue49 }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.2, 10.0, 3.9, 7.2, 7.2, 7.2, 'High'
+    it_behaves_like 'a valid cvss vector', 2, 7.2, 10.00, 3.95, 7.2, 7.2, 7.2, 'High'
+  end
+
+  describe 'valid cvss2 that maxes out the environmental score' do
+    subject { valid_cvss2_maxed_out_environmental }
+
+    it_behaves_like 'a valid cvss vector', 2, 10.0, 10.00, 10.00, 10.0, 10.0, 10.0, 'High'
   end
 
   describe 'valid cvss2 enclosed with parenthesis' do
     subject { valid_cvss2_parenthesis }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 7.5, 7.5, 7.5, 'High'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.44, 10.00, 7.5, 7.5, 7.5, 'High'
   end
 
   describe 'valid cvss2 with temporal' do
     subject { valid_cvss2_temporal }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 5.5, 5.5, 5.5, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.44, 10.00, 5.5, 5.5, 5.5, 'High'
   end
 
   describe 'valid cvss2 with temporal enclosed with parenthesis' do
     subject { valid_cvss2_temporal_parenthesis }
 
-    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.4, 10.0, 5.5, 5.5, 5.5, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 7.5, 6.44, 10.00, 5.5, 5.5, 5.5, 'High'
+  end
+
+  describe 'valid cvss2 with temporal that causes floating point errors' do
+    subject { valid_cvss2_temporal_rounding }
+
+    # base_score = 9, temporal_score = 0.95. Product should be 8.55
+    it_behaves_like 'a valid cvss vector', 2, 9.0, 8.55, 10.00, 8.6, 8.6, 8.6, 'High'
   end
 
   describe 'valid cvss2 with environmental' do
     subject { valid_cvss2_environmental }
 
-    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 4.9, 4.1, 4.1, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.44, 4.41, 4.9, 4.1, 4.1, 'Medium'
   end
 
   describe 'valid cvss2 with environmental enclosed with parenthesis' do
     subject { valid_cvss2_environmental_parenthesis }
 
-    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 4.9, 4.1, 4.1, 'Medium'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.44, 4.41, 4.9, 4.1, 4.1, 'Medium'
+  end
+
+  describe 'valid cvss2 with environmental that causes floating point errors' do
+    subject { valid_cvss2_environmental_rounding }
+
+    # base_score = 9, temporal_score = 0.95. Product should be 8.55
+    it_behaves_like 'a valid cvss vector', 2, 9.0, 8.55, 10.00, 8.6, 8.6, 8.6, 'High'
   end
 
   describe 'valid cvss2 with temporal and environmental' do
     subject { valid_cvss2_temporal_environmental }
 
-    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 3.6, 3.2, 3.2, 'Low'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.44, 4.41, 3.6, 3.2, 3.2, 'Medium'
   end
 
   describe 'valid cvss2 with temporal and environmental enclosed with parenthesis' do
     subject { valid_cvss2_temporal_environmental_parenthesis }
 
-    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.4, 4.4, 3.6, 3.2, 3.2, 'Low'
+    it_behaves_like 'a valid cvss vector', 2, 4.9, 6.44, 4.41, 3.6, 3.2, 3.2, 'Medium'
   end
 
   describe 'invalid cvss2' do

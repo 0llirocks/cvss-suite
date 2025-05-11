@@ -14,10 +14,10 @@ shared_examples 'a valid cvss vector' do |version, base_score, impact_subscore, 
   its(:overall_score) { is_expected.to eql(overall_score) }
   its(:severity) { is_expected.to eql(severity) }
   it 'exposes the impact sub-score' do
-    expect(subject.base.impact_subscore).to eq(impact_subscore)
+    expect(subject.base.impact_subscore).to be_within(0.01).of(impact_subscore)
   end
   it 'exposes the exploitability sub-score' do
-    expect(subject.base.exploitability_subscore).to eq(exploitability_subscore)
+    expect(subject.base.exploitability_subscore).to be_within(0.01).of(exploitability_subscore)
   end
 end
 
