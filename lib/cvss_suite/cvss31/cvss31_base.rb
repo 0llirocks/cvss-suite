@@ -23,13 +23,15 @@ module CvssSuite
       exploitability = calc_exploitability
       impact_sub_score = calc_impact
 
-      return 0 if impact_sub_score <= 0
+      return 0.0 if impact_sub_score <= 0
 
-      if @scope.selected_value[:name] == 'Changed'
-        [10, 1.08 * (impact_sub_score + exploitability)].min
-      else
-        [10, impact_sub_score + exploitability].min
-      end
+      raw_score = if @scope.selected_value[:name] == 'Changed'
+                    [10, 1.08 * (impact_sub_score + exploitability)].min
+                  else
+                    [10, impact_sub_score + exploitability].min
+                  end
+
+      round_up(raw_score)
     end
 
     def impact_subscore
@@ -97,6 +99,26 @@ module CvssSuite
         7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
       else
         6.42 * isc_base
+      end
+    end
+
+    ##
+    # Implements the CVSS 3.1 roundup function as specified in Appendix A
+    # of the CVSS 3.1 specification. This function rounds up to 1 decimal place
+    # using integer arithmetic to avoid floating point errors.
+    #
+    # @param input [Float] The value to round up
+    # @return [Float] The rounded value
+    def round_up(input)
+      # Multiply by 100,000 and round to nearest integer to avoid floating point issues
+      int_input = (input * 100_000).round
+
+      # If the last 4 digits are 0, no rounding up is needed
+      if int_input % 10_000 == 0
+        int_input / 100_000.0
+      else
+        # Otherwise, round up to the next 0.1
+        ((int_input / 10_000).floor + 1) / 10.0
       end
     end
   end
