@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.2] - 2025-12-05
+
+### Improvements
+* Relax the dependency requirement for bigdecimal, now compatible with all versions below 4.x. (@sachin-sandhu)
+
 ## [4.1.1] - 2025-05-11
 
 ### Fixes
