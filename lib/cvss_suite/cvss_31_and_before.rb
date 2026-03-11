@@ -40,8 +40,8 @@ module CvssSuite
     # Returns the Overall Score of the CVSS vector.
     def overall_score
       check_validity
-      return temporal_score if @temporal.valid? && !@environmental.valid?
-      return environmental_score if @environmental.valid?
+      return temporal_score if @temporal.explicitly_provided? && !@environmental.explicitly_provided?
+      return environmental_score if @environmental.explicitly_provided?
 
       base_score
     end

@@ -25,6 +25,17 @@ module CvssSuite
     end
 
     ##
+    # Returns if any property in this metric was explicitly provided
+    # (i.e., set to a value other than the default 'X' or 'ND').
+    def explicitly_provided?
+      @properties.any? do |property|
+        property.valid? &&
+          property.selected_value[:abbreviation] != 'X' &&
+          property.selected_value[:abbreviation] != 'ND'
+      end
+    end
+
+    ##
     # Returns number of properties for this metric.
     def count
       @properties.count
