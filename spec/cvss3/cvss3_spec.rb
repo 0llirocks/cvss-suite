@@ -37,11 +37,13 @@ describe CvssSuite::Cvss3 do
   end
 
   # Base-only vectors with Scope: Changed (issue #58)
-  let(:valid_cvss3_base_only_scope_changed_1) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H') }
-  let(:valid_cvss3_base_only_scope_changed_2) { CvssSuite.new('CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H') }
-  let(:valid_cvss3_base_only_scope_changed_3) { CvssSuite.new('CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H') }
+  let(:valid_cvss3_base_only_scope_changed1) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H') }
+  let(:valid_cvss3_base_only_scope_changed2) { CvssSuite.new('CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H') }
+  let(:valid_cvss3_base_only_scope_changed3) { CvssSuite.new('CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H') }
   # Temporal-only with Scope: Changed (issue #58)
-  let(:valid_cvss3_temporal_only_scope_changed) { CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H/E:H/RL:T/RC:C') }
+  let(:valid_cvss3_temporal_only_scope_changed) do
+    CvssSuite.new('CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H/E:H/RL:T/RC:C')
+  end
 
   let(:invalid_cvss3_with_version) { CvssSuite.new('CVSS:3.0/AV:L/AC:') }
   let(:invalid_cvss3_not_defined) { CvssSuite.new('CVSS:3.0/AV:X/AC:H/PR:L/UI:R/S:U/C:L/I:N/A:H') }
@@ -151,19 +153,19 @@ describe CvssSuite::Cvss3 do
   # Issue #58: overall_score should equal base_score for base-only vectors with Scope: Changed
   describe 'base-only vectors with Scope: Changed (issue #58)' do
     it 'CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H overall_score equals base_score (9.6)' do
-      cvss = valid_cvss3_base_only_scope_changed_1
+      cvss = valid_cvss3_base_only_scope_changed1
       expect(cvss.overall_score).to eql(cvss.base_score)
       expect(cvss.base_score).to eql(9.6)
     end
 
     it 'CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H overall_score equals base_score (7.6)' do
-      cvss = valid_cvss3_base_only_scope_changed_2
+      cvss = valid_cvss3_base_only_scope_changed2
       expect(cvss.overall_score).to eql(cvss.base_score)
       expect(cvss.base_score).to eql(7.6)
     end
 
     it 'CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H overall_score equals base_score (9.0)' do
-      cvss = valid_cvss3_base_only_scope_changed_3
+      cvss = valid_cvss3_base_only_scope_changed3
       expect(cvss.overall_score).to eql(cvss.base_score)
       expect(cvss.base_score).to eql(9.0)
     end
