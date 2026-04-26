@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.3] - 2026-04-26
+
+### Fixes
+
+See [v4.1.3](https://github.com/0llirocks/cvss-suite/releases/tag/v4.1.3). (@sachin-sandhu)
+
 ## [4.1.2] - 2025-12-05
 
 ### Improvements
