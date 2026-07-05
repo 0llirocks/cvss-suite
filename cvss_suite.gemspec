@@ -41,9 +41,9 @@ in version 4.0, 3.1, 3.0 and 2.'
 
   spec.add_development_dependency 'bundler', '2.4.22'
   spec.add_development_dependency 'csv', '~> 3.3'
+  spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec', '~> 3.4'
   spec.add_development_dependency 'rspec-its', '~> 1.2'
   spec.add_development_dependency 'rubocop', '1.50.2'
   spec.add_development_dependency 'simplecov', '~> 0.18'
-  spec.add_development_dependency 'rake'
 end
