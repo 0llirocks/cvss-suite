@@ -24,7 +24,7 @@ in version 4.0, 3.1, 3.0 and 2.'
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/0llirocks/cvss-suite/issues',
-    'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md',
+    'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/releases',
     'documentation_uri' => "https://www.rubydoc.info/gems/cvss-suite/#{CvssSuite::VERSION}",
     'homepage_uri' => 'https://cvss-suite.0lli.rocks',
     'source_code_uri' => 'https://github.com/0llirocks/cvss-suite'
