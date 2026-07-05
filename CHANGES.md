@@ -1,6 +1,15 @@
+> [!WARNING]
+> Starting with version 5.0.0, changes are no longer documented in this file. Please see the [Releases page](../../releases) for the changelog going forward.
+
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+## [4.1.4] - 2026-07-05
+
+### Fixes
+
+Support BigDecimal 4.0 [#60](https://github.com/0llirocks/cvss-suite/pull/60). (@Bo98)
 
 ## [4.1.3] - 2026-04-26
 
