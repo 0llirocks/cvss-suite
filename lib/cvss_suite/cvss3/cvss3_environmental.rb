@@ -118,14 +118,14 @@ module CvssSuite
     def modified_impact_sub(isc_modified)
       if @modified_scope.selected_value[:name] == 'Not Defined'
         if @base.scope.selected_value[:name] == 'Changed'
-          return 7.52 * (isc_modified - 0.029) - 3.25 * (isc_modified - 0.02)**15
+          return (7.52 * (isc_modified - 0.029)) - (3.25 * ((isc_modified - 0.02)**15))
         else
           return 6.42 * isc_modified
         end
       end
 
       if @modified_scope.selected_value[:name] == 'Changed'
-        7.52 * (isc_modified - 0.029) - 3.25 * (isc_modified - 0.02)**15
+        (7.52 * (isc_modified - 0.029)) - (3.25 * ((isc_modified - 0.02)**15))
       else
         6.42 * isc_modified
       end
@@ -147,11 +147,11 @@ module CvssSuite
         merged_modified_availability = @base.availability
       end
 
-      confidentiality_score = 1 - merged_modified_confidentiality.score * @confidentiality_requirement.score
-      integrity_score = 1 - merged_modified_integrity.score * @integrity_requirement.score
-      availability_score = 1 - merged_modified_availability.score * @availability_requirement.score
+      confidentiality_score = 1 - (merged_modified_confidentiality.score * @confidentiality_requirement.score)
+      integrity_score = 1 - (merged_modified_integrity.score * @integrity_requirement.score)
+      availability_score = 1 - (merged_modified_availability.score * @availability_requirement.score)
 
-      [0.915, (1 - confidentiality_score * integrity_score * availability_score)].min
+      [0.915, (1 - (confidentiality_score * integrity_score * availability_score))].min
     end
 
     def modified_exploitability_sub(privilege_score)

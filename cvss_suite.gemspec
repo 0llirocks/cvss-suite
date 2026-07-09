@@ -27,14 +27,15 @@ in version 4.0, 3.1, 3.0 and 2.'
     'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/releases',
     'documentation_uri' => "https://www.rubydoc.info/gems/cvss-suite/#{CvssSuite::VERSION}",
     'homepage_uri' => 'https://cvss-suite.0lli.rocks',
-    'source_code_uri' => 'https://github.com/0llirocks/cvss-suite'
+    'source_code_uri' => 'https://github.com/0llirocks/cvss-suite',
+    'rubygems_mfa_required' => 'true'
   }
 
   spec.required_ruby_version = '>= 3.3'
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/}) # rubocop:disable Gemspec/DeprecatedAttributeAssignment -- removed in the gem-packaging PR
   spec.require_paths = ['lib']
 
   spec.add_dependency 'bigdecimal', '>= 3.1', '< 5'

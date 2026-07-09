@@ -2,12 +2,17 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 3.3
-  NewCops: disable
+  NewCops: enable
   SuggestExtensions: false
 
 Metrics/AbcSize:
   Exclude:
     - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
+
+# The CVSS 4.0 macro-vector lookup is inherent spec data, not logic.
+Metrics/CollectionLiteralLength:
+  Exclude:
+    - 'lib/cvss_suite/cvss40/cvss40_constants_macro_vector_lookup.rb'
 
 Layout/LineLength:
   Max: 120

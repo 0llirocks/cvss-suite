@@ -96,6 +96,9 @@ module CvssSuite
       #      1-E:P
       #      2-E:U
 
+      # The `else` fallback intentionally mirrors the 'A' branch pending upstream
+      # clarification (see TODO below).
+      # rubocop:disable Lint/DuplicateBranch
       eq5 = case m('E')
             when 'A'
               '0'
@@ -107,6 +110,7 @@ module CvssSuite
               # brphelps TODO added figure it out
               '0'
             end
+      # rubocop:enable Lint/DuplicateBranch
 
       # EQ6: 0-(CR:H and VC:H) or (IR:H and VI:H) or (AR:H and VA:H)
       #      1-not[(CR:H and VC:H) or (IR:H and VI:H) or (AR:H and VA:H)]
@@ -152,7 +156,10 @@ module CvssSuite
       eq1_next_lower_macro = concat_and_stringify(eq1_val + 1, eq2_val, eq3_val, eq4_val, eq5_val, eq6_val)
       eq2_next_lower_macro = concat_and_stringify(eq1_val, eq2_val + 1, eq3_val, eq4_val, eq5_val, eq6_val)
 
-      # eq3 and eq6 are related
+      # eq3 and eq6 are related. Several branches share a body because distinct
+      # (eq3, eq6) states map to the same next-lower macro per the CVSS 4.0 spec;
+      # kept as separate branches to mirror the spec's case table.
+      # rubocop:disable Lint/DuplicateBranch
       if eq3_val == 1 && eq6_val == 1
         # 11 --> 21
         eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
@@ -171,6 +178,7 @@ module CvssSuite
         # 21 --> 32 (do not exist)
         eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val + 1)
       end
+      # rubocop:enable Lint/DuplicateBranch
 
       eq4_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val + 1, eq5_val, eq6_val)
       eq5_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val + 1, eq6_val)
@@ -184,11 +192,7 @@ module CvssSuite
         score_eq3eq6_next_lower_macro_left = LOOKUP[eq3eq6_next_lower_macro_left]
         score_eq3eq6_next_lower_macro_right = LOOKUP[eq3eq6_next_lower_macro_right]
 
-        score_eq3eq6_next_lower_macro = if score_eq3eq6_next_lower_macro_left > score_eq3eq6_next_lower_macro_right
-                                          score_eq3eq6_next_lower_macro_left
-                                        else
-                                          score_eq3eq6_next_lower_macro_right
-                                        end
+        score_eq3eq6_next_lower_macro = [score_eq3eq6_next_lower_macro_left, score_eq3eq6_next_lower_macro_right].max
       else
         score_eq3eq6_next_lower_macro = LOOKUP[eq3eq6_next_lower_macro]
       end
@@ -353,7 +357,7 @@ module CvssSuite
     end
 
     def concat_and_stringify(first, second, third, fourth, fifth, sixth)
-      String.new.concat(first.to_s, second.to_s, third.to_s, fourth.to_s, fifth.to_s, sixth.to_s)
+      ''.concat(first.to_s, second.to_s, third.to_s, fourth.to_s, fifth.to_s, sixth.to_s)
     end
 
     def sum_or_nil(values)
@@ -393,7 +397,7 @@ module CvssSuite
     def truncate(string_to_truncate, truncate_to)
       return string_to_truncate.dup unless string_to_truncate.length > truncate_to
 
-      (string_to_truncate[0, truncate_to + 1]).to_s
+      string_to_truncate[0, truncate_to + 1].to_s
     end
   end
 end

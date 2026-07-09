@@ -93,7 +93,7 @@ module CvssSuite
       isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
 
       if @scope.selected_value[:name] == 'Changed'
-        7.52 * (isc_base - 0.029) - 3.25 * (isc_base - 0.02)**15
+        (7.52 * (isc_base - 0.029)) - (3.25 * ((isc_base - 0.02)**15))
       else
         6.42 * isc_base
       end
