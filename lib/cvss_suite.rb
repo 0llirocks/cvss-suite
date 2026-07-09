@@ -24,6 +24,27 @@ module CvssSuite
     { string: 'CVSS:4.0/', version: 4.0 }
   ].freeze
 
+  # The metric groups that make up each CVSS version, in vector order. Keyed by
+  # the same version values as CVSS_VECTOR_BEGINNINGS and Cvss#version, so
+  # CvssSuite.metrics(instance.version) works for every version.
+  METRIC_GROUPS = {
+    2 => [['Base', Cvss2Base], ['Temporal', Cvss2Temporal], ['Environmental', Cvss2Environmental]],
+    3.0 => [['Base', Cvss3Base], ['Temporal', Cvss3Temporal], ['Environmental', Cvss3Environmental]],
+    3.1 => [['Base', Cvss31Base], ['Temporal', Cvss31Temporal], ['Environmental', Cvss31Environmental]],
+    4.0 => [['Base', Cvss40Base], ['Threat', Cvss40Threat], ['Environmental', Cvss40Environmental],
+            ['Environmental Security Requirements', Cvss40EnvironmentalSecurity], ['Supplemental', Cvss40Supplemental]]
+  }.freeze
+
+  # Accepted version identifiers mapped to their canonical METRIC_GROUPS key, so
+  # both the canonical value (2, 3.0, ...) and the human-friendly string
+  # ('2', '2.0', '3.1', ...) resolve to the same schema.
+  VERSION_ALIASES = {
+    2 => 2, 2.0 => 2, '2' => 2, '2.0' => 2,
+    3.0 => 3.0, '3.0' => 3.0,
+    3.1 => 3.1, '3.1' => 3.1,
+    4.0 => 4.0, '4.0' => 4.0
+  }.freeze
+
   ##
   # Returns a CVSS class by a +vector+.
   def self.new(vector)
@@ -52,6 +73,28 @@ module CvssSuite
     end
     # rubocop:enable Lint/FloatComparison
   end
+
+  ##
+  # Returns the static schema of metrics and their options for a CVSS +version+
+  # (2, 3.0, 3.1 or 4.0; the equivalent strings are accepted too) without
+  # constructing a vector. Each metric lists its options with the +default+
+  # option flagged, so a caller can build input forms directly. Closes #8.
+  def self.metrics(version)
+    groups = METRIC_GROUPS[VERSION_ALIASES[version]]
+    raise Errors::UnsupportedVersion, "Unsupported CVSS version: #{version.inspect}" if groups.nil?
+
+    groups.map { |label, metric_class| { group: label, metrics: metric_schema(metric_class) } }
+  end
+
+  def self.metric_schema(metric_class)
+    metric_class.new([]).properties.map do |property|
+      options = property.values.map do |value|
+        { name: value[:name], abbreviation: value[:abbreviation], default: value.fetch(:selected, false) }
+      end
+      { name: property.name, abbreviation: property.abbreviation, options: options }
+    end
+  end
+  private_class_method :metric_schema
 
   def self.version
     CVSS_VECTOR_BEGINNINGS.each do |beginning|

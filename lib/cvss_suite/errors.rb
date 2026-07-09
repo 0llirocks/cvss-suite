@@ -23,5 +23,7 @@ module CvssSuite
     class InvalidVector < RuntimeError; end
 
     class InvalidParentClass < ArgumentError; end
+
+    class UnsupportedVersion < ArgumentError; end
   end
 end
