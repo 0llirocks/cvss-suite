@@ -69,22 +69,22 @@ module CvssSuite
     end
 
     ##
-    # Sets the selected value by a +value+.
+    # Marks the value with the given +abbreviation+ as selected.
 
-    def set_selected_value(selected_value)
+    def mark_selected(abbreviation)
       values.each do |value|
-        value[:selected] = selected_value.eql?(value[:abbreviation])
+        value[:selected] = abbreviation.eql?(value[:abbreviation])
       end
       @selected_value = values.detect { |value| value[:selected] }
       return unless @selected_value.nil?
 
-      @selected_value = { abbreviation: selected_value }
+      @selected_value = { abbreviation: abbreviation }
     end
 
     ##
-    # Sets the default value.
+    # Marks the default value (X / ND) as selected.
 
-    def set_default_value
+    def mark_default
       values.each do |value|
         value[:selected] = value[:abbreviation].eql?('X')
         value[:selected] ||= value[:abbreviation].eql?('ND')

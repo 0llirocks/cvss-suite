@@ -53,9 +53,9 @@ module CvssSuite
           p.abbreviation == selected_property[:name] &&
             (p.position&.include?(selected_property[:position]) || p.position.nil?)
         end
-        property&.set_selected_value selected_property[:selected]
+        property&.mark_selected selected_property[:selected]
       end
-      @properties.select(&:non_selected?).each(&:set_default_value)
+      @properties.select(&:non_selected?).each(&:mark_default)
     end
   end
 end
