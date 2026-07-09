@@ -38,5 +38,5 @@ in version 4.0, 3.1, 3.0 and 2.'
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/}) # rubocop:disable Gemspec/DeprecatedAttributeAssignment -- removed in the gem-packaging PR
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'bigdecimal', '>= 3.1', '< 5'
+  spec.add_dependency 'bigdecimal', '>= 3.1'
 end
