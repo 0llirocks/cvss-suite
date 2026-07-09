@@ -39,11 +39,4 @@ in version 4.0, 3.1, 3.0 and 2.'
   spec.require_paths = ['lib']
 
   spec.add_dependency 'bigdecimal', '>= 3.1', '< 5'
-
-  spec.add_development_dependency 'csv', '~> 3.3'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec', '~> 3.13'
-  spec.add_development_dependency 'rspec-its', '~> 2.0'
-  spec.add_development_dependency 'rubocop', '~> 1.88'
-  spec.add_development_dependency 'simplecov', '~> 0.22'
 end

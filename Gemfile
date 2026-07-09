@@ -5,5 +5,14 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in cvss_suite.gemspec
+# Specify your gem's runtime dependencies in cvss_suite.gemspec
 gemspec
+
+group :development do
+  gem 'csv', '~> 3.3'
+  gem 'rake'
+  gem 'rspec', '~> 3.13'
+  gem 'rspec-its', '~> 2.0'
+  gem 'rubocop', '~> 1.88'
+  gem 'simplecov', '~> 0.22'
+end
