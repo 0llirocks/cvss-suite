@@ -30,6 +30,14 @@ module CvssSuite
       "#{CvssSuite::CVSS_VECTOR_BEGINNINGS.find { |beginning| beginning[:version] == version }[:string]}#{@vector}"
     end
 
+    ##
+    # Returns the base score of the CVSS vector, ignoring threat and
+    # environmental metrics -- the base score as published by NVD/GHSA.
+    def base_score
+      check_validity
+      @base.score
+    end
+
     private
 
     def init_metrics

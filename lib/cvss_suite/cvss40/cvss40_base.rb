@@ -20,6 +20,12 @@ module CvssSuite
                 :vulnerable_system_confidentiality, :vulnerable_system_integrity, :vulnerable_system_availability,
                 :subsequent_system_confidentiality, :subsequent_system_integrity, :subsequent_system_availability
 
+    ##
+    # Returns the base score of these metrics, ignoring threat and environmental metrics.
+    def score
+      Cvss40CalcHelper.new(@properties.to_h { |p| [p.abbreviation, p.selected_value[:abbreviation]] }).score
+    end
+
     private
 
     def init_properties
