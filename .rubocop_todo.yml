@@ -42,10 +42,3 @@ Naming/AccessorMethodName:
   Exclude:
     - 'lib/cvss_suite/cvss_property.rb'
 
-# Offense count: 1
-# Configuration parameters: Mode, AllowedMethods, AllowedPatterns, AllowBangMethods, WaywardPredicates.
-# AllowedMethods: call
-# WaywardPredicates: infinite?, nonzero?
-Naming/PredicateMethod:
-  Exclude:
-    - 'lib/cvss_suite/cvss_31_and_before.rb'
