@@ -1,21 +1,19 @@
 name: Rubocop
 
-on: [push,pull_request]
+on: [push, pull_request]
+
+permissions:
+  contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Ruby 2.6
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6
-    - name: Install gems
-      run: |
-        gem install bundler -v "2.4.22"
-        bundle install --jobs 4 --retry 3
-    - name: Run checks
-      run: rubocop -F --fail-level C -f s
+      - uses: actions/checkout@v5
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby
+          bundler-cache: true
+      - name: Run checks
+        run: bundle exec rubocop -F --fail-level C -f s

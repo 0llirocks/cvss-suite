@@ -1,14 +1,15 @@
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.3
+  NewCops: disable
   SuggestExtensions: false
 
 Metrics/AbcSize:
   Exclude:
     - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
   Exclude:
     - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
