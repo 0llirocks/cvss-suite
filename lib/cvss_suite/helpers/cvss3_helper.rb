@@ -19,6 +19,8 @@ module CvssSuite
     ##
     # Since CVSS 3 the Privilege Required score depends on the selected value of the Scope metric.
     # This method takes a +Privilege+ +Required+ and a +Scope+ metric and returns the newly calculated score.
+    # Per the PrivilegesRequired metric table, when Scope is Changed the weights
+    # become PR:Low = 0.68 and PR:High = 0.50 (vs 0.62 / 0.27 when Unchanged).
     def self.privileges_required_score(privileges_required, scope)
       changed = scope.selected_value[:name] == 'Changed'
       privilege_score = privileges_required.score

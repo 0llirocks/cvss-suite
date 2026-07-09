@@ -84,6 +84,9 @@ module CvssSuite
                                                    { name: 'High', abbreviation: 'H', weight: 0.56 }]))
     end
 
+    # CVSS v3.0 spec, 8.1 Base Metrics Equations -- Exploitability sub-score:
+    #   8.22 x AttackVector x AttackComplexity x PrivilegesRequired x UserInteraction
+    # https://www.first.org/cvss/v3.0/specification-document
     def calc_exploitability
       privilege_score = Cvss3Helper.privileges_required_score @privileges_required, @scope
 
@@ -91,6 +94,11 @@ module CvssSuite
         privilege_score * @user_interaction.score
     end
 
+    # CVSS v3.0 spec, 8.1 Base Metrics Equations -- Impact sub-score:
+    #   ISCBase = 1 - [(1-C) x (1-I) x (1-A)]
+    #   Scope Changed:   7.52 x (ISCBase - 0.029) - 3.25 x (ISCBase - 0.02)^15
+    #   Scope Unchanged: 6.42 x ISCBase
+    # https://www.first.org/cvss/v3.0/specification-document
     def calc_impact
       isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
 

@@ -12,6 +12,10 @@ module CvssSuite
     ##
     # Since CVSS 3 all float values are rounded up, therefore this method is used
     # instead of the mathematically correct method round().
+    # This is the exact Roundup from CVSS v3.1 Appendix A, which works on integer
+    # arithmetic (x100000) to avoid the floating-point edge cases that plain
+    # ceil(1) hits -- the reason v3.1 replaced v3.0's rounding.
+    # https://www.first.org/cvss/v3.1/specification-document
     def self.round_up(float)
       output = (float * 100_000).round
       if (output % 10_000).zero?

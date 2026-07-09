@@ -85,6 +85,9 @@ module CvssSuite
                                                    { name: 'High', abbreviation: 'H', weight: 0.56 }]))
     end
 
+    # CVSS v3.1 spec, 7.1 Base Metrics Equations -- Exploitability sub-score:
+    #   8.22 x AttackVector x AttackComplexity x PrivilegesRequired x UserInteraction
+    # https://www.first.org/cvss/v3.1/specification-document
     def calc_exploitability
       privilege_score = Cvss3Helper.privileges_required_score(@privileges_required, @scope)
 
@@ -92,6 +95,15 @@ module CvssSuite
         privilege_score * @user_interaction.score
     end
 
+    # CVSS v3.1 spec, 7.1 Base Metrics Equations -- Impact sub-score:
+    #   ISCBase = 1 - [(1-C) x (1-I) x (1-A)]
+    #   Scope Changed:   7.52 x (ISCBase - 0.029) - 3.25 x (ISCBase - 0.02)^15
+    #   Scope Unchanged: 6.42 x ISCBase
+    # NOTE: v3.1 Base deliberately keeps the exponent 15 from v3.0. Only the
+    # Environmental ModifiedImpact (spec 7.3, see cvss31_environmental.rb) changed
+    # to `x 0.9731` and exponent 13. The two are intentionally different -- do not
+    # "reconcile" them.
+    # https://www.first.org/cvss/v3.1/specification-document
     def calc_impact
       isc_base = 1 - ((1 - @confidentiality.score) * (1 - @integrity.score) * (1 - @availability.score))
 
