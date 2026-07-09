@@ -30,7 +30,7 @@ in version 4.0, 3.1, 3.0 and 2.'
     'source_code_uri' => 'https://github.com/0llirocks/cvss-suite'
   }
 
-  spec.required_ruby_version = '>= 2.6.0'
+  spec.required_ruby_version = '>= 3.3'
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
@@ -39,11 +39,10 @@ in version 4.0, 3.1, 3.0 and 2.'
 
   spec.add_dependency 'bigdecimal', '>= 3.1', '< 5'
 
-  spec.add_development_dependency 'bundler', '2.4.22'
   spec.add_development_dependency 'csv', '~> 3.3'
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec', '~> 3.4'
-  spec.add_development_dependency 'rspec-its', '~> 1.2'
-  spec.add_development_dependency 'rubocop', '1.50.2'
-  spec.add_development_dependency 'simplecov', '~> 0.18'
+  spec.add_development_dependency 'rspec', '~> 3.13'
+  spec.add_development_dependency 'rspec-its', '~> 2.0'
+  spec.add_development_dependency 'rubocop', '~> 1.88'
+  spec.add_development_dependency 'simplecov', '~> 0.22'
 end
