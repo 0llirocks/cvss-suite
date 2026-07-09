@@ -52,8 +52,5 @@ Metrics/BlockLength:
     - 'spec/cvss40/cvss40_spec.rb'
     - 'spec/cvss_metric_spec.rb'
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Style/AsciiComments:
   Enabled: false

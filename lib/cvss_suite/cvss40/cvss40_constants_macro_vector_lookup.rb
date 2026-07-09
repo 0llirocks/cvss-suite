@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CvssSuite
   module Cvss40Constants
     # These constants were almost directly ported from the CVSS 4.0 calculator code found at https://github.com/FIRSTdotorg/cvss-v4-calculator/blob/ac71416d935ad2ac87cd107ff87024561ea954a7/cvss_lookup.js#L1

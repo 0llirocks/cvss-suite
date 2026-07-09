@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'cvss40_constants_macro_vector_lookup'
 require_relative 'cvss40_constants_max_composed'
 require_relative 'cvss40_constants_max_severity'
@@ -357,7 +359,7 @@ module CvssSuite
     end
 
     def concat_and_stringify(first, second, third, fourth, fifth, sixth)
-      ''.concat(first.to_s, second.to_s, third.to_s, fourth.to_s, fifth.to_s, sixth.to_s)
+      "#{first}#{second}#{third}#{fourth}#{fifth}#{sixth}"
     end
 
     def sum_or_nil(values)
