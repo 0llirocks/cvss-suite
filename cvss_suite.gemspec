@@ -44,5 +44,5 @@ in version 4.0, 3.1, 3.0 and 2.'
   spec.add_development_dependency 'rspec', '~> 3.13'
   spec.add_development_dependency 'rspec-its', '~> 2.0'
   spec.add_development_dependency 'rubocop', '~> 1.88'
-  spec.add_development_dependency 'simplecov', '~> 0.22'
+  spec.add_development_dependency 'simplecov', '~> 1.0'
 end
