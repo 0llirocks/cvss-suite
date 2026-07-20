@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # This work is licensed under the terms of the MIT license.
@@ -74,11 +76,11 @@ module CvssSuite
     end
 
     def calc_impact(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
-      confidentiality_score = 1 - @confidentiality_impact.score * sr_cr_score
-      integrity_score = 1 - @integrity_impact.score * sr_ir_score
-      availability_score = 1 - @availability_impact.score * sr_ar_score
+      confidentiality_score = 1 - (@confidentiality_impact.score * sr_cr_score)
+      integrity_score = 1 - (@integrity_impact.score * sr_ir_score)
+      availability_score = 1 - (@availability_impact.score * sr_ar_score)
 
-      impact = 10.41 * (1 - confidentiality_score * integrity_score * availability_score)
+      impact = 10.41 * (1 - (confidentiality_score * integrity_score * availability_score))
       return impact if sr_cr_score == 1 && sr_ir_score == 1 && sr_ar_score == 1
 
       [10, impact].min

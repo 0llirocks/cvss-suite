@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # This work is licensed under the terms of the MIT license.
@@ -30,7 +32,7 @@ module CvssSuite
         entered_keys = @properties.collect { |p| p[:name] }
         return false if (entered_keys - allowed_abbreviations).size.positive?
 
-        check_metrics_validity
+        metrics_valid?
       else
         false
       end
@@ -54,7 +56,7 @@ module CvssSuite
         @environmental.properties.collect(&:abbreviation)
     end
 
-    def check_metrics_validity
+    def metrics_valid?
       @base.valid? && @temporal&.valid? && @environmental&.valid?
     end
   end

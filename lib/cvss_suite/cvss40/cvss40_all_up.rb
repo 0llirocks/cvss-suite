@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # This work is licensed under the terms of the MIT license.
@@ -15,7 +17,7 @@ module CvssSuite
     ##
     # Returns score of this metric
     def score
-      Cvss40CalcHelper.new(@properties.map { |p| [p.abbreviation, p.selected_value[:abbreviation]] }.to_h).score
+      Cvss40CalcHelper.new(@properties.to_h { |p| [p.abbreviation, p.selected_value[:abbreviation]] }).score
     end
 
     def initialize(properties, base, threat, environmental, environmental_security, supplemental)

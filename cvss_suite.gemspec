@@ -3,7 +3,7 @@
 # This work is licensed under the terms of the MIT license.
 # See the LICENSE.md file in the top-level directory.
 
-# coding: utf-8
+# frozen_string_literal: true
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -27,22 +27,16 @@ in version 4.0, 3.1, 3.0 and 2.'
     'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/releases',
     'documentation_uri' => "https://www.rubydoc.info/gems/cvss-suite/#{CvssSuite::VERSION}",
     'homepage_uri' => 'https://cvss-suite.0lli.rocks',
-    'source_code_uri' => 'https://github.com/0llirocks/cvss-suite'
+    'source_code_uri' => 'https://github.com/0llirocks/cvss-suite',
+    'rubygems_mfa_required' => 'true'
   }
 
   spec.required_ruby_version = '>= 3.3'
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/}) # rubocop:disable Gemspec/DeprecatedAttributeAssignment -- removed in the gem-packaging PR
   spec.require_paths = ['lib']
 
   spec.add_dependency 'bigdecimal', '>= 3.1', '< 5'
-
-  spec.add_development_dependency 'csv', '~> 3.3'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec', '~> 3.13'
-  spec.add_development_dependency 'rspec-its', '~> 2.0'
-  spec.add_development_dependency 'rubocop', '~> 1.88'
-  spec.add_development_dependency 'simplecov', '~> 1.0'
 end

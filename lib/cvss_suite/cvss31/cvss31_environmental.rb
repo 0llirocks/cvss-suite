@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # This work is licensed under the terms of the MIT license.
@@ -24,17 +26,10 @@ module CvssSuite
     def score(base, temporal)
       @base = base
 
-      merged_modified_privileges_required = @modified_privileges_required
-      if @modified_privileges_required.selected_value[:name] == 'Not Defined'
-        merged_modified_privileges_required = @base.privileges_required
-      end
-
-      merged_modified_scope = @modified_scope
-      if @modified_scope.selected_value[:name] == 'Not Defined'
-        merged_modified_scope = @base.scope
-      end
-
-      privilege_score = Cvss3Helper.privileges_required_score(merged_modified_privileges_required, merged_modified_scope)
+      privilege_score = Cvss3Helper.privileges_required_score(
+        merged(@modified_privileges_required, @base.privileges_required),
+        merged(@modified_scope, @base.scope)
+      )
 
       modified_exploitability_sub_score = modified_exploitability_sub(privilege_score)
 
@@ -46,6 +41,18 @@ module CvssSuite
     end
 
     private
+
+    # Returns the modified property, falling back to the base property when the
+    # modified metric is "Not Defined".
+    def merged(modified, base)
+      modified.selected_value[:name] == 'Not Defined' ? base : modified
+    end
+
+    # Whether the effective scope -- the modified scope, or the base scope when
+    # the modified scope is "Not Defined" -- is Changed.
+    def scope_changed?
+      merged(@modified_scope, @base.scope).selected_value[:name] == 'Changed'
+    end
 
     def init_properties
       @properties.push(@confidentiality_requirement =
@@ -116,70 +123,35 @@ module CvssSuite
     end
 
     def modified_impact_sub(isc_modified)
-      if @modified_scope.selected_value[:name] == 'Not Defined'
-        if @base.scope.selected_value[:name] == 'Changed'
-          return 7.52 * (isc_modified - 0.029) - 3.25 * (isc_modified * 0.9731 - 0.02)**13
-        else
-          return 6.42 * isc_modified
-        end
-      end
-
-      if @modified_scope.selected_value[:name] == 'Changed'
-        7.52 * (isc_modified - 0.029) - 3.25 * (isc_modified * 0.9731 - 0.02)**13
+      if scope_changed?
+        (7.52 * (isc_modified - 0.029)) - (3.25 * (((isc_modified * 0.9731) - 0.02)**13))
       else
         6.42 * isc_modified
       end
     end
 
     def isc_modified
-      merged_modified_confidentiality = @modified_confidentiality
-      if @modified_confidentiality.selected_value[:name] == 'Not Defined'
-        merged_modified_confidentiality = @base.confidentiality
-      end
+      confidentiality = merged(@modified_confidentiality, @base.confidentiality)
+      integrity = merged(@modified_integrity, @base.integrity)
+      availability = merged(@modified_availability, @base.availability)
 
-      merged_modified_integrity = @modified_integrity
-      if @modified_integrity.selected_value[:name] == 'Not Defined'
-        merged_modified_integrity = @base.integrity
-      end
+      confidentiality_score = 1 - (confidentiality.score * @confidentiality_requirement.score)
+      integrity_score = 1 - (integrity.score * @integrity_requirement.score)
+      availability_score = 1 - (availability.score * @availability_requirement.score)
 
-      merged_modified_availability = @modified_availability
-      if @modified_availability.selected_value[:name] == 'Not Defined'
-        merged_modified_availability = @base.availability
-      end
-
-      confidentiality_score = 1 - merged_modified_confidentiality.score * @confidentiality_requirement.score
-      integrity_score = 1 - merged_modified_integrity.score * @integrity_requirement.score
-      availability_score = 1 - merged_modified_availability.score * @availability_requirement.score
-
-      [0.915, (1 - confidentiality_score * integrity_score * availability_score)].min
+      [0.915, (1 - (confidentiality_score * integrity_score * availability_score))].min
     end
 
     def modified_exploitability_sub(privilege_score)
-      merged_modified_attack_vector = @modified_attack_vector
-      if @modified_attack_vector.selected_value[:name] == 'Not Defined'
-        merged_modified_attack_vector = @base.attack_vector
-      end
+      attack_vector = merged(@modified_attack_vector, @base.attack_vector)
+      attack_complexity = merged(@modified_attack_complexity, @base.attack_complexity)
+      user_interaction = merged(@modified_user_interaction, @base.user_interaction)
 
-      merged_modified_attack_complexity = @modified_attack_complexity
-      if @modified_attack_complexity.selected_value[:name] == 'Not Defined'
-        merged_modified_attack_complexity = @base.attack_complexity
-      end
-
-      merged_modified_user_interaction = @modified_user_interaction
-      if @modified_user_interaction.selected_value[:name] == 'Not Defined'
-        merged_modified_user_interaction = @base.user_interaction
-      end
-
-      8.22 * merged_modified_attack_vector.score * merged_modified_attack_complexity.score *
-        privilege_score * merged_modified_user_interaction.score
+      8.22 * attack_vector.score * attack_complexity.score * privilege_score * user_interaction.score
     end
 
     def calculate_score(modified_impact_sub_score, modified_exploitability_sub_score, temporal_score)
-      if @modified_scope.selected_value[:name] == 'Not Defined'
-        factor = @base.scope.selected_value[:name] == 'Changed' ? 1.08 : 1.0
-      else
-        factor = @modified_scope.selected_value[:name] == 'Changed' ? 1.08 : 1.0
-      end
+      factor = scope_changed? ? 1.08 : 1.0
 
       Cvss31Helper.round_up(
         [factor * (modified_impact_sub_score + modified_exploitability_sub_score), 10].min

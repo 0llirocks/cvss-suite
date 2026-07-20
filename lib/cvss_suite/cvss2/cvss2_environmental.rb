@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # This work is licensed under the terms of the MIT license.
@@ -25,7 +27,7 @@ module CvssSuite
                               @security_requirements_ar.score).round(1)
 
       adjusted_temporal = (base_score * temporal_score.to_d).round(1).to_f
-      (adjusted_temporal + (10 - adjusted_temporal) * @collateral_damage_potential.score) * @target_distribution.score
+      (adjusted_temporal + ((10 - adjusted_temporal) * @collateral_damage_potential.score)) * @target_distribution.score
     end
 
     private

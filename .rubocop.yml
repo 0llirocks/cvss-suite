@@ -2,19 +2,23 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 3.3
-  NewCops: disable
+  NewCops: enable
   SuggestExtensions: false
 
 Metrics/AbcSize:
   Exclude:
     - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
 
+# The CVSS 4.0 macro-vector lookup is inherent spec data, not logic.
+Metrics/CollectionLiteralLength:
+  Exclude:
+    - 'lib/cvss_suite/cvss40/cvss40_constants_macro_vector_lookup.rb'
+
 Layout/LineLength:
   Max: 120
-  Exclude:
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
 
+# The environmental classes are dominated by init_properties -- a long but
+# purely declarative list of metric/value definitions, not logic.
 Metrics/ClassLength:
   Exclude:
     - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
@@ -27,8 +31,8 @@ Metrics/CyclomaticComplexity:
 
 Metrics/MethodLength:
   Exclude:
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
+    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'  # init_properties: declarative metric data
+    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb' # init_properties: declarative metric data
     - 'lib/cvss_suite/cvss40/cvss40_environmental.rb'
     - 'lib/cvss_suite/cvss40/cvss40_calc_helper.rb'
 
@@ -47,24 +51,6 @@ Metrics/BlockLength:
     - 'spec/cvss31/cvss31_spec.rb'
     - 'spec/cvss40/cvss40_spec.rb'
     - 'spec/cvss_metric_spec.rb'
-
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
-
-Style/GuardClause:
-  Exclude:
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
-
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/cvss_suite/cvss3/cvss3_environmental.rb'
-    - 'lib/cvss_suite/cvss31/cvss31_environmental.rb'
-
-Style/FrozenStringLiteralComment:
-  Enabled: false
 
 Style/AsciiComments:
   Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # CVSS-Suite, a Ruby gem to manage the CVSS vector
 #
 # This work is licensed under the terms of the MIT license.
@@ -33,6 +35,9 @@ module CvssSuite
                        vector
                      end
 
+    # version is a discrete value parsed from the vector and matched against exact
+    # literals, not the result of float arithmetic, so these comparisons are reliable.
+    # rubocop:disable Lint/FloatComparison
     case version
     when 2
       Cvss2.new(prepare_vector(@vector_string))
@@ -45,9 +50,8 @@ module CvssSuite
     else
       InvalidCvss.new
     end
+    # rubocop:enable Lint/FloatComparison
   end
-
-  private
 
   def self.version
     CVSS_VECTOR_BEGINNINGS.each do |beginning|
@@ -60,7 +64,7 @@ module CvssSuite
 
     return prepare_cvss2_vector(vector) if version == 2
 
-    version_string = CVSS_VECTOR_BEGINNINGS.detect { |v| v[:version] == version } [:string]
+    version_string = CVSS_VECTOR_BEGINNINGS.detect { |v| v[:version] == version }[:string]
     start_of_vector = vector.index(version_string)
 
     if start_of_vector.nil?
