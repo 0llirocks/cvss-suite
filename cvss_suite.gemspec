@@ -35,7 +35,7 @@ in version 4.0, 3.1, 3.0 and 2.'
   # Package only what's needed at runtime -- the library code plus its docs and
   # licence. Dev-only files (CI config, Rakefile, bin/, editor/docs-site config)
   # are deliberately excluded to keep the published gem minimal.
-  spec.files         = `git ls-files -z -- lib exe LICENSE.md README.md CHANGES.md`.split("\x0")
+  spec.files         = `git ls-files -z -- lib exe docs LICENSE.md README.md CHANGES.md`.split("\x0")
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
