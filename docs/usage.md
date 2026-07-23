@@ -144,6 +144,40 @@ cvss.base.properties.map(&:abbreviation)
 # => ['AV', 'AC', 'Au', 'C', 'I', 'A']
 ```
 
+## Metrics without a vector
+
+`CvssSuite.metrics` returns the schema for a CVSS version without parsing anything, which is what
+you want when building an input form or validating against the specification rather than against a
+particular vector:
+
+```ruby
+schema = CvssSuite.metrics(3.1)
+
+schema.map { |group| group[:group] }
+# => ['Base', 'Temporal', 'Environmental']
+
+schema.first[:metrics].first
+# => { name: 'Attack Vector',
+#      abbreviation: 'AV',
+#      options: [{ name: 'Network',  abbreviation: 'N', default: false },
+#                { name: 'Adjacent', abbreviation: 'A', default: false },
+#                { name: 'Local',    abbreviation: 'L', default: false },
+#                { name: 'Physical', abbreviation: 'P', default: false }] }
+```
+
+Optional metrics flag their Not Defined option as the default, so a form can preselect it:
+
+```ruby
+temporal = CvssSuite.metrics(3.1).find { |group| group[:group] == 'Temporal' }
+temporal[:metrics].first[:name]                                          # => 'Exploit Code Maturity'
+temporal[:metrics].first[:options].select { |o| o[:default] }.map { |o| o[:abbreviation] }
+# => ['X']
+```
+
+It accepts `2`, `3.0`, `3.1` and `4.0`, the string equivalents of each, and the value a parsed
+vector reports from `version`. Anything else raises `CvssSuite::Errors::UnsupportedVersion`, which
+descends from `ArgumentError`.
+
 ## Exceptions
 
 Reading a score or a version off an invalid vector raises `CvssSuite::Errors::InvalidVector`:

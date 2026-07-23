@@ -38,7 +38,8 @@ for both.
   and [4.0](https://www.first.org/cvss/v4.0/user-guide), including 4.0 macro-vector scoring.
   `CvssSuite.parse` picks the version off the vector string.
 - **Metrics stay readable.** Every metric exposes its name, its permitted options, and which option
-  the vector selected.
+  the vector selected. `CvssSuite.metrics` returns the same schema without a vector, for building
+  input forms.
 - **One runtime dependency.** `bigdecimal`, to keep arithmetic off binary floats.
 - **Over 80,000 examples** in the test suite, run against the oldest supported Ruby, current
   stable, and head.
