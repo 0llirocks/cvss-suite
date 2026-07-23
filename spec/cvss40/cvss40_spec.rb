@@ -109,4 +109,43 @@ describe CvssSuite::Cvss40 do
       it_behaves_like 'a invalid cvss vector with version', 4.0
     end
   end
+
+  describe '#base_score' do
+    let(:full_impact) { 'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H' }
+
+    it 'ignores threat metrics (stays the NVD/GHSA-comparable base score)' do
+      expect(CvssSuite.new(full_impact).base_score).to eq(10.0)
+      expect(CvssSuite.new("#{full_impact}/E:U").base_score).to eq(10.0)
+      expect(CvssSuite.new("#{full_impact}/E:U").overall_score).to eq(9.1)
+    end
+
+    it 'ignores environmental metrics' do
+      expect(CvssSuite.new("#{full_impact}/MVI:L/MSA:S").base_score).to eq(10.0)
+      expect(CvssSuite.new("#{full_impact}/MVI:L/MSA:S").overall_score).to eq(9.8)
+    end
+
+    it 'matches the FIRST test-vector base score regardless of threat' do
+      vector = 'CVSS:4.0/AV:A/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U'
+      expect(CvssSuite.new(vector).base_score).to eq(8.7)
+      expect(CvssSuite.new(vector).overall_score).to eq(6.3)
+    end
+
+    it 'equals overall_score when no threat or environmental metrics are set' do
+      base = 'CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:P/VC:N/VI:H/VA:H/SC:N/SI:L/SA:L'
+      cvss = CvssSuite.new(base)
+      expect(cvss.base_score).to eq(cvss.overall_score).and eq(5.2)
+    end
+
+    it 'ignores a full set of threat, environmental and supplemental metrics' do
+      base = 'CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:P/VC:N/VI:H/VA:H/SC:N/SI:L/SA:L'
+      modifiers = '/E:P/CR:H/IR:M/AR:H/MAV:A/MAT:P/MPR:N/MVI:H/MVA:N/MSI:H/MSA:N/S:N/V:C/U:Amber'
+      expect(CvssSuite.new(base + modifiers).base_score).to eq(5.2)
+      expect(CvssSuite.new(base + modifiers).overall_score).to eq(4.7)
+    end
+
+    it 'raises for an invalid vector' do
+      invalid = 'CVSS:4.0/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H'
+      expect { CvssSuite.new(invalid).base_score }.to raise_error(CvssSuite::Errors::InvalidVector)
+    end
+  end
 end
