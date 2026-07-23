@@ -23,7 +23,8 @@ just report it.
 - **Metrics stay readable.** Every metric exposes its name, its permitted options, and which option
   the vector selected, so you can drive a form or an explanation off a parsed vector.
 - **One runtime dependency.** `bigdecimal`, used to keep the arithmetic off binary floats.
-- **81,150 examples** in the test suite, run against Ruby 3.3, current stable, and head.
+- **Over 80,000 examples** in the test suite, run against the oldest supported Ruby, current
+  stable, and head.
 - **Ruby 3.3+**, MIT licensed.
 
 ## Example
@@ -82,11 +83,6 @@ Using an older major? Documentation and changelog live on the
 
 Implementations can produce scores differing by +/- 0.1 because floating-point arithmetic differs
 between languages and hardware platforms.
-
-Only `version` and `base_score` reliably raise `CvssSuite::Errors::InvalidVector` on an invalid
-vector. `temporal_score`, `environmental_score` and `overall_score` can raise `TypeError` or
-`NoMethodError` instead, depending on the CVSS version and how the vector is malformed. Guard on
-`valid?`, or use `CvssSuite.parse`, rather than rescuing a specific error class.
 
 ## Changelog
 

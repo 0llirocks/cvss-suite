@@ -145,7 +145,7 @@ cvss.base.properties.map(&:abbreviation)
 
 ## Exceptions
 
-Reading `version` or `base_score` off an invalid vector raises `CvssSuite::Errors::InvalidVector`:
+Reading a score or a version off an invalid vector raises `CvssSuite::Errors::InvalidVector`:
 
 ```ruby
 cvss = CvssSuite.new('random_string')
@@ -169,14 +169,12 @@ cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not va
 Every error class lives under `CvssSuite::Errors`. `InvalidVector` descends from `RuntimeError`, so
 a bare `rescue => e` catches it.
 
-The other readers are less disciplined. `temporal_score`, `environmental_score` and `overall_score`
-on an invalid vector can raise `TypeError` or `NoMethodError` instead, depending on the version and
-on how the vector is malformed:
+Every score reader a version defines behaves the same way. On CVSS 2 and 3.x that is `base_score`,
+`temporal_score`, `environmental_score`, `overall_score` and `severity`. CVSS 4.0 folds threat and
+environmental metrics into its single score, so it defines only `base_score`, `overall_score` and
+`severity`; calling `temporal_score` or `environmental_score` on a 4.0 vector raises `NoMethodError`
+whether or not the vector is valid.
 
-```ruby
-CvssSuite.new('CVSS:3.1/AV:N').temporal_score                    # => raises TypeError
-CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C').environmental_score  # => raises NoMethodError
-CvssSuite.new('random_string').overall_score                     # => raises NoMethodError
-```
-
-Guard on `valid?`, or use `CvssSuite.parse`, rather than rescuing a specific error class.
+The metric groups themselves are not guarded. `cvss.base`, `cvss.temporal` and `cvss.environmental`
+hand back live objects on an invalid vector, and their `score` will compute from it. Read scores
+through the methods above rather than through the metric groups.
