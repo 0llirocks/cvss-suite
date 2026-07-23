@@ -114,4 +114,43 @@ describe CvssSuite do
       expect(schema.first[:metrics].first[:options].first[:name]).to be_frozen
     end
   end
+
+  describe '.parse' do
+    {
+      'AV:N/AC:L/Au:N/C:N/I:N/A:C' => CvssSuite::Cvss2,
+      'CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H' => CvssSuite::Cvss3,
+      'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H' => CvssSuite::Cvss31,
+      'CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H' => CvssSuite::Cvss40
+    }.each do |vector, klass|
+      it "'#{vector}' is expected to return a #{klass}" do
+        expect(described_class.parse(vector)).to be_a(klass)
+      end
+    end
+
+    it 'returns a vector that scores' do
+      expect(described_class.parse('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H').base_score).to eq(9.8)
+    end
+
+    ['Not a valid vector!', 'CVSS:3.0/', 1337].each do |input|
+      it "raises for #{input.inspect} instead of returning a sentinel" do
+        expect { described_class.parse(input) }
+          .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
+      end
+    end
+
+    it 'leaves .new lenient so existing callers keep their sentinel' do
+      expect(described_class.new('Not a valid vector!')).to be_a(CvssSuite::InvalidCvss)
+    end
+  end
+
+  describe 'public API surface' do
+    # These were public only because .new needed them; they are parsing internals
+    # that depend on module state and are meaningless to call directly.
+    %i[version prepare_vector prepare_cvss2_vector].each do |internal|
+      it "no longer exposes .#{internal}" do
+        expect(described_class).not_to respond_to(internal)
+        expect { described_class.public_send(internal) }.to raise_error(NoMethodError)
+      end
+    end
+  end
 end

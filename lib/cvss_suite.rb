@@ -75,6 +75,21 @@ module CvssSuite
   end
 
   ##
+  # Returns a CVSS class by a +vector+, raising CvssSuite::Errors::InvalidVector
+  # if the vector cannot be parsed.
+  #
+  # Prefer this over .new when a bad vector is a bug rather than an expected
+  # input: .new answers with an InvalidCvss sentinel that only reports the
+  # problem once a score is asked for, so a caller who forgets +valid?+ carries a
+  # broken vector until something far from the parse blows up.
+  def self.parse(vector)
+    cvss = new(vector)
+    raise Errors::InvalidVector, 'Vector is not valid!' unless cvss.valid?
+
+    cvss
+  end
+
+  ##
   # Returns the static schema of metrics and their options for a CVSS +version+
   # (2, 3.0, 3.1 or 4.0; the equivalent strings are accepted too) without
   # constructing a vector. Each metric lists its options with the +default+
@@ -135,4 +150,8 @@ module CvssSuite
       vector[start_of_vector..]
     end
   end
+
+  # Parsing internals. They read module state set by .new, so calling them
+  # directly was never meaningful; they were public only because .new needs them.
+  private_class_method :version, :prepare_vector, :prepare_cvss2_vector
 end

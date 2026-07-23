@@ -36,6 +36,39 @@ Or install it yourself as:
 
     $ gem install cvss-suite
 
+## Upgrading to 5.x
+
+### Three module methods are now private
+
+`CvssSuite.version`, `CvssSuite.prepare_vector` and `CvssSuite.prepare_cvss2_vector` were public,
+but only because `CvssSuite.new` needed them. They read module-level state that `CvssSuite.new`
+writes, so their return value depended on whichever vector was parsed last, anywhere in the
+process. Calling them directly was never meaningful and is now a `NoMethodError`.
+
+To get the CVSS version of a vector, ask the vector:
+
+```ruby
+# Before (raises NoMethodError as of 5.x)
+CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H')
+CvssSuite.version   # 3.1, but only until anything else parses a vector
+
+# After
+CvssSuite.new('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H').version   # 3.1
+```
+
+Note that `CvssSuite.version` was never the gem version. That is `CvssSuite::VERSION`, which is
+unchanged. The two names being one letter-case apart is part of why the method is gone.
+
+There is no replacement for `prepare_vector` and `prepare_cvss2_vector`. They strip the
+`CVSS:x.x/` prefix (or the surrounding parentheses of a CVSS 2 vector) before the vector is handed
+to the parser, and that is now an implementation detail of `CvssSuite.new`.
+
+### Nothing else changed
+
+`CvssSuite.new` behaves exactly as it did in 4.x for every input, valid or not, and still never
+raises. `CvssSuite.parse` is new and additive; see [Parsing a vector](#parsing-a-vector) for when to
+reach for which.
+
 ## Version 3.x
 
 If you are still using CvssSuite 3.x please refer to the [specific branch](https://github.com/0llirocks/cvss-suite/tree/3.x) for documentation and changelog.
@@ -122,9 +155,58 @@ valid = cvss.valid?     # false
 cvss.base_score         # will throw CvssSuite::Errors::InvalidVector: Vector is not valid!
 ```
 
+## Parsing a vector
+
+Both entry points return the same object for a valid vector. They differ in what they do with input
+they cannot parse, so pick the failure mode you want.
+
+**`CvssSuite.parse` raises**, at the parse, for every kind of bad input:
+
+```ruby
+CvssSuite.parse('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H').base_score
+# => 9.8
+CvssSuite.parse('CVSS:3.0/')
+# => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
+```
+
+**`CvssSuite.new` never raises.** It hands back an object whose `valid?` is `false` and defers the
+error to whatever eventually reads a score. What that object is depends on whether the vector's
+prefix was recognised:
+
+| `CvssSuite.new(...)` | returns | `valid?` | `version` | `base_score` |
+| --- | --- | --- | --- | --- |
+| `'CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H'` | `Cvss31` | `true` | `3.1` | `9.8` |
+| `'CVSS:3.0/'` | `Cvss3` | `false` | `3.0` | raises `Errors::InvalidVector` |
+| `'AV:N/AC:L'` | `Cvss2` | `false` | `2` | raises `Errors::InvalidVector` |
+| `'random_string'` | `InvalidCvss` | `false` | raises `Errors::InvalidVector` | raises `Errors::InvalidVector` |
+| `1337` | `InvalidCvss` | `false` | raises `Errors::InvalidVector` | raises `Errors::InvalidVector` |
+
+Note the second and third rows: a vector that carries a recognised prefix but an unusable body still
+comes back as a real version class, and `version` still answers. Only `valid?` and the scores tell
+you it is broken.
+
+**Use `CvssSuite.new`** when an invalid vector is an expected input you intend to branch on:
+
+```ruby
+cvss = CvssSuite.new(untrusted_input)
+return render_error unless cvss.valid?
+```
+
+**Use `CvssSuite.parse`** when an invalid vector is a bug. The object `CvssSuite.new` returns stays
+quiet until something asks it for a number, so a caller who forgets `valid?` sees the exception far
+from the input that caused it, or never, if that read sits behind a conditional.
+
+Neither method accepts a missing argument; `CvssSuite.new` and `CvssSuite.parse` both raise
+`ArgumentError` when called with none.
+
 ## Known Issues
 
 There is a possibility of implementations generating different scores (+/- 0,1) due to small floating-point inaccuracies. This can happen due to differences in floating point arithmetic between different languages and hardware platforms.
+
+On an invalid CVSS 3.x vector whose prefix was recognised, `base_score` raises
+`CvssSuite::Errors::InvalidVector` as documented, but `temporal_score` and `environmental_score`
+raise `TypeError` instead. Check `valid?`, or use `CvssSuite.parse`, rather than relying on the
+error class.
 
 ## Changelog
 
