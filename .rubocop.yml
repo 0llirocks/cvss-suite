@@ -51,6 +51,7 @@ Metrics/BlockLength:
     - 'spec/cvss31/cvss31_spec.rb'
     - 'spec/cvss40/cvss40_spec.rb'
     - 'spec/cvss_metric_spec.rb'
+    - 'spec/cvss_suite_spec.rb'
 
 Style/AsciiComments:
   Enabled: false
