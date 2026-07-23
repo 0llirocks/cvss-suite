@@ -1,11 +1,13 @@
 # Usage
 
+Every score, every metric, and what invalid vectors do.
+
 ## Parsing a vector
 
-Both entry points return the same object for a valid vector. They differ in what they do with input
-they cannot parse, so pick the failure mode you want.
+`CvssSuite.parse` and `CvssSuite.new` return the same object for a valid vector. They differ on
+input they cannot parse; pick the failure mode you want.
 
-**`CvssSuite.parse` raises**, at the parse, for every kind of bad input:
+**`CvssSuite.parse` raises immediately** on any bad input:
 
 ```ruby
 CvssSuite.parse('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H').base_score
@@ -16,7 +18,7 @@ CvssSuite.parse('CVSS:3.0/')
 
 **`CvssSuite.new` never raises.** It hands back an object whose `valid?` is `false` and defers the
 error to whatever eventually reads a score. What that object is depends on whether the vector's
-prefix was recognised:
+prefix was recognized:
 
 | `CvssSuite.new(...)` | returns | `valid?` | `version` | `base_score` |
 | --- | --- | --- | --- | --- |
@@ -26,9 +28,8 @@ prefix was recognised:
 | `'random_string'` | `InvalidCvss` | `false` | raises `Errors::InvalidVector` | raises `Errors::InvalidVector` |
 | `1337` | `InvalidCvss` | `false` | raises `Errors::InvalidVector` | raises `Errors::InvalidVector` |
 
-Note the second and third rows: a vector carrying a recognised prefix but an unusable body still
-comes back as a real version class, and `version` still answers. Only `valid?` and the scores
-report that it is broken.
+Note rows two and three: a recognized prefix with an unusable body still comes back as a real
+version class.
 
 Use `CvssSuite.new` when an invalid vector is an expected input you intend to branch on:
 
@@ -39,9 +40,9 @@ return render_error unless cvss.valid?
 
 Use `CvssSuite.parse` when an invalid vector is a bug. The object `CvssSuite.new` returns stays
 quiet until something asks it for a number, so a caller who forgets `valid?` meets the exception far
-from the input that caused it, or never, if that read sits behind a conditional.
+from the input that caused it. Or never, if that read sits behind a conditional.
 
-Both raise `ArgumentError` when called with no argument at all.
+Both raise `ArgumentError` when called with no argument.
 
 CVSS 2 vectors are accepted with or without surrounding parentheses. Otherwise the string must begin
 with the vector: anything before the `CVSS:x.x/` prefix, or before a CVSS 2 vector's first metric,
@@ -60,12 +61,14 @@ cvss.environmental_score   # => 3.2
 cvss.overall_score         # => 3.2
 ```
 
-`overall_score` is the most specific score the vector actually provides: the environmental score if
-environmental metrics were given, otherwise the temporal score if temporal metrics were given,
-otherwise the base score.
+`overall_score` is the most specific score the vector provides:
+
+- the environmental score, if environmental metrics were given
+- otherwise the temporal score, if temporal metrics were given
+- otherwise the base score
 
 CVSS 4.0 defines a single score. `overall_score` is that score, and `base_score` is exposed
-alongside it so a 4.0 vector can be compared against the base score NVD and GHSA publish:
+alongside it so a 4.0 vector can be compared against the base score that NVD and GHSA publish:
 
 ```ruby
 cvss = CvssSuite.parse('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N')
@@ -84,7 +87,7 @@ differ, and so does the score each one reads:
 | CVSS 3.0, 3.1, 4.0 | None, Low, Medium, High, Critical | `overall_score` |
 | CVSS 2 | Low, Medium, High | `base_score` |
 
-CVSS 2 predates the Critical band and rates on the base score, so a v2 vector can report a severity
+CVSS 2 predates the Critical band and rates on the base score, so a CVSS 2 vector can report a severity
 that looks inconsistent with its own `overall_score`:
 
 ```ruby
@@ -98,7 +101,7 @@ cvss.severity        # => 'Medium', rated on the 4.9 base score
 ## Reading metrics
 
 A parsed vector exposes its metric groups. Every version has `base`. CVSS 2 and 3.x add `temporal`
-and `environmental`. CVSS 4.0 instead has `threat`, `environmental`, `environmental_security` and
+and `environmental`. CVSS 4.0 has `threat`, `environmental`, `environmental_security` and
 `supplemental`. Each metric answers its human-readable name, all permitted options, and the option
 this vector selected.
 
@@ -119,13 +122,11 @@ cvss.temporal.remediation_level.name                   # => 'Remediation Level'
 cvss.temporal.remediation_level.selected_value[:name]  # => 'Temporary Fix'
 ```
 
-On CVSS 2 and 3.x, `weight` is the numeric coefficient the specification assigns to that option. It
-is what the score is computed from, and is included for callers that want to show their working.
-CVSS 4.0 options carry no `weight`, because 4.0 scores through a macro-vector lookup rather than
-per-option coefficients.
+On CVSS 2 and 3.x, `weight` is the numeric coefficient the specification assigns to that option. The
+score is computed from it; it is exposed so you can show your working. CVSS 4.0 options carry no
+`weight`, because 4.0 scores through a macro-vector lookup rather than per-option coefficients.
 
-The original vector string is available too, which is what you want when rendering a parsed vector
-back to a user:
+The original vector string is available too:
 
 ```ruby
 CvssSuite.parse('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N').vector
@@ -155,7 +156,7 @@ cvss.version      # => raises CvssSuite::Errors::InvalidVector: Vector is not va
 cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
 ```
 
-A vector whose prefix was recognised but whose body is unusable still answers `version`, and only
+A vector whose prefix was recognized but whose body is unusable still answers `version`, and only
 reports the problem through `valid?` and the scores:
 
 ```ruby
@@ -166,15 +167,15 @@ cvss.valid?       # => false
 cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
 ```
 
-Every error class lives under `CvssSuite::Errors`. `InvalidVector` descends from `RuntimeError`, so
-a bare `rescue => e` catches it.
-
-Every score reader a version defines behaves the same way. On CVSS 2 and 3.x that is `base_score`,
-`temporal_score`, `environmental_score`, `overall_score` and `severity`. CVSS 4.0 folds threat and
-environmental metrics into its single score, so it defines only `base_score`, `overall_score` and
-`severity`; calling `temporal_score` or `environmental_score` on a 4.0 vector raises `NoMethodError`
-whether or not the vector is valid.
+Every score reader behaves the same way. On CVSS 2 and 3.x that is `base_score`, `temporal_score`,
+`environmental_score`, `overall_score` and `severity`. CVSS 4.0 folds threat and environmental
+metrics into its single score, so it defines only `base_score`, `overall_score` and `severity`;
+calling `temporal_score` or `environmental_score` on a 4.0 vector raises `NoMethodError` whether or
+not the vector is valid.
 
 The metric groups themselves are not guarded. `cvss.base`, `cvss.temporal` and `cvss.environmental`
 hand back live objects on an invalid vector, and their `score` will compute from it. Read scores
 through the methods above rather than through the metric groups.
+
+Every error class lives under `CvssSuite::Errors`. `InvalidVector` descends from `RuntimeError`, so
+a bare `rescue => e` catches it.
