@@ -21,6 +21,9 @@ module CvssSuite
     # Returns the base score of the CVSS vector. The calculation is based on formula version 2.10 .
     # See CVSS documentation for further information https://www.first.org/cvss/v2/guide#i3.2.1 .
     #
+    # BaseScore = ((0.6 x Impact) + (0.4 x Exploitability) - 1.5) x f(Impact),
+    # where f(Impact) = 0 when Impact is 0, else 1.176.
+    #
     # Takes +Security+ +Requirement+ +Impacts+ for calculating environmental score.
     def score(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
       impact = calc_impact(sr_cr_score, sr_ir_score, sr_ar_score)
@@ -75,6 +78,10 @@ module CvssSuite
                                                    { name: 'Complete', abbreviation: 'C', weight: 0.66 }]))
     end
 
+    # CVSS v2, 3.2.1 -- Impact = 10.41 x (1 - (1-C) x (1-I) x (1-A)).
+    # The sr_* args carry the environmental Security Requirements (3.3.1),
+    # defaulting to 1 (= no environmental adjustment) for the plain base score.
+    # https://www.first.org/cvss/v2/guide#i3.2.1
     def calc_impact(sr_cr_score = 1, sr_ir_score = 1, sr_ar_score = 1)
       confidentiality_score = 1 - (@confidentiality_impact.score * sr_cr_score)
       integrity_score = 1 - (@integrity_impact.score * sr_ir_score)
@@ -86,6 +93,8 @@ module CvssSuite
       [10, impact].min
     end
 
+    # CVSS v2, 3.2.1 -- Exploitability = 20 x AccessVector x AccessComplexity x Authentication.
+    # https://www.first.org/cvss/v2/guide#i3.2.1
     def calc_exploitability
       20 * @access_vector.score * @access_complexity.score * @authentication.score
     end

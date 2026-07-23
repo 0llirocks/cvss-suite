@@ -122,6 +122,13 @@ module CvssSuite
                                                    { name: 'Not Defined', abbreviation: 'X', weight: 1 }]))
     end
 
+    # CVSS v3.1 spec, 7.3 Environmental -- ModifiedImpact from the MISS below:
+    #   Scope Changed:   7.52 x (MISS - 0.029) - 3.25 x (MISS x 0.9731 - 0.02)^13
+    #   Scope Unchanged: 6.42 x MISS
+    # NOTE: v3.1 changed this Environmental sub-formula to `x 0.9731` and exponent
+    # 13; the v3.1 Base Impact (7.1, see cvss31_base.rb) still uses exponent 15.
+    # The difference is intentional per spec.
+    # https://www.first.org/cvss/v3.1/specification-document
     def modified_impact_sub(isc_modified)
       if scope_changed?
         (7.52 * (isc_modified - 0.029)) - (3.25 * (((isc_modified * 0.9731) - 0.02)**13))
@@ -130,6 +137,8 @@ module CvssSuite
       end
     end
 
+    # CVSS v3.1 spec, 7.3 Environmental -- Modified Impact Sub-Score (MISS):
+    #   Minimum(1 - [(1 - MC x CR) x (1 - MI x IR) x (1 - MA x AR)], 0.915)
     def isc_modified
       confidentiality = merged(@modified_confidentiality, @base.confidentiality)
       integrity = merged(@modified_integrity, @base.integrity)
@@ -142,6 +151,8 @@ module CvssSuite
       [0.915, (1 - (confidentiality_score * integrity_score * availability_score))].min
     end
 
+    # CVSS v3.1 spec, 7.3 Environmental -- ModifiedExploitability:
+    #   8.22 x MAV x MAC x MPR x MUI
     def modified_exploitability_sub(privilege_score)
       attack_vector = merged(@modified_attack_vector, @base.attack_vector)
       attack_complexity = merged(@modified_attack_complexity, @base.attack_complexity)
@@ -150,6 +161,9 @@ module CvssSuite
       8.22 * attack_vector.score * attack_complexity.score * privilege_score * user_interaction.score
     end
 
+    # CVSS v3.1 spec, 7.3 Environmental -- ModifiedScore = Roundup(Minimum(
+    #   [1.08 x] (ModifiedImpact + ModifiedExploitability), 10)) x TemporalScore.
+    #   The 1.08 factor applies when the effective (modified) scope is Changed.
     def calculate_score(modified_impact_sub_score, modified_exploitability_sub_score, temporal_score)
       factor = scope_changed? ? 1.08 : 1.0
 
