@@ -34,6 +34,7 @@ module CvssSuite
     # Returns the Temporal Score of the CVSS vector.
 
     def temporal_score
+      check_validity
       Cvss31Helper.round_up(Cvss31Helper.round_up(@base.score) * @temporal.score)
     end
 
@@ -41,6 +42,7 @@ module CvssSuite
     # Returns the Environmental Score of the CVSS vector.
 
     def environmental_score
+      check_validity
       return temporal_score unless @environmental.valid?
 
       Cvss31Helper.round_up(@environmental.score(@base, @temporal))
