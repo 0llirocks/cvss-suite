@@ -44,5 +44,11 @@ module CvssSuite
     def environmental_score
       check_validity
     end
+
+    ##
+    # Since this is an invalid CVSS vector, it always throws an exception.
+    def overall_score
+      check_validity
+    end
   end
 end

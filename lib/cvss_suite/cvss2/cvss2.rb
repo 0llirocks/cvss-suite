@@ -57,6 +57,7 @@ module CvssSuite
     ##
     # Returns the Environmental Score of the CVSS vector.
     def environmental_score
+      check_validity
       return temporal_score unless @environmental.valid?
 
       (@environmental.score @base, @temporal.score).round(1)

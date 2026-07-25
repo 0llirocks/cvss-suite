@@ -143,6 +143,42 @@ describe CvssSuite do
     end
   end
 
+  describe 'an invalid vector' do
+    # Every score reader should report the same problem the same way. base_score
+    # guarded from the start; temporal_score and environmental_score reached the
+    # arithmetic first and either died there or, worse, returned a score for a
+    # vector valid? had already rejected.
+    all_readers = %i[base_score temporal_score environmental_score overall_score severity]
+    # CVSS 4.0 folds threat and environmental metrics into the one score, so it
+    # defines no temporal_score or environmental_score to guard.
+    cvss40_readers = %i[base_score overall_score severity]
+
+    [
+      ['no recognised prefix', 'random_string', all_readers],
+      ['not a string', 1337, all_readers],
+      ['CVSS 3.1, prefix only', 'CVSS:3.1/AV:N', all_readers],
+      ['CVSS 3.0, prefix only', 'CVSS:3.0/', all_readers],
+      ['CVSS 2, missing authentication', 'AV:N/AC:P/C:P/AV:U/RL:OF/RC:C', all_readers],
+      ['CVSS 2, unknown metric', 'AV:A/AC:H/Au:M/C:C/I:C/A:C/ZZ:Q', all_readers],
+      ['CVSS 4.0, prefix only', 'CVSS:4.0/AV:N', cvss40_readers]
+    ].each do |label, vector, readers|
+      readers.each do |reader|
+        it "raises InvalidVector from ##{reader} (#{label})" do
+          expect { described_class.new(vector).public_send(reader) }
+            .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
+        end
+      end
+    end
+
+    it 'does not expose temporal or environmental scores on CVSS 4.0 at all' do
+      cvss = described_class.new('CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H')
+
+      expect(cvss).to be_valid
+      expect(cvss).not_to respond_to(:temporal_score)
+      expect(cvss).not_to respond_to(:environmental_score)
+    end
+  end
+
   describe 'public API surface' do
     # These were public only because .new needed them; they are parsing internals
     # that depend on module state and are meaningless to call directly.
