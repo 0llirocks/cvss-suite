@@ -86,9 +86,9 @@ differs between languages and hardware platforms.
 
 ## Changelog
 
-Changes through 4.x are in
-[CHANGES.md](https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md). From 5.0.0 onwards,
-see the [Releases page](https://github.com/0llirocks/cvss-suite/releases).
+Releases are recorded in
+[CHANGELOG.md](https://github.com/0llirocks/cvss-suite/blob/master/CHANGELOG.md), which ships inside
+the gem. The [Releases page](https://github.com/0llirocks/cvss-suite/releases) mirrors it.
 
 ## Contributing
 

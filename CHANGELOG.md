@@ -1,9 +1,10 @@
-> [!WARNING]
-> Starting with version 5.0.0, changes are no longer documented in this file. Please see the [Releases page](../../releases) for the changelog going forward.
-
 # Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
+
+From 5.0.0 onwards, entries are generated at release time from the pull requests
+merged since the previous release, and mirror the notes on the
+[Releases page](https://github.com/0llirocks/cvss-suite/releases).
 
 ## [4.1.4] - 2026-07-05
 
