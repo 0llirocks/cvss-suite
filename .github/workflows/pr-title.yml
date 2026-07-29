@@ -1,0 +1,27 @@
+# Releasing runs off the squashed pull request title, and release-please skips
+# any subject it cannot parse. An unprefixed title therefore ships nothing, with
+# nothing failing to say so. This check is that missing signal.
+name: PR title
+
+# pull_request_target, not pull_request: runs on fork pull requests are held for
+# maintainer approval, and forks are the case that matters. Safe because this job
+# never checks out the head branch -- it only reads the title off the payload.
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  conventional:
+    # Dependabot is exempt on purpose: its unparseable subjects are what keep a
+    # weekly dependency bump from cutting a release. See .github/dependabot.yml.
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

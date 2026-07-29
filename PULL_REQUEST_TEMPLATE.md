@@ -1,24 +1,14 @@
-## Proposed changes
+<!-- Title this pull request as a conventional commit: it becomes the commit
+     message and picks the next version. See Contributing in the README. -->
 
-Describe the big picture of your changes here to communicate to the maintainers why we should accept this pull request. If it fixes a bug or resolves a feature request, be sure to link to that issue.
+Why this change, and for whom. Link the issue if there is one.
 
-## Types of changes
+Anything the diff does not show: alternatives you rejected, what you are unsure
+about. Delete if there is nothing to add.
 
-What types of changes does your code introduce to CvssSuite?
-_Put an `x` in the boxes that apply_
+<!-- Breaking change? Add a line of your own beginning "BREAKING CHANGE:" and
+     say what a user has to change, even when the title carries a `!`. -->
 
-- [ ] Bugfix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-
-## Checklist
-
-_Put an `x` in the boxes that apply. You can also fill these out after creating the PR._
-
-- [ ] Unit tests pass locally with my changes
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] I have added necessary documentation (if appropriate)
-
-## Further comments
-
-If this is a relatively large or complex change, kick off the discussion by explaining why you chose the solution you did and what alternatives you considered, etc...
+- [ ] `bundle exec rspec` passes
+- [ ] Tests cover the fix or the feature
+- [ ] Docs updated if behaviour changed
