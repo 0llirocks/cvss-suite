@@ -86,15 +86,33 @@ differs between languages and hardware platforms.
 
 ## Changelog
 
-Changes through 4.x are in
-[CHANGES.md](https://github.com/0llirocks/cvss-suite/blob/master/CHANGES.md). From 5.0.0 onwards,
-see the [Releases page](https://github.com/0llirocks/cvss-suite/releases).
+Releases are recorded in
+[CHANGELOG.md](https://github.com/0llirocks/cvss-suite/blob/master/CHANGELOG.md), which ships inside
+the gem. The [Releases page](https://github.com/0llirocks/cvss-suite/releases) mirrors it.
 
 ## Contributing
 
 Bug reports and pull requests are welcome at
 [github.com/0llirocks/cvss-suite](https://github.com/0llirocks/cvss-suite). This project is intended
 to be a safe, welcoming space for collaboration.
+
+Pull requests are squashed, so the title you write becomes the commit message and picks the next
+version. Title it as a [conventional commit](https://www.conventionalcommits.org):
+
+| Title starts with | Releases |
+| --- | --- |
+| any type with a `!`, such as `feat!:` or `refactor!:` | a major |
+| `feat:` | a minor |
+| any other accepted type: `fix:`, `docs:`, `test:`, `refactor:`, `style:`, `perf:`, `chore:`, `build:`, `ci:`, `revert:` | a patch |
+| a title the check rejects | nothing at all |
+
+Note there is no such thing as a merge that ships nothing quietly: every accepted type releases at
+least a patch. A title the automation cannot parse is skipped silently instead, which is what the
+check exists to catch, while the title is still easy to fix. Your change is credited in the changelog
+whichever prefix it carries -- the prefix only decides the version.
+
+The description becomes the body of that commit, so write it for someone reading `git log` in two
+years. For a breaking change, add a `BREAKING CHANGE:` line saying what a user has to change.
 
 ## References
 

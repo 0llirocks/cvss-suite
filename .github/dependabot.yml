@@ -1,5 +1,9 @@
 version: 2
 updates:
+  # No `commit-message.prefix` on purpose: a `build:`/`ci:` prefix here would
+  # publish a gem version per weekly bump. Release automation skips subjects it
+  # cannot parse, so Dependabot's default "Bump x from 1 to 2" is what stops that.
+  # Retitle by hand when a bump does belong in a release.
   - package-ecosystem: bundler
     directory: "/"
     schedule:

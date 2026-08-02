@@ -1,0 +1,67 @@
+name: Bug report
+description: A vector scores wrong, fails to parse, or the gem misbehaves
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Scores differing by +/- 0.1 from another implementation are usually
+        floating-point drift between languages rather than a bug. See
+        [Known issues](https://github.com/0llirocks/cvss-suite#known-issues).
+
+  - type: input
+    id: vector
+    attributes:
+      label: Vector string
+      description: The exact string you passed, unedited.
+      placeholder: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H
+    validations:
+      required: true
+
+  - type: input
+    id: expected
+    attributes:
+      label: Score you expected
+      description: Leave blank if the bug is not about a score.
+      placeholder: "9.8"
+    validations:
+      required: false
+
+  - type: input
+    id: actual
+    attributes:
+      label: Score cvss-suite returned
+      description: Or the error, if it raised or reported the vector invalid.
+      placeholder: "9.9, or: valid? returned false"
+    validations:
+      required: true
+
+  - type: input
+    id: gem-version
+    attributes:
+      label: cvss-suite version
+      placeholder: "4.1.4"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: expected-source
+    attributes:
+      label: Where the expected score comes from
+      description: Optional, but it usually explains a disagreement straight away.
+      options:
+        - The FIRST.org calculator
+        - NVD
+        - GHSA or another advisory database
+        - The specification, worked through by hand
+        - Another CVSS implementation
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Ruby version, the code you ran, whatever else is relevant.
+    validations:
+      required: false

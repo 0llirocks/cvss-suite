@@ -24,7 +24,7 @@ in version 4.0, 3.1, 3.0 and 2.'
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/0llirocks/cvss-suite/issues',
-    'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/releases',
+    'changelog_uri' => 'https://github.com/0llirocks/cvss-suite/blob/master/CHANGELOG.md',
     'documentation_uri' => "https://www.rubydoc.info/gems/cvss-suite/#{CvssSuite::VERSION}",
     'homepage_uri' => 'https://cvss-suite.0lli.rocks',
     'source_code_uri' => 'https://github.com/0llirocks/cvss-suite',
@@ -35,7 +35,7 @@ in version 4.0, 3.1, 3.0 and 2.'
   # Package only what's needed at runtime -- the library code plus its docs and
   # licence. Dev-only files (CI config, Rakefile, bin/, editor/docs-site config)
   # are deliberately excluded to keep the published gem minimal.
-  spec.files         = `git ls-files -z -- lib exe docs LICENSE.md README.md CHANGES.md`.split("\x0")
+  spec.files         = `git ls-files -z -- lib exe docs LICENSE.md README.md CHANGELOG.md`.split("\x0")
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']

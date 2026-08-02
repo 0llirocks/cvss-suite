@@ -1,12 +1,91 @@
-name: Push gem
+# Do not rename this file. RubyGems trusted publishing matches the OIDC
+# `job_workflow_ref` claim against a registered `.github/workflows/<filename>`,
+# so the publishing job has to keep living in `push.yml` -- renaming it breaks
+# `gem push` until the trusted publisher is updated on rubygems.org.
+name: Release
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+# Two merges in quick succession would otherwise race for the release branch.
+concurrency:
+  group: release-${{ github.ref }}
 
 jobs:
+  # Maintains a release pull request that bumps lib/cvss_suite/version.rb and
+  # updates CHANGELOG.md from the notes GitHub generates for the release.
+  # Merging that pull request is what tags a release.
+  release-please:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  # GitHub creates runs for the release pull request but holds them in an
+  # "action required" state, because it was opened by the built-in
+  # GITHUB_TOKEN -- rspec.yml only runs there if somebody clicks "Approve and
+  # run". Re-run the suite here so the "green before release" checkpoint that
+  # manual tagging had does not depend on that click.
+  test:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          ruby-version: ruby
+      - run: bundle exec rspec spec
+
+      # `spec.files` is a hand-maintained allowlist, so a file needed at
+      # runtime can stop shipping without any test noticing. Install the built
+      # gem somewhere isolated and use it, rather than trusting the file list.
+      - name: Verify the built gem installs and works on its own
+        run: |
+          gem build cvss_suite.gemspec -o /tmp/cvss.gem
+          gem install /tmp/cvss.gem --no-document --install-dir /tmp/gemhome
+          cd /tmp
+          GEM_HOME=/tmp/gemhome GEM_PATH=/tmp/gemhome ruby -e '
+            require "cvss_suite"
+            spec = Gem.loaded_specs.fetch("cvss-suite")
+            root = File.realpath("/tmp/gemhome")
+            unless File.realpath(spec.full_gem_path).start_with?(root)
+              abort "loaded a different copy: #{spec.full_gem_path}"
+            end
+            cvss = CvssSuite.new("CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H")
+            abort "vector rejected" unless cvss.valid?
+            abort "unexpected score #{cvss.base_score}" unless cvss.base_score == 9.8
+            abort "CHANGELOG.md is missing from the gem" unless File.exist?(File.join(spec.full_gem_path, "CHANGELOG.md"))
+            puts "#{spec.full_name} installs and scores correctly"
+          '
+
+  # Tags created by release-please use the built-in GITHUB_TOKEN, and GitHub
+  # does not start workflow runs from such events. So this cannot be a separate
+  # tag-triggered workflow -- it has to hang off the jobs above.
   push:
+    needs: [release-please, test]
+    if: needs.release-please.outputs.release_created == 'true'
+
     runs-on: ubuntu-latest
 
     permissions:
@@ -26,7 +105,7 @@ jobs:
         with:
           bundler-cache: true
           ruby-version: ruby
-          bundler: 2.4.22
 
-      # Release
+      # Release. `rake release` skips tagging because release-please already
+      # created the tag, and goes straight to pushing the gem.
       - uses: rubygems/release-gem@v1

@@ -1,0 +1,44 @@
+name: Feature request
+description: Suggest something cvss-suite should do that it does not
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: The problem, not the solution. What are you working around today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: What should happen instead?
+      description: Ruby you would like to be able to write is worth more than prose.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: versions
+    attributes:
+      label: Which CVSS versions does this concern?
+      multiple: true
+      options:
+        - "2"
+        - "3.0"
+        - "3.1"
+        - "4.0"
+        - Not specific to a version
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contributing
+      description: >-
+        The maintainer is looking for help, so this genuinely changes what
+        happens next. See the note at the top of the README.
+      options:
+        - label: I would be willing to open a pull request for this
+          required: false

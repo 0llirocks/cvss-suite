@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "release-type": "ruby",
+      "version-file": "lib/cvss_suite/version.rb",
+      "changelog-path": "CHANGELOG.md",
+      "changelog-type": "github",
+      "pull-request-header": "Merging this pull request tags the release and publishes the gem to RubyGems."
+    }
+  }
+}
