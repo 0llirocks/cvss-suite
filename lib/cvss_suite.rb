@@ -16,6 +16,11 @@ require 'cvss_suite/invalid_cvss'
 ##
 # Module of this gem.
 module CvssSuite
+  # Exempt from the seal below, which covers only what has never shipped. Age is
+  # not the reason -- 5.0.0 privatizes three module methods that were public in
+  # 4.1.4 -- it stays because prefix-to-version lets a caller sniff a vector's
+  # version without constructing one. Sealing it means editing the three
+  # Cvss*#vector readers too: they use the qualified form, which a seal rejects.
   CVSS_VECTOR_BEGINNINGS = [
     { string: 'AV:', version: 2 },
     { string: '(AV:', version: 2 },
@@ -44,6 +49,10 @@ module CvssSuite
     3.1 => 3.1, '3.1' => 3.1,
     4.0 => 4.0, '4.0' => 4.0
   }.freeze
+
+  # Both tables exist to answer .metrics, which is the supported way to reach
+  # them. Sealed before they ship in a release, while it still breaks nobody.
+  private_constant :METRIC_GROUPS, :VERSION_ALIASES
 
   ##
   # Returns a CVSS class by a +vector+.
