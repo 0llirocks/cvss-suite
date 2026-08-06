@@ -14,7 +14,7 @@ describe CvssSuite do
 
   it 'is invalid' do
     expect { described_class.new('Not a valid vector!').version }
-      .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
+      .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid: "Not a valid vector!"')
   end
 
   it 'is invalid' do
@@ -134,7 +134,7 @@ describe CvssSuite do
     ['Not a valid vector!', 'CVSS:3.0/', 1337].each do |input|
       it "raises for #{input.inspect} instead of returning a sentinel" do
         expect { described_class.parse(input) }
-          .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
+          .to raise_error(CvssSuite::Errors::InvalidVector, "Vector is not valid: #{input.inspect}")
       end
     end
 
@@ -160,12 +160,21 @@ describe CvssSuite do
       ['CVSS 3.0, prefix only', 'CVSS:3.0/', all_readers],
       ['CVSS 2, missing authentication', 'AV:N/AC:P/C:P/AV:U/RL:OF/RC:C', all_readers],
       ['CVSS 2, unknown metric', 'AV:A/AC:H/Au:M/C:C/I:C/A:C/ZZ:Q', all_readers],
+      # Parenthesized CVSS 2 is the case where the parsed form and the input
+      # diverge: prepare_cvss2_vector strips the parentheses and #vector, unlike
+      # its 3.x siblings, does not put them back. Reporting the parsed form here
+      # would name a vector the caller never wrote -- or, for a paren form that
+      # cannot be parsed at all, name the empty string.
+      ['CVSS 2, parenthesized and unbalanced', '(AV:N/AC:L/Au:N/C:P/I:P/A:P', all_readers],
+      ['CVSS 2, parenthesized and short', '(AV:N/AC:L)', all_readers],
       ['CVSS 4.0, prefix only', 'CVSS:4.0/AV:N', cvss40_readers]
     ].each do |label, vector, readers|
       readers.each do |reader|
         it "raises InvalidVector from ##{reader} (#{label})" do
+          # The message names the vector, and for every case here that is the
+          # input verbatim -- the prefix a Cvss31 strips is put back by #vector.
           expect { described_class.new(vector).public_send(reader) }
-            .to raise_error(CvssSuite::Errors::InvalidVector, 'Vector is not valid!')
+            .to raise_error(CvssSuite::Errors::InvalidVector, "Vector is not valid: #{vector.inspect}")
         end
       end
     end

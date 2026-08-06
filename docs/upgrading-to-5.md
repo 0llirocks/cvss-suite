@@ -51,6 +51,24 @@ There is no replacement for `prepare_vector` and `prepare_cvss2_vector`. They st
 prefix, or the surrounding parentheses of a CVSS 2 vector, before the vector reaches the parser, and
 that is now an implementation detail of `CvssSuite.new`.
 
+## `InvalidVector` messages now name the vector
+
+The message was the bare `Vector is not valid!` regardless of input. It now says which vector:
+
+```ruby
+CvssSuite.parse('CVSS:3.0/')
+# 4.x: CvssSuite::Errors::InvalidVector: Vector is not valid!
+# 5.x: CvssSuite::Errors::InvalidVector: Vector is not valid: "CVSS:3.0/"
+```
+
+Nothing about the class, or about when it is raised, has changed. Only match on the message if you
+have to, and match a prefix rather than the whole string: the vector is repeated back through
+`inspect`, and input longer than 200 characters is trimmed with a trailing `...`.
+
+The vector named is the one you passed, not the parsed form — so a CVSS 2 vector in parentheses is
+reported with its parentheses, and a non-string reads as itself (`CvssSuite.new(1337)` reports
+`1337`, not `""`).
+
 ## `Errors::CvssError` is gone, replaced by `CvssSuite::Error`
 
 `CvssSuite::Errors::CvssError` was documented as "the base error class to be inherited by more

@@ -19,7 +19,7 @@ module CvssSuite
     # Creates a new CVSS vector by a +vector+, for all CVSS versions from 4.0.
     #
     # Raises an exception if it is called on Cvss40AndLater class.
-    def initialize(vector)
+    def initialize(vector, original = vector)
       raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? Cvss40AndLater
 
       super
