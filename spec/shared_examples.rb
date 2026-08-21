@@ -28,7 +28,3 @@ shared_examples 'a invalid cvss vector with version' do |version|
   it { is_expected.not_to be_valid }
   its(:valid?) { is_expected.to be(false) }
 end
-
-shared_examples 'a invalid cvss vector' do
-  it { is_expected.to raise_error(RuntimeError, 'Vector is not valid!') }
-end

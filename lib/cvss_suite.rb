@@ -57,28 +57,27 @@ module CvssSuite
   ##
   # Returns a CVSS class by a +vector+.
   def self.new(vector)
-    return InvalidCvss.new unless vector.is_a? String
+    return InvalidCvss.new(vector) unless vector.is_a? String
 
-    @vector_string = if vector.frozen?
-                       vector.dup
-                     else
-                       vector
-                     end
+    # Always a copy, not only when frozen: the string is kept for the lifetime
+    # of the returned object to name it in errors, and a caller who mutates
+    # theirs afterwards would otherwise change what we report having rejected.
+    @vector_string = vector.dup
 
     # version is a discrete value parsed from the vector and matched against exact
     # literals, not the result of float arithmetic, so these comparisons are reliable.
     # rubocop:disable Lint/FloatComparison
     case version
     when 2
-      Cvss2.new(prepare_vector(@vector_string))
+      Cvss2.new(prepare_vector(@vector_string), @vector_string)
     when 3.0
-      Cvss3.new(prepare_vector(@vector_string))
+      Cvss3.new(prepare_vector(@vector_string), @vector_string)
     when 3.1
-      Cvss31.new(prepare_vector(@vector_string))
+      Cvss31.new(prepare_vector(@vector_string), @vector_string)
     when 4.0
-      Cvss40.new(prepare_vector(@vector_string))
+      Cvss40.new(prepare_vector(@vector_string), @vector_string)
     else
-      InvalidCvss.new
+      InvalidCvss.new(@vector_string)
     end
     # rubocop:enable Lint/FloatComparison
   end
@@ -93,7 +92,7 @@ module CvssSuite
   # broken vector until something far from the parse blows up.
   def self.parse(vector)
     cvss = new(vector)
-    raise Errors::InvalidVector, 'Vector is not valid!' unless cvss.valid?
+    raise Errors::InvalidVector.for(vector) unless cvss.valid?
 
     cvss
   end

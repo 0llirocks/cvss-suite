@@ -13,7 +13,7 @@ input they cannot parse; pick the failure mode you want.
 CvssSuite.parse('CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H').base_score
 # => 9.8
 CvssSuite.parse('CVSS:3.0/')
-# => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
+# => raises CvssSuite::Errors::InvalidVector: Vector is not valid: "CVSS:3.0/"
 ```
 
 **`CvssSuite.new` never raises.** It hands back an object whose `valid?` is `false` and defers the
@@ -186,9 +186,15 @@ Reading a score or a version off an invalid vector raises `CvssSuite::Errors::In
 cvss = CvssSuite.new('random_string')
 
 cvss.valid?       # => false
-cvss.version      # => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
-cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
+cvss.version      # => raises CvssSuite::Errors::InvalidVector: Vector is not valid: "random_string"
+cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not valid: "random_string"
 ```
+
+The message names the vector, so an exception surfacing well away from wherever the vector came from
+still says which one it was. It is the vector you passed, not the parsed form, so a CVSS 2 vector in
+parentheses keeps them. Input longer than 200 characters is trimmed with a trailing `...`; a CVSS 4.0
+vector carrying every metric the specification defines, each at its longest option, is 178, so real
+vectors are repeated back whole.
 
 A vector whose prefix was recognized but whose body is unusable still answers `version`, and only
 reports the problem through `valid?` and the scores:
@@ -198,7 +204,7 @@ cvss = CvssSuite.new('AV:N/AC:P/C:P/AV:U/RL:OF/RC:C')   # authentication is miss
 
 cvss.version      # => 2
 cvss.valid?       # => false
-cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not valid!
+cvss.base_score   # => raises CvssSuite::Errors::InvalidVector: Vector is not valid: "AV:N/AC:P/C:P/AV:U/RL:OF/RC:C"
 ```
 
 Every score reader behaves the same way. On CVSS 2 and 3.x that is `base_score`, `temporal_score`,

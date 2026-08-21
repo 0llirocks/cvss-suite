@@ -14,13 +14,17 @@ module CvssSuite
     attr_reader :base
 
     ##
-    # Creates a new CVSS vector by a +vector+.
+    # Creates a new CVSS vector by a +vector+. CvssSuite.new also passes the
+    # +original+ string it was handed, because +vector+ reaches here with the
+    # CVSS:x.x/ prefix or the CVSS 2 parentheses already stripped, and an error
+    # has to name the vector the caller actually wrote.
     #
     # Raises an exception if it is called on Cvss class.
-    def initialize(vector)
+    def initialize(vector, original = vector)
       raise CvssSuite::Errors::InvalidParentClass, 'Do not instantiate this class!' if instance_of? Cvss
 
       @vector = vector
+      @original = original
       @properties = []
       extract_metrics
       init_metrics
@@ -71,7 +75,15 @@ module CvssSuite
     end
 
     def check_validity
-      raise CvssSuite::Errors::InvalidVector, 'Vector is not valid!' unless valid?
+      raise CvssSuite::Errors::InvalidVector.for(rejected_vector) unless valid?
+    end
+
+    # What the caller passed, not the normalized form. #vector would be the
+    # tempting source, but it is lossy: Cvss2 does not restore the parentheses
+    # that prepare_cvss2_vector strips, so a rejected '(AV:N/AC:L)' would be
+    # reported as 'AV:N/AC:L', and a paren form it cannot parse at all as ''.
+    def rejected_vector
+      @original
     end
 
     def required_amount_of_properties
