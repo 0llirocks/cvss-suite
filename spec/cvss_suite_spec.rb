@@ -188,5 +188,20 @@ describe CvssSuite do
         expect { described_class.public_send(internal) }.to raise_error(NoMethodError)
       end
     end
+
+    # The tables behind .metrics are implementation detail; .metrics is the
+    # supported way in. They have not shipped in any release, so sealing them
+    # costs no caller anything, and leaving them public would make them API.
+    it 'seals the lookup tables behind .metrics' do
+      # Matching the message, not the bare NameError: a renamed-but-unsealed
+      # constant satisfies the bare class and would let this pass vacuously.
+      expect { CvssSuite::METRIC_GROUPS }.to raise_error(NameError, /private constant/)
+      expect { CvssSuite::VERSION_ALIASES }.to raise_error(NameError, /private constant/)
+    end
+
+    # The other half of that decision, which prose alone would not hold to.
+    it 'leaves CVSS_VECTOR_BEGINNINGS reachable, as it has been since v1.0.0' do
+      expect { CvssSuite::CVSS_VECTOR_BEGINNINGS }.not_to raise_error
+    end
   end
 end
