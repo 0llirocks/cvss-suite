@@ -51,6 +51,31 @@ There is no replacement for `prepare_vector` and `prepare_cvss2_vector`. They st
 prefix, or the surrounding parentheses of a CVSS 2 vector, before the vector reaches the parser, and
 that is now an implementation detail of `CvssSuite.new`.
 
+## `Errors::CvssError` is gone, replaced by `CvssSuite::Error`
+
+`CvssSuite::Errors::CvssError` was documented as "the base error class to be inherited by more
+specific classes", but nothing inherited it and the gem never raised it, so `rescue
+CvssSuite::Errors::CvssError` caught nothing. It has been removed. In its place, every error the gem
+raises includes the module `CvssSuite::Error`:
+
+```ruby
+begin
+  CvssSuite.metrics(version)   # raises UnsupportedVersion
+  CvssSuite.parse(vector)      # raises InvalidVector
+rescue CvssSuite::Error => e   # one rescue for either
+end
+```
+
+The concrete classes and their ancestors are unchanged: `InvalidVector` is still a `RuntimeError`,
+`InvalidParentClass` and `UnsupportedVersion` are still `ArgumentError`s, and every `rescue` naming
+those keeps working. This matters more in 5.x than it did in 4.x, because `CvssSuite.parse` makes an
+exception the expected way to hear about a bad vector.
+
+You need to change something only if you referenced `CvssError` yourself — raising it, subclassing
+it, or rescuing it. Rescuing it caught nothing, so deleting that `rescue` is the fix. Note
+`CvssSuite::Error` is a module, so `raise CvssSuite::Error` is a `TypeError`; raise one of the
+classes under `CvssSuite::Errors` instead.
+
 ## `CvssSuite.parse` is new
 
 `CvssSuite.parse` raises `CvssSuite::Errors::InvalidVector` on input it cannot parse, where

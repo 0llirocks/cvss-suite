@@ -211,5 +211,18 @@ The metric groups themselves are not guarded. `cvss.base`, `cvss.temporal` and `
 hand back live objects on an invalid vector, and their `score` will compute from it. Read scores
 through the methods above rather than through the metric groups.
 
-Every error class lives under `CvssSuite::Errors`. `InvalidVector` descends from `RuntimeError`, so
-a bare `rescue => e` catches it.
+Every error class lives under `CvssSuite::Errors`, and every one of them includes `CvssSuite::Error`.
+Rescue that to catch anything this gem raises without naming the classes one by one:
+
+```ruby
+begin
+  schema = CvssSuite.metrics(params[:version])   # raises UnsupportedVersion
+  cvss   = CvssSuite.parse(params[:vector])      # raises InvalidVector
+rescue CvssSuite::Error => e
+  render_error(e.message)
+end
+```
+
+`CvssSuite::Error` is a module, not a base class, so the concrete errors keep the ancestors you may
+already be rescuing: `InvalidVector` descends from `RuntimeError`, so a bare `rescue => e` still
+catches it, and `UnsupportedVersion` and `InvalidParentClass` descend from `ArgumentError`.
