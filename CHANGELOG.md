@@ -6,6 +6,32 @@ From 5.0.0 onwards, entries are generated at release time from the pull requests
 merged since the previous release, and mirror the notes on the
 [Releases page](https://github.com/0llirocks/cvss-suite/releases).
 
+## 5.0.0 (2026-09-01)
+
+## What's Changed
+* Require Ruby >= 3.3 and modernize toolchain (v5 baseline) by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/62
+* Bump actions/checkout from 5 to 7 by @dependabot[bot] in https://github.com/0llirocks/cvss-suite/pull/63
+* Update simplecov requirement from ~> 0.22 to ~> 1.0 by @dependabot[bot] in https://github.com/0llirocks/cvss-suite/pull/65
+* RuboCop 1.88 cleanup + frozen string literals (v5) by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/64
+* deps: remove the bigdecimal upper bound by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/67
+* feat: expose base_score on CVSS 4.0 for NVD/GHSA comparison by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/69
+* build: package only runtime files in the gem by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/70
+* docs: cite the CVSS spec formula behind each scoring calculation by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/71
+* Update simplecov requirement from ~> 0.22 to ~> 1.0 by @dependabot[bot] in https://github.com/0llirocks/cvss-suite/pull/66
+* feat: add CvssSuite.metrics for static metric introspection by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/68
+* feat!: add CvssSuite.parse and make the parsing internals private by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/72
+* docs: rewrite the README, and fix the scoring bug that writing it exposed by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/73
+* ci: automate the changelog and release with release-please by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/75
+* refactor: keep the metric lookup tables private by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/77
+* refactor!: give every error one rescuable ancestor by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/78
+* feat: name the rejected vector when one is not valid by @SeanLF in https://github.com/0llirocks/cvss-suite/pull/79
+
+## New Contributors
+* @SeanLF made their first contribution in https://github.com/0llirocks/cvss-suite/pull/62
+* @dependabot[bot] made their first contribution in https://github.com/0llirocks/cvss-suite/pull/63
+
+**Full Changelog**: https://github.com/0llirocks/cvss-suite/compare/v4.1.4...v5.0.0
+
 ## [4.1.4] - 2026-07-05
 
 ### Fixes
