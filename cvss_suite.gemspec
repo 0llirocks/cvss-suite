@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 Common Vulnerability Scoring System (https://www.first.org/cvss/specification-document)
 in version 4.0, 3.1, 3.0 and 2.'
 
-  spec.homepage      = 'https://cvss-suite.0lli.rocks'
+  spec.homepage = 'https://cvss-suite.0lli.rocks'
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/0llirocks/cvss-suite/issues',

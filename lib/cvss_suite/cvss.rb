@@ -39,7 +39,7 @@ module CvssSuite
 
       # The explicit `<= 0.0` branch and the defensive `else` both yield 'None' by
       # design (zero score vs. out-of-range guard); kept distinct for readability.
-      # rubocop:disable Lint/DuplicateBranch
+      # rubocop:disable-next Lint/DuplicateBranch
       if score <= 0.0
         'None'
       elsif (0.1..3.9).cover? score
@@ -53,7 +53,6 @@ module CvssSuite
       else
         'None'
       end
-      # rubocop:enable Lint/DuplicateBranch
     end
 
     ##

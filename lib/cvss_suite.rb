@@ -66,7 +66,7 @@ module CvssSuite
 
     # version is a discrete value parsed from the vector and matched against exact
     # literals, not the result of float arithmetic, so these comparisons are reliable.
-    # rubocop:disable Lint/FloatComparison
+    # rubocop:disable-next Lint/FloatComparison
     case version
     when 2
       Cvss2.new(prepare_vector(@vector_string), @vector_string)
@@ -79,7 +79,6 @@ module CvssSuite
     else
       InvalidCvss.new(@vector_string)
     end
-    # rubocop:enable Lint/FloatComparison
   end
 
   ##

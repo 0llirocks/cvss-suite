@@ -100,7 +100,7 @@ module CvssSuite
 
       # The `else` fallback intentionally mirrors the 'A' branch pending upstream
       # clarification (see TODO below).
-      # rubocop:disable Lint/DuplicateBranch
+      # rubocop:disable-next Lint/DuplicateBranch
       eq5 = case m('E')
             when 'A'
               '0'
@@ -112,7 +112,6 @@ module CvssSuite
               # brphelps TODO added figure it out
               '0'
             end
-      # rubocop:enable Lint/DuplicateBranch
 
       # EQ6: 0-(CR:H and VC:H) or (IR:H and VI:H) or (AR:H and VA:H)
       #      1-not[(CR:H and VC:H) or (IR:H and VI:H) or (AR:H and VA:H)]
@@ -161,7 +160,7 @@ module CvssSuite
       # eq3 and eq6 are related. Several branches share a body because distinct
       # (eq3, eq6) states map to the same next-lower macro per the CVSS 4.0 spec;
       # kept as separate branches to mirror the spec's case table.
-      # rubocop:disable Lint/DuplicateBranch
+      # rubocop:disable-next Lint/DuplicateBranch
       if eq3_val == 1 && eq6_val == 1
         # 11 --> 21
         eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val)
@@ -180,7 +179,6 @@ module CvssSuite
         # 21 --> 32 (do not exist)
         eq3eq6_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val + 1, eq4_val, eq5_val, eq6_val + 1)
       end
-      # rubocop:enable Lint/DuplicateBranch
 
       eq4_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val + 1, eq5_val, eq6_val)
       eq5_next_lower_macro = concat_and_stringify(eq1_val, eq2_val, eq3_val, eq4_val, eq5_val + 1, eq6_val)
