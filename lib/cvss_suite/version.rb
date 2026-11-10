@@ -6,5 +6,5 @@
 # See the LICENSE.md file in the top-level directory.
 
 module CvssSuite
-  VERSION = '5.0.0'
+  VERSION = '5.0.1'
 end
