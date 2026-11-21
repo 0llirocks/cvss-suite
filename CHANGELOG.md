@@ -6,6 +6,17 @@ From 5.0.0 onwards, entries are generated at release time from the pull requests
 merged since the previous release, and mirror the notes on the
 [Releases page](https://github.com/0llirocks/cvss-suite/releases).
 
+## 5.0.1 (2026-11-21)
+
+## What's Changed
+* build(deps): bump amannn/action-semantic-pull-request from 6.1.1 to 6.1.2 by @dependabot[bot] in https://github.com/0llirocks/cvss-suite/pull/80
+* fix: round CVSS 4.0 scores like the FIRST calculator by @bardrop in https://github.com/0llirocks/cvss-suite/pull/82
+
+## New Contributors
+* @bardrop made their first contribution in https://github.com/0llirocks/cvss-suite/pull/82
+
+**Full Changelog**: https://github.com/0llirocks/cvss-suite/compare/v5.0.0...v5.0.1
+
 ## 5.0.0 (2026-09-06)
 
 ## What's Changed
