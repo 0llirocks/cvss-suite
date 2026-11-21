@@ -345,7 +345,13 @@ module CvssSuite
       value -= mean_distance
       value = 0.0 if value.negative?
       value = 10.0 if value > 10
-      value.round(1).to_f
+      round_to_one_decimal(value)
+    end
+
+    # Rounds like the FIRST CVSS v4.0 calculator (roundToDecimalPlaces in cvss40.js): add 1e-6 before
+    # rounding half up, so that scores such as 3.5499999999999994 (3.55 with floating-point error) become 3.6.
+    def round_to_one_decimal(value)
+      ((value + 0.000001) * 10).round / 10.0
     end
 
     def get_eq_maxes(lookup, eq_value)
