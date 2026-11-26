@@ -22,6 +22,7 @@ describe CvssSuite::Cvss2 do
     CvssSuite.new('(AV:A/AC:M/Au:S/C:P/I:P/A:P/CDP:L/TD:M/CR:M/IR:M/AR:M)')
   end
   let(:valid_cvss2_environmental_rounding) { CvssSuite.new('AV:N/AC:L/Au:N/C:C/I:P/A:P/E:H/RL:U/RC:UR') }
+  let(:valid_cvss2_target_distribution_rounding) { CvssSuite.new('AV:N/AC:H/Au:N/C:P/I:P/A:C/CDP:N/TD:M') }
   let(:valid_cvss2_temporal_environmental) do
     CvssSuite.new('AV:A/AC:M/Au:S/C:P/I:P/A:P/E:POC/RL:TF/RC:UC/CDP:L/TD:M/CR:M/IR:M/AR:M')
   end
@@ -103,6 +104,13 @@ describe CvssSuite::Cvss2 do
 
     # base_score = 9, temporal_score = 0.95. Product should be 8.55
     it_behaves_like 'a valid cvss vector', 2, 9.0, 8.55, 10.00, 8.6, 8.6, 8.6, 'High'
+  end
+
+  describe 'valid cvss2 with a target distribution that causes floating point errors' do
+    subject { valid_cvss2_target_distribution_rounding }
+
+    # base_score = 6.6, target distribution = 0.75. Product should be 4.95
+    it_behaves_like 'a valid cvss vector', 2, 6.6, 8.55, 4.93, 6.6, 5.0, 5.0, 'Medium'
   end
 
   describe 'valid cvss2 with temporal and environmental' do
