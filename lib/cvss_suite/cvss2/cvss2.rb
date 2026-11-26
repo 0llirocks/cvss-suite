@@ -60,7 +60,7 @@ module CvssSuite
       check_validity
       return temporal_score unless @environmental.valid?
 
-      (@environmental.score @base, @temporal.score).round(1)
+      (@environmental.score @base, @temporal.score).round(1).to_f
     end
 
     private
